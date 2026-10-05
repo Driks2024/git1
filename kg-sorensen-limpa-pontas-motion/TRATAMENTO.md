@@ -11,7 +11,7 @@ Entregáveis desta pasta:
 | `output/KG_LimpaPontas_Leve2Pague1_1920x1080_18s8.mp4` | Filme final com sound design (H.264 + AAC) |
 | `output/kg_sound_design.wav` | Trilha/sound design isolado (48 kHz, estéreo, float) |
 | `output/storyboard.png` | Storyboard de 16 quadros, renderizados do próprio filme |
-| `output/hero_frame.png` | Último quadro (hero), idêntico à master |
+| `output/hero_frame.png` | Último quadro (hero): a master original |
 | `src/index.html` | Player com scrub (abre no navegador e toca em tempo real) |
 | `tools/` | Pipeline completo: extração de camadas, render e áudio |
 
@@ -99,7 +99,7 @@ O fio condutor é o **"2"**: ele nasce como etiqueta técnica de quantidade sobr
 - **15:60–16:20** `Peça ao seu representante.` · **15:95–16:35** `Ref. 1810.7021`. O HUD se recolhe (14:10–15:00).
 
 ### S7 · 16:75–18:80 · Hero frame
-- **16:75** A câmera trava em casa. **16:75–17:10** Dissolve para a **master pixel a pixel**.
+- **16:75** A câmera trava em casa. **16:75–17:10** Dissolve para a **master original** (só um grão fino de filme por cima, contra banding na compressão).
 - **17:20–17:95** Um único brilho atravessa "Leve 2. Pague 1.". **17:55–18:25** Um brilho na aresta da embalagem.
 - **2,05 s** de quadro final limpo e legível. Nada some.
 
@@ -161,7 +161,7 @@ Cama: drone em Mi (41 Hz), pad em quinta aberta (A–E–B) cujo filtro abre at�
 - **Produto e embalagem**: recortes da master (embalagem, unidade traseira, unidade frontal). Nada foi pintado, inventado ou redesenhado. A face da embalagem oculta pelas unidades **não** foi recriada: no início ela fica sob a silhueta técnica das unidades.
 - **Logo e tipografia**: extraídos da master.
 - **Fundo**: três plates derivados da master (vazio → estruturas → sombras de contato). As linhas técnicas originais são "desenhadas" por máscaras que crescem ao longo delas.
-- **Hero frame**: a partir de 16:75 a imagem é a master original. `output/hero_frame.png` comprova.
+- **Hero frame**: a partir de 17:10 a imagem é a master original, com grão de 3,5% por cima. Diferença média do `output/hero_frame.png` para a master: 3,8/255.
 
 Pipeline (`tools/prep_layers.py`): matte linear por croma (arte neutra sobre azul) para produto e logo, matte por projeção de cor para a tipografia, fronteiras internas entre as peças medidas por gradiente de luminância, casco convexo para eliminar os furos de reflexo azul, inpainting em frequência separada (baixa frequência por convolução normalizada e grid recomposto pelos perfis de linha e coluna da própria master) e halo de sombra atribuído ao bloco de texto mais próximo.
 
