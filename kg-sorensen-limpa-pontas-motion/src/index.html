@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KG Sorensen · Limpa Pontas KG · Motion</title>
+<style>
+  @font-face { font-family: "Plex Mono"; src: url("../assets/fonts/PlexMono-400.woff2") format("woff2"); font-weight: 400; }
+  @font-face { font-family: "Plex Mono"; src: url("../assets/fonts/PlexMono-500.woff2") format("woff2"); font-weight: 500; }
+  @font-face { font-family: "Plex Mono"; src: url("../assets/fonts/PlexMono-600.woff2") format("woff2"); font-weight: 600; }
+  :root { --bg: #020b1d; --fg: #cfe6ff; --dim: #5d7fa8; --accent: #63def9; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+    font: 13px/1.4 "Plex Mono", ui-monospace, monospace; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 16px; }
+  #stage { width: min(100%, calc((100vh - 120px) * 16 / 9)); aspect-ratio: 16 / 9; position: relative;
+    box-shadow: 0 0 0 1px #12305c, 0 20px 60px #0008; }
+  canvas { width: 100%; height: 100%; display: block; }
+  #ui { width: min(100%, calc((100vh - 120px) * 16 / 9)); display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; }
+  button { background: #0b2346; color: var(--fg); border: 1px solid #1d4b85; padding: 6px 14px; font: inherit; cursor: pointer; letter-spacing: .08em; }
+  button:hover { border-color: var(--accent); }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  #tc { color: var(--dim); min-width: 150px; text-align: right; letter-spacing: .06em; }
+  #loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--dim); letter-spacing: .3em; font-size: 12px; }
+  body.render { padding: 0; display: block; background: #000; }
+  body.render #stage { width: 1920px; height: 1080px; box-shadow: none; }
+  body.render #ui, body.render #loading { display: none; }
+</style>
+</head>
+<body>
+  <div id="stage"><canvas id="c" width="1920" height="1080"></canvas><div id="loading">CARREGANDO CAMADAS…</div></div>
+  <div id="ui">
+    <button id="play">PLAY</button>
+    <input id="scrub" type="range" min="0" max="18.8" step="0.0333" value="0">
+    <div id="tc">00:00.00 / 18.80</div>
+  </div>
+  <script src="engine.js"></script>
+</body>
+</html>

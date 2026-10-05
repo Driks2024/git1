@@ -1,0 +1,4 @@
+# quadros intermediários e diagnósticos (regeneráveis com tools/)
+output/frames/
+output/stills/
+assets/debug/
