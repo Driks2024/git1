@@ -7,8 +7,7 @@ export const POSES = {
   campanha:  { x: -2.6, y: 0.05,  z: -1.2, rx: 0.2,  rz: 0.55,  s: 0.72, spin: 0.9,  glow: 0.85 },
   filme:     { x: 2.7,  y: 0.15,  z: -1.6, rx: -0.2, rz: -1.15, s: 0.72, spin: 2.4,  glow: 0.9 },
   condicoes: { x: 3.4,  y: 0.9,   z: -3.0, rx: 0.5,  rz: 1.2,   s: 0.8,  spin: 0.6,  glow: 0.55 },
-  simulador: { x: -2.5, y: -0.2,  z: -1.6, rx: 0.1,  rz: 0.35,  s: 0.76, spin: 1.1,  glow: 0.7 },
-  garantia:  { x: 2.5,  y: -0.3,  z: -1.1, rx: 0.2,  rz: -0.4,  s: 0.76, spin: 0.6,  glow: 0.8 },
+  garantia:  { x: -2.5, y: -0.3,  z: -1.1, rx: 0.2,  rz: 0.4,   s: 0.76, spin: 0.6,  glow: 0.8 },
   final:     { x: 2.5,  y: -0.2,  z: -0.4, rx: 0.1,  rz: -0.2,  s: 1.0,  spin: 3.2,  glow: 1.2 },
 };
 

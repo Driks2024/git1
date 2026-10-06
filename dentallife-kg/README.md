@@ -10,4 +10,4 @@ npm run build   # gera dist/
 ```
 
 Netlify: base directory `dentallife-kg`, build `npm run build`, publish `dist` (já em `netlify.toml`).
-Valores da campanha ficam em `src/Simulator.jsx` (centavos) e nos textos de `src/App.jsx`.
+Valores e textos da campanha ficam em `src/App.jsx`.

@@ -5,7 +5,6 @@ import { SplitText } from "gsap/SplitText";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import Lenis from "lenis";
 import { live, measureAnchors } from "./pose.js";
-import Simulator from "./Simulator.jsx";
 import Scene from "./Scene.jsx";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrambleTextPlugin);
@@ -223,7 +222,6 @@ export default function App() {
           <a href="#protocolo" className="mono">01 Protocolo</a>
           <a href="#campanha" className="mono">02 Campanha</a>
           <a href="#condicoes" className="mono">03 Condições</a>
-          <a href="#simulador" className="mono">04 Placar</a>
           <a href="#entrar" className="btn btn-primary">Entrar na campanha</a>
         </nav>
       </header>
@@ -466,19 +464,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* SIMULADOR */}
-        <section id="simulador" className="sec" data-pose="simulador" aria-labelledby="sim-title">
-          <div className="wrap">
-            <div className="sec-head">
-              <p className="mono label" data-scramble>Placar do balcão · simulação</p>
-              <h2 className="sec-title" id="sim-title">
-                Quanto o balcão <em>faz girar?</em>
-              </h2>
-            </div>
-            <Simulator />
-          </div>
-        </section>
-
         {/* GARANTIA */}
         <section className="sec" data-pose="garantia" aria-labelledby="kg-title">
           <div className="wrap">
@@ -503,12 +488,12 @@ export default function App() {
           <div className="wrap">
             <p className="mono label" data-scramble>Próximo passo</p>
             <h2 className="sec-title big" id="final-title">
-              Hiltinho, bora girar <em>o balcão?</em>
+              Hiltinho, bora vender <em>KG no balcão?</em>
             </h2>
             <p className="body">Confirme sua entrada e a KG prepara o material de balcão e o primeiro pedido bonificado da Dental Life DF.</p>
             <div className="actions">
               <a className="btn btn-primary" href={WA} target="_blank" rel="noopener">Entrar pelo WhatsApp →</a>
-              <a className="btn" href="#simulador">Refazer a conta</a>
+              <a className="btn" href="#condicoes">Ver condições</a>
             </div>
           </div>
         </section>
