@@ -222,6 +222,8 @@ main { position: relative; z-index: 5; }
 .final-in { display: grid; justify-items: center; text-align: center; gap: 26px; }
 .final-line { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; font-size: 1.05rem; }
 .final .sec-title { max-width: 16ch; }
+.wa-number { color: var(--muted); font-size: 0.95rem; }
+.wa-number span { font-family: var(--f-mono); color: var(--fg); user-select: all; margin-left: 6px; }
 
 /* ---------- footer ---------- */
 .foot { position: relative; z-index: 5; border-top: 1px solid var(--line); padding-block: 36px 48px; background: rgba(8, 8, 8, 0.85); }

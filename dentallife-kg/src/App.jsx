@@ -10,7 +10,7 @@ import { BgTiles, PixelGlyph } from "./Pixels.jsx";
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 const WA =
-  "https://wa.me/?text=" + encodeURIComponent("Olá! Quero confirmar o pedido KG da Dental Life DF com as condições da página.");
+  "https://wa.me/5511964159518?text=" + encodeURIComponent("Olá! Quero confirmar o pedido KG da Dental Life DF com as condições da página.");
 
 function Dots() {
   return (
@@ -387,6 +387,7 @@ export default function App() {
               <a className="btn btn-primary" href={WA} target="_blank" rel="noopener">Confirmar pelo WhatsApp</a>
               <a className="btn" href="#condicoes">Rever condições</a>
             </div>
+            <p className="wa-number">WhatsApp <span>+55 11 96415-9518</span></p>
           </div>
         </section>
       </main>
