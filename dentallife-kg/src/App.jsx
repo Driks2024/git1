@@ -5,7 +5,7 @@ import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import Lenis from "lenis";
 import { live, measureAnchors } from "./pose.js";
 import Scene from "./Scene.jsx";
-import { PixelGlyph } from "./Pixels.jsx";
+import { BgTiles, PixelGlyph } from "./Pixels.jsx";
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
@@ -162,6 +162,7 @@ export default function App() {
 
   return (
     <div ref={root}>
+      <BgTiles />
       <div className="webgl-wrap" aria-hidden="true">
         <Scene />
       </div>

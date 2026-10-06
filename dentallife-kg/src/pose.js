@@ -3,11 +3,11 @@
 
 export const POSES = {
   hero:      { x: 1.9,  y: -0.35, z: 0,    rx: 0.15, rz: -0.32, s: 1.25, spin: 0.3,  glow: 1.0 },
-  marca:     { x: -0.2, y: 0.15,  z: -2.2, rx: 0.6,  rz: 1.45,  s: 1.1,  spin: 0.8,  glow: 0.6 },
-  condicoes: { x: 3.3,  y: 0.9,   z: -2.8, rx: 0.3,  rz: -0.7,  s: 0.85, spin: 0.6,  glow: 0.7 },
+  marca:     { x: -0.2, y: 0.15,  z: -2.2, rx: 0.6,  rz: 1.45,  s: 1.1,  spin: 0.8,  glow: 0.8 },
+  condicoes: { x: -3.3, y: 0.7,   z: -2.6, rx: 0.3,  rz: 0.7,   s: 0.9,  spin: 0.6,  glow: 0.75 },
   filme:     { x: 3.4,  y: -0.6,  z: -3.2, rx: 0.2,  rz: -1.0,  s: 0.9,  spin: 1.6,  glow: 0.6 },
   garantia:  { x: 2.9,  y: 0.4,   z: -2.6, rx: 0.3,  rz: -0.6,  s: 0.9,  spin: 0.5,  glow: 0.8 },
-  final:     { x: 2.9,  y: -0.3,  z: -1.0, rx: 0.12, rz: -0.25, s: 1.0,  spin: 2.4,  glow: 1.1 },
+  final:     { x: 0,    y: -0.95, z: 0,    rx: 0.12, rz: -0.18, s: 1.45, spin: 0.4,  glow: 1.1 },
 };
 
 const KEYS = Object.keys(POSES.hero);
