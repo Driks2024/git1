@@ -2,13 +2,12 @@
 // the target pose blends section by section as each one rises into view.
 
 export const POSES = {
-  hero:      { x: 0,    y: -0.25, z: 0,    rx: 0.1,  rz: 0,     s: 1.12, spin: 0.35, glow: 1.0 },
-  protocolo: { x: 2.35, y: -0.1,  z: -0.6, rx: 0.35, rz: -0.62, s: 0.8,  spin: 1.4,  glow: 0.95 },
-  campanha:  { x: -2.6, y: 0.05,  z: -1.2, rx: 0.2,  rz: 0.55,  s: 0.72, spin: 0.9,  glow: 0.85 },
-  filme:     { x: 2.7,  y: 0.15,  z: -1.6, rx: -0.2, rz: -1.15, s: 0.72, spin: 2.4,  glow: 0.9 },
-  condicoes: { x: 3.4,  y: 0.9,   z: -3.0, rx: 0.5,  rz: 1.2,   s: 0.8,  spin: 0.6,  glow: 0.55 },
-  garantia:  { x: -2.5, y: -0.3,  z: -1.1, rx: 0.2,  rz: 0.4,   s: 0.76, spin: 0.6,  glow: 0.8 },
-  final:     { x: 2.5,  y: -0.2,  z: -0.4, rx: 0.1,  rz: -0.2,  s: 1.0,  spin: 3.2,  glow: 1.2 },
+  hero:      { x: 1.9,  y: -0.35, z: 0,    rx: 0.15, rz: -0.32, s: 1.25, spin: 0.3,  glow: 1.0 },
+  marca:     { x: -0.2, y: 0.15,  z: -2.2, rx: 0.6,  rz: 1.45,  s: 1.1,  spin: 0.8,  glow: 0.8 },
+  condicoes: { x: -3.3, y: 0.7,   z: -2.6, rx: 0.3,  rz: 0.7,   s: 0.9,  spin: 0.6,  glow: 0.75 },
+  filme:     { x: 3.4,  y: -0.6,  z: -3.2, rx: 0.2,  rz: -1.0,  s: 0.9,  spin: 1.6,  glow: 0.6 },
+  garantia:  { x: 2.9,  y: 0.4,   z: -2.6, rx: 0.3,  rz: -0.6,  s: 0.9,  spin: 0.5,  glow: 0.8 },
+  final:     { x: 0,    y: -0.95, z: 0,    rx: 0.12, rz: -0.18, s: 1.45, spin: 0.4,  glow: 1.1 },
 };
 
 const KEYS = Object.keys(POSES.hero);

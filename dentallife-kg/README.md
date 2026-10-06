@@ -1,7 +1,7 @@
-# Campanha Balcão KG · Dental Life DF × KG Sorensen
+# Dental Life DF × KG Sorensen
 
-Landing page da campanha de balcão (Hiltinho, balconista da Dental Life DF).
-Stack: Vite + React + React Three Fiber (cena 3D da ponta diamantada) + GSAP ScrollTrigger/SplitText/ScrambleText + Lenis.
+Landing page das condições KG para a Dental Life DF (design system Unframe, verde #8BFF9E no lugar do laranja).
+Stack: Vite + React + React Three Fiber (ponta diamantada 3D em silhueta com rim light granulado) + GSAP ScrollTrigger/ScrambleText + Lenis.
 
 ```bash
 npm install
