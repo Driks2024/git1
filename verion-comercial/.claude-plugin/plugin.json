@@ -1,0 +1,7 @@
+{
+  "name": "verion-comercial",
+  "version": "0.1.0",
+  "description": "VERION Comercial · Simulador FG: bonificação e valor percebido de pontas diamantadas FG, com rascunho de WhatsApp",
+  "author": { "name": "Adriano (Driks) · KG SORENSEN" },
+  "types": "./types/index.d.ts"
+}
