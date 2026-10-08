@@ -122,7 +122,15 @@ export type Pedido =
   | { sub: 'erro'; erro: string }
 
 export const lerComando = (args: string): Pedido => {
-  const partes = dividirArgumentos(args.trim())
+  // Junta "-- quantidade" (espaço depois dos traços) em "--quantidade"
+  const partes = dividirArgumentos(args.trim()).reduce<string[]>((acc, parte, i, todas) => {
+    if (/^-{1,2}$/.test(parte) && todas[i + 1] !== undefined && /^[a-zà-ú]/i.test(todas[i + 1] ?? '')) {
+      todas[i + 1] = `--${todas[i + 1]}`
+      return acc
+    }
+    acc.push(parte)
+    return acc
+  }, [])
   const sub = (partes[0] ?? '').toLowerCase()
   if (sub === '') return { sub: 'painel' }
   if (sub === 'ajuda' || sub === 'help' || sub === '--help') return { sub: 'ajuda' }

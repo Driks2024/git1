@@ -111,5 +111,8 @@ describe('entrada e limites', () => {
     if (s.sub !== 'simular') throw new Error('deveria ser simular')
     expect(s.form.modo).toBe('simular')
     expect(lerComando('simular --desconto 5').sub).toBe('erro')
+    const espaco = lerComando('simular -- quantidade 3500 -- preco 10,88 -- alvo 7,50')
+    if (espaco.sub !== 'simular') throw new Error('deveria aceitar "-- quantidade"')
+    expect(espaco.form).toMatchObject({ quantidade: '3500', preco: '10,88', teto: '7,50' })
   })
 })
