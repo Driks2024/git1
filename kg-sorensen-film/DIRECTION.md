@@ -38,7 +38,7 @@ Afirmamos apenas o que está nas peças da marca ou é norma/fato físico geral:
 
 **Nunca** inventar: número exato de cristais de um produto real, RPM máximo da
 ponta, certificações, datas, preços da ponta FG, links/telefones.
-Contadores do modelo 3D são rotulados como visualização ("MILHARES DE CRISTAIS").
+Contadores do modelo 3D são rotulados como visualização ("cristais neste modelo"). Na esférica de granulação grossa são centenas de cristais, não milhares: use "Centenas de cristais."
 
 ---
 
@@ -115,14 +115,14 @@ y ≈ 19.0  ┴ topo
 ```
 Formatos (perfil de torno da cabeça): `ESFÉRICA`, `CHAMA`, `CILÍNDRICA`, `TRONCO-CÔNICA`.
 
-Peças para a vista explodida (contador real do modelo):
-1. Haste em fatias de seção (12 discos com face de corte) — "SEÇÕES"
-2. Marcação a laser (decal flutua como película)
-3. Anel de identificação
-4. Pescoço
-5. Núcleo usinado (cabeça de aço)
-6. Matriz metálica em ~96 placas (tiles do torno)
-7. Cristais de diamante (instanciados, milhares — rotulado como visualização)
+Peças para a vista explodida:
+1. Haste em 12 seções (discos com face de corte torneada; a marcação a laser viaja com elas)
+2. Anel de identificação
+3. Pescoço
+4. Núcleo usinado (cabeça de aço)
+5. Matriz metálica em ~80 placas (tiles do torno, com espessura)
+6. Cristais de diamante instanciados. A contagem vem da granulação e da área
+   (≈ 590 na esférica grossa) e aparece como "cristais neste modelo".
 
 ---
 
@@ -137,14 +137,14 @@ Tecla `D` mostra o HUD de debug.
 | 1 | ESCURIDÃO | 0.00–0.07 | Silhueta diagonal quase invisível; um reflexo fino percorre a borda da haste; anel dá um único brilho | `KG SORENSEN PRESENTS` (mono) · `CIÊNCIA & PRECISÃO` · dica de scroll |
 | 2 | REVEAL | 0.07–0.17 | Luz sobe, órbita sutil 3/4, reflexos viajam pelo aço; rim-light lima acende | Título monumental **PRECISÃO** atrás, parcialmente oculto pela ponta · "Ponta diamantada FG." · "Precisão que entrega resultados." |
 | 3 | MACRO | 0.17–0.37 | 8 passagens coladas com DOF fotográfico: cristais → matriz → pescoço → anel → logo laser → lote → aço escovado → chanfro FG | Etiquetas mono rastreadas por linhas finas |
-| 4 | VISTA EXPLODIDA | 0.37–0.53 | Peças se separam lenta e elegantemente sobre grid técnico; fatias, anel, decal, placas da matriz, cristais | `MILHARES DE CRISTAIS.` / `UMA PONTA.` · contador de peças · etiquetas 01–07 com linhas |
-| 5 | FLY THROUGH | 0.53–0.61 | Câmera atravessa as placas e cristais, paralaxe forte; peças se dissolvem até restar um cristal | — (só coordenadas) |
-| 6 | O NÚCLEO | 0.61–0.70 | Um cristal de diamante cubo-octaédrico gigante, refração e dispersão; anéis de rotação + perfil de rugosidade sendo aplainado | `C · CARBONO` · `10 · MOHS` · `≈300.000 RPM · TURBINA` |
-| 7 | REMONTAGEM | 0.70–0.78 | Tudo acelera de volta; placas fecham, fatias empilham, anel desliza; *snap* com flash de rim-light | `UMA PONTA.` / `PRECISÃO ABSOLUTA.` |
+| 4 | VISTA EXPLODIDA | 0.37–0.53 | Peças se separam lenta e elegantemente sobre grid técnico: 12 seções da haste, anel, pescoço, núcleo usinado, placas da matriz, cristais | `Centenas de cristais.` / `Uma ponta.` · contador de cristais do modelo · etiquetas 01–06 com linhas |
+| 5 | TRAVESSIA | 0.53–0.615 | Câmera atravessa as placas e cristais, paralaxe forte; peças se dissolvem até restar um cristal | — (só coordenadas) |
+| 6 | O NÚCLEO | 0.615–0.70 | Um cristal de diamante cubo-octaédrico gigante (shader facetado com dispersão); anéis de rotação + perfil de superfície sendo aplainado | `A essência do corte.` · `C · CARBONO` · `10 · MOHS` · `≈300.000 RPM · TURBINA` |
+| 7 | REMONTAGEM | 0.70–0.78 | Tudo acelera de volta; placas fecham, fatias empilham, anel desliza; *snap* com flash de rim-light | `Uma ponta.` / `Confiança em cada procedimento.` |
 | 8 | VARIAÇÕES | 0.78–0.87 | Varredura laser de cima a baixo troca formato + granulação: CHAMA·FINA → CILÍNDRICA·MÉDIA → TRONCO-CÔNICA·EXTRAFINA → ESFÉRICA·GROSSA, passagem macro após cada troca | Nome do formato + granulação + ≈µm |
 | 9 | CUIDADO | 0.87–0.92 | Bloco Limpa Pontas (espuma preta texturizada, logo prateado) entra; a ponta gira e atravessa; detritos se soltam | "Durabilidade que você confia." · `LIMPA PONTAS KG · AÇÃO DESINCRUSTANTE` |
-| 10 | PARTÍCULAS | 0.92–0.96 | A ponta vira milhares de partículas que seguram a silhueta, expandem passando pela câmera e reconstroem | — |
-| 11 | FINAL | 0.96–1.00 | Ponta simétrica no centro, espaço negativo, luz varrendo em loop | **KG SORENSEN** · "More than a brand. A stamp of warranty." · specs mono · CTA `FALE COM NOSSO TIME COMERCIAL` · card da oferta Limpa Pontas |
+| 10 | PARTÍCULAS | 0.92–0.962 | A ponta vira milhares de partículas que seguram a silhueta, expandem passando pela câmera e reconstroem | — |
+| 11 | FINAL | 0.962–1.00 | Ponta simétrica no centro, espaço negativo, luz varrendo em loop | **KG SORENSEN** · "More than a brand. A stamp of warranty." · specs mono · CTA `FALE COM NOSSO TIME COMERCIAL` · card da oferta Limpa Pontas |
 
 **Cena final interativa**: scroll deixa de controlar; mouse = paralaxe + giro
 sutil; arrastar inspeciona e volta ao centro com mola; seletor mínimo
@@ -166,7 +166,7 @@ primeiros segundos seguram o polegar.
 | `Scene01Dark` | 0–89 | Preto, reflexo percorre a borda, `KG SORENSEN PRESENTS`, brilho no anel |
 | `Scene02Reveal` | 90–209 | Ponta emerge na diagonal, **PRECISÃO** atrás, rim-light lima |
 | `Scene03Macro` | 210–419 | 5 macros com DOF + etiquetas (cristais, matriz, anel, laser, haste FG) |
-| `Scene04Exploded` | 420–599 | Vista explodida + `MILHARES DE CRISTAIS. / UMA PONTA.` |
+| `Scene04Exploded` | 420–599 | Vista explodida + `Centenas de cristais. / Uma ponta.` |
 | `Scene05Core` | 600–719 | Cristal gigante, specs |
 | `Scene06Snap` | 720–809 | Remontagem com snap |
 | `Scene07Variations` | 810–959 | Varredura de formatos/granulação |
