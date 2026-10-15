@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>KG Sorensen — Ponta FG</title>
+    <meta name="description" content="Filme de produto interativo da ponta diamantada FG KG Sorensen: role para revelar, inspecionar, desmontar e remontar." />
+    <meta name="theme-color" content="#050506" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <canvas id="film" aria-hidden="true"></canvas>
+    <div id="spacer" aria-hidden="true"></div>
+    <main id="ui">
+      <h1 class="sr-only">KG Sorensen — Ponta diamantada FG. Filme de produto interativo.</h1>
+      <p class="sr-only">
+        Haste FG de 1,60 mm em aço inoxidável, cabeça com cristais de diamante fixados por matriz metálica.
+        Promoção: condições especiais e bonificação. Limpa Pontas KG: leve 2, pague 1 — 2 unidades por R$ 11,60.
+      </p>
+    </main>
+    <div id="loader" role="status" aria-live="polite">
+      <div class="loader-inner">
+        <div class="mono loader-brand">KG SORENSEN</div>
+        <div class="loader-bar"><i></i></div>
+        <div class="mono loader-pct">00%</div>
+      </div>
+    </div>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
