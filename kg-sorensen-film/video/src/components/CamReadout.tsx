@@ -11,7 +11,7 @@ export const CamReadout: React.FC<{
   scene: SceneId;
   start: number;
   end: number;
-  corner?: 'top-right' | 'bottom-right' | 'top-left';
+  corner?: 'top-right' | 'bottom-right' | 'top-left' | 'bottom-left';
   label?: string;
 }> = ({ scene, start, end, corner = 'top-right', label = 'CAM' }) => {
   const { f, stage } = useScene(scene);
@@ -24,7 +24,9 @@ export const CamReadout: React.FC<{
       ? { right: 1080 - SAFE.right, top: SAFE.top + 4, textAlign: 'right' }
       : corner === 'bottom-right'
         ? { right: 1080 - SAFE.right, top: SAFE.bottom - 66, textAlign: 'right' }
-        : { left: SAFE.left, top: SAFE.top + 4 };
+        : corner === 'bottom-left'
+          ? { left: SAFE.left, top: SAFE.bottom - 66 }
+          : { left: SAFE.left, top: SAFE.top + 4 };
   return (
     <div style={{ position: 'absolute', ...pos, opacity: vis * 0.78 }}>
       <div style={monoStyle(TYPE.monoSmall - 2, COLORS.kgGray)}>

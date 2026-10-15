@@ -35,7 +35,7 @@ export const Scene01Dark: React.FC = () => {
         </div>
       </Centered>
       {ring && ping > 0 ? <Crosshair x={ring.x} y={ring.y} size={34} opacity={ping * 0.85} /> : null}
-      <CamReadout scene="dark" start={10} end={SCENES.dark.to - SCENES.dark.from + 30} corner="bottom-right" />
+      <CamReadout scene="dark" start={10} end={SCENES.dark.to - SCENES.dark.from + 30} corner="bottom-left" />
     </AbsoluteFill>
   );
 };

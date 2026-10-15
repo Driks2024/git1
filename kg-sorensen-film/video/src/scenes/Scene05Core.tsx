@@ -29,7 +29,7 @@ export const Scene05Core: React.FC = () => {
           start={c0 + 36}
           stagger={2}
           dur={14}
-          style={{ ...bodyStyle(TYPE.body - 6, 300, COLORS.steel), maxWidth: 640 }}
+          style={{ ...bodyStyle(TYPE.body - 6, 300, COLORS.steel), maxWidth: 560 }}
         />
       </At>
       <At x={SAFE.left} y={SAFE.bottom - 286} w={SAFE.right - SAFE.left} opacity={vis}>

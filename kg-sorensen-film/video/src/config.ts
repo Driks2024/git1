@@ -137,8 +137,8 @@ export const COPY = {
     counterLabel: 'CRISTAIS NESTE MODELO',
     labels: [
       { anchor: 'crystalFar', index: '01', title: 'CRISTAIS DE DIAMANTE', sub: 'ARESTAS DE CORTE' },
-      { anchor: 'tile', index: '02', title: 'MATRIZ METÁLICA', sub: 'CAMADA DE FIXAÇÃO' },
-      { anchor: 'core', index: '03', title: 'NÚCLEO USINADO', sub: 'AÇO INOXIDÁVEL' },
+      { anchor: 'core', index: '02', title: 'NÚCLEO USINADO', sub: 'AÇO INOXIDÁVEL' },
+      { anchor: 'tile', index: '03', title: 'MATRIZ METÁLICA', sub: 'CAMADA DE FIXAÇÃO' },
       { anchor: 'neck', index: '04', title: 'PESCOÇO', sub: 'TRANSIÇÃO CÔNICA' },
       { anchor: 'ring', index: '05', title: 'ANEL', sub: 'CÓDIGO DE GRANULAÇÃO' },
       { anchor: 'steel', index: '06', title: 'HASTE FG EM SEÇÕES', sub: 'Ø 1,60 MM · MARCAÇÃO A LASER' },

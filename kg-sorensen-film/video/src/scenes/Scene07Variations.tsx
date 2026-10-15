@@ -123,7 +123,9 @@ export const Scene07Variations: React.FC = () => {
                 />
                 <span style={monoStyle(TYPE.monoSmall, on ? COLORS.paper : COLORS.steel)}>{g.label}</span>
               </div>
-              <span style={monoStyle(TYPE.monoSmall, on ? COLORS.paper : COLORS.steel)}>≈ {g.microns} µm</span>
+              <span style={monoStyle(TYPE.monoSmall, on ? COLORS.paper : COLORS.steel)}>
+                ≈ {g.microns} <span style={{ textTransform: 'none' }}>µm</span>
+              </span>
             </div>
           );
         })}

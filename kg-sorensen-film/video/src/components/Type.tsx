@@ -103,11 +103,11 @@ export const Words: React.FC<{
         const clean = w.replace(/[.,!?]/g, '');
         const isAccent = accent.includes(clean) || accent.includes(w);
         return (
-          <span key={i} style={{ display: 'inline-block', overflow: 'hidden', paddingBottom: '0.08em', marginBottom: '-0.08em' }}>
+          <span key={i} style={{ display: 'inline-block', overflow: 'hidden', padding: '0.14em 0 0.08em', margin: '-0.14em 0 -0.08em' }}>
             <span
               style={{
                 display: 'inline-block',
-                transform: `translateY(${(1 - k) * rise * 100}%)`,
+                transform: `translateY(${(1 - k) * rise * 125}%)`,
                 opacity: Math.min(1, k * 1.6),
                 color: isAccent ? accentColor : undefined,
               }}
@@ -133,8 +133,8 @@ export const MaskLine: React.FC<{
   const k = prog(f, start, dur);
   const dir = from === 'below' ? 1 : -1;
   return (
-    <div style={{ overflow: 'hidden', paddingBottom: '0.1em', marginBottom: '-0.1em', ...style }}>
-      <div style={{ transform: `translateY(${dir * (1 - k) * 105}%)` }}>{children}</div>
+    <div style={{ overflow: 'hidden', padding: '0.16em 0 0.1em', margin: '-0.16em 0 -0.1em', ...style }}>
+      <div style={{ transform: `translateY(${dir * (1 - k) * 130}%)` }}>{children}</div>
     </div>
   );
 };

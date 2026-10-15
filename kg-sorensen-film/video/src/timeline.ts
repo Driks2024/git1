@@ -176,7 +176,7 @@ const scene02: SceneTimeline = {
         opacity: t * 0.94,
         reveal: easeOutExpo(range(f, at('reveal', 10), at('reveal', 58))),
         blur: 0,
-        pos: [0, 4.2, -15],
+        pos: [-0.9, 4.2, -15],
         height: 4.1,
         billboard: true,
       };
@@ -190,7 +190,7 @@ export const MACRO_STOPS: MacroStop[] = [
   { id: 'crystals', target: [0, 7.72, 0.62], cam: [1.9, 8.8, 5.6], roll: 0.34 },
   { id: 'matrix', target: [0, 6.7, 0.42], cam: [-1.7, 6.2, 4.6], roll: -0.3 },
   { id: 'ring', target: [0, 2.3, 0.8], cam: [1.9, 2.95, 6.7], roll: 0.36 },
-  { id: 'logo', target: [0, -1.05, 0.8], cam: [-0.5, -0.85, 5.6], roll: -0.22 },
+  { id: 'logo', target: [0, -0.78, 0.8], cam: [-0.5, -0.6, 5.7], roll: -0.22 },
   { id: 'butt', target: [0, -9.45, 0.48], cam: [1.75, -10.85, 3.5], roll: 0.3 },
 ];
 export const macroArrive = (i: number) => BEATS.macro0 + i * BEATS.macroStep + 12;
@@ -250,6 +250,8 @@ const scene03: SceneTimeline = {
     if (f >= at('macro', 0) && f < at('exploded', 0)) {
       s.aperture = 0.011;
       s.maxBlur = 0.014;
+      // centre of the laser-marked KG logo on the shank surface
+      s.probes.push({ id: 'logoC', p: [0, 8.8, 0.82] });
     }
   },
 };
@@ -260,13 +262,13 @@ const scene04: SceneTimeline = {
   keys: {
     cam: [
       [at('exploded', 26), [-5.4, 3.4, 46], easeInOutCubic],
-      [at('exploded', 124), [-10.4, 8.2, 56], easeInOutSine],
-      [at('exploded', 180), [-8.6, 9.4, 49], linear],
+      [at('exploded', 124), [-9.8, 8.2, 56], easeInOutSine],
+      [at('exploded', 180), [-8.0, 9.4, 49], linear],
     ],
     target: [
       [at('exploded', 26), [-1.0, 2.2, 0], easeInOutCubic],
-      [at('exploded', 124), [-3.0, 7.0, 0], easeInOutSine],
-      [at('exploded', 180), [-2.7, 7.8, 0], linear],
+      [at('exploded', 124), [-2.4, 7.0, 0], easeInOutSine],
+      [at('exploded', 180), [-2.1, 7.8, 0], linear],
     ],
     roll: [[at('exploded', 26), 0, easeInOutCubic]],
     fov: [[at('exploded', 30), 30]],
@@ -319,7 +321,7 @@ const CORE_AIM: Vec3 = [CORE_POS[0], CORE_POS[1] - 0.36, CORE_POS[2]];
 const CORE_CAM: Vec3 = [0.9, CORE_POS[1] - 0.1, CORE_POS[2] + 11.6];
 const flyCam = new THREE.CatmullRomCurve3(
   [
-    new THREE.Vector3(-8.6, 9.4, 49),
+    new THREE.Vector3(-8.0, 9.4, 49),
     new THREE.Vector3(-3.6, 10.5, 22),
     new THREE.Vector3(2.0, 10.7, 7.4),
     new THREE.Vector3(1.6, 10.3, CORE_POS[2] + 9.8),
@@ -330,7 +332,7 @@ const flyCam = new THREE.CatmullRomCurve3(
 );
 const flyTgt = new THREE.CatmullRomCurve3(
   [
-    new THREE.Vector3(-2.7, 7.8, 0),
+    new THREE.Vector3(-2.1, 7.8, 0),
     new THREE.Vector3(-1.0, 9.5, 0.8),
     new THREE.Vector3(0.3, 10.0, 1.4),
     new THREE.Vector3(...CORE_AIM),
@@ -472,8 +474,8 @@ const scene06: SceneTimeline = {
       s.probes.push(
         { id: 'dimA', p: [0, 0, 0] },
         { id: 'dimB', p: [0, len, 0] },
-        { id: 'shank0', p: [0, 5.2, 0] },
-        { id: 'shank1', p: [0, 6.2, 0] },
+        { id: 'shank0', p: [0, 10.3, 0] },
+        { id: 'shank1', p: [0, 11.3, 0] },
       );
     }
   },
@@ -575,16 +577,16 @@ const scene08: SceneTimeline = {
   id: 'care',
   keys: {
     cam: [
-      [at('care', 24), [5.0, 7.0, 46], easeInOutCubic],
-      [BEATS.plunge + 12, [4.4, 5.6, 42], easeInOutSine],
-      [BEATS.offer - 6, [4.0, 5.2, 41], linear],
+      [at('care', 24), [5.0, 3.0, 46], easeInOutCubic],
+      [BEATS.plunge + 12, [4.4, 2.2, 42], easeInOutSine],
+      [BEATS.offer - 6, [4.0, 2.0, 41], linear],
       [BEATS.offer + 22, OFFER_CAM, easeInOutCubic],
       [at('final', -10), [-5, OFFER_CAM[1], OFFER_CAM[2] - 4], linear],
     ],
     target: [
-      [at('care', 24), [-3.2, -3.0, 0], easeInOutCubic],
-      [BEATS.plunge + 12, [-3.2, -3.2, 0], easeInOutSine],
-      [BEATS.offer - 6, [-3.2, -3.2, 0]],
+      [at('care', 24), [-3.2, -4.2, 0], easeInOutCubic],
+      [BEATS.plunge + 12, [-3.2, -4.8, 0], easeInOutSine],
+      [BEATS.offer - 6, [-3.2, -4.8, 0]],
       [BEATS.offer + 22, OFFER_AIM, easeInOutCubic],
       [at('final', -10), OFFER_AIM],
     ],
@@ -604,7 +606,7 @@ const scene08: SceneTimeline = {
       [BEATS.plunge, [0, 19, 0]],
       [BEATS.plunge + 12, [0, PLUNGE_DEPTH_Y, 0], easeInCubic],
       [BEATS.plunge + 30, [0, PLUNGE_DEPTH_Y, 0]],
-      [BEATS.plunge + 50, [0, 46, 0], easeInCubic],
+      [BEATS.plunge + 50, [0, 150, 0], easeInCubic],
     ],
     burSpin: [
       [at('care', 0), 1.6],
@@ -665,7 +667,8 @@ const scene09: SceneTimeline = {
       [SIGN + 28, POSE.vertical, easeInOutCubic],
     ],
     burPos: [
-      [at('final', 0), [0, 46, 0]],
+      [at('final', -1), [0, 150, 0]],
+      [at('final', 0), [60, -90, 0], linear],
       [at('final', 30), [1.2, -8.3, 0], easeOutCubic],
       [SIGN, [1.2, -8.5, 0]],
       [SIGN + 28, [0, 0, 0], easeInOutCubic],
@@ -706,7 +709,7 @@ const scene09: SceneTimeline = {
         text: COPY.reveal.title3d,
         weight: 100,
         tracking: -0.01,
-        opacity: t * 0.3,
+        opacity: t * 0.24,
         reveal: easeOutCubic(range(f, SIGN + 14, SIGN + 60)),
         blur: 0,
         pos: [0, 1.1, -14],

@@ -2,7 +2,7 @@ import React from 'react';
 import { AbsoluteFill, Img, staticFile } from 'remotion';
 import { ASSETS, BEATS, COLORS, COPY, SAFE, SCENES, TYPE } from '../config';
 import { EASE, life, mapRange, prog } from '../components/anim';
-import { At, Centered } from '../components/Layout';
+import { Centered } from '../components/Layout';
 import { Hairline, MaskLine, bodyStyle, displayStyle, monoStyle } from '../components/Type';
 import { useScene } from '../components/useScene';
 
@@ -66,7 +66,7 @@ export const Scene09Final: React.FC = () => {
           </div>
         </Centered>
         {/* bonus pill */}
-        <At right={SAFE.right} y={SAFE.bottom - 128} opacity={prog(f, 44, 14)}>
+        <Centered y={842} opacity={prog(f, 44, 14)}>
           <div
             style={{
               display: 'flex',
@@ -92,23 +92,23 @@ export const Scene09Final: React.FC = () => {
             >
               <GiftIcon />
             </div>
-            <div style={bodyStyle(38, 400)}>
+            <div style={{ ...bodyStyle(38, 400), textAlign: 'left' }}>
               {c.bonus[0]}
               <br />
               {c.bonus[1]}
             </div>
           </div>
-        </At>
+        </Centered>
       </div>
 
       {/* ---------------- sign-off */}
-      <Centered y={1086} opacity={life(f, sg + 24, len + 30, 16, 1)}>
+      <Centered y={1102} opacity={life(f, sg + 24, len + 30, 16, 1)}>
         <Img
           src={staticFile(ASSETS.lockupWhite)}
           style={{ width: 330, transform: `translateY(${(1 - prog(f, sg + 24, 22)) * 24}px)` }}
         />
       </Centered>
-      <Centered y={1306} opacity={life(f, sg + 36, len + 30, 16, 1)}>
+      <Centered y={1320} opacity={life(f, sg + 36, len + 30, 16, 1)}>
         <div style={monoStyle(TYPE.monoSmall, COLORS.steel)}>{c.specs}</div>
         <div style={{ height: 26 }} />
         <div

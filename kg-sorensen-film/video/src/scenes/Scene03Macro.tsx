@@ -39,7 +39,7 @@ export const Scene03Macro: React.FC = () => {
         </MaskLine>
       </At>
       {COPY.macroStops.map((m, i) => {
-        const a = stage?.anchors[m.anchor as AnchorName] ?? null;
+        const a = (m.id === 'logo' ? stage?.points.logoC : stage?.anchors[m.anchor as AnchorName]) ?? null;
         const s = i * step + 14;
         return (
           <LeaderLabel
