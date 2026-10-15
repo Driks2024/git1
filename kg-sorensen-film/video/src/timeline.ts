@@ -144,8 +144,8 @@ const scene01: SceneTimeline = {
 const scene02: SceneTimeline = {
   id: 'reveal',
   keys: {
-    cam: [[at('reveal', 108), [-0.7, 0.5, 42.5], easeInOutSine]],
-    target: [[at('reveal', 108), [0, 0.6, 0], easeInOutSine]],
+    cam: [[at('reveal', 108), [-1.8, 0.5, 42.5], easeInOutSine]],
+    target: [[at('reveal', 108), [-1.1, 0.6, 0], easeInOutSine]],
     roll: [[at('reveal', 112), 0]],
     burRot: [[at('reveal', 106), POSE.hero, easeInOutSine]],
     burSpin: [[at('reveal', 106), 0, easeOutCubic]],
@@ -189,7 +189,7 @@ export type MacroStop = { id: string; target: Vec3; cam: Vec3; roll: number };
 export const MACRO_STOPS: MacroStop[] = [
   { id: 'crystals', target: [0, 7.72, 0.62], cam: [1.9, 8.8, 5.6], roll: 0.34 },
   { id: 'matrix', target: [0, 6.7, 0.42], cam: [-1.7, 6.2, 4.6], roll: -0.3 },
-  { id: 'ring', target: [0, 2.3, 0.8], cam: [1.3, 2.75, 4.9], roll: 0.36 },
+  { id: 'ring', target: [0, 2.3, 0.8], cam: [1.9, 2.95, 6.7], roll: 0.36 },
   { id: 'logo', target: [0, -1.05, 0.8], cam: [-0.5, -0.85, 5.6], roll: -0.22 },
   { id: 'butt', target: [0, -9.45, 0.48], cam: [1.75, -10.85, 3.5], roll: 0.3 },
 ];
@@ -259,14 +259,14 @@ const scene04: SceneTimeline = {
   id: 'exploded',
   keys: {
     cam: [
-      [at('exploded', 26), [-4.6, 2.6, 40], easeInOutCubic],
-      [at('exploded', 124), [-8.5, 1.4, 66], easeInOutSine],
-      [at('exploded', 180), [-6.2, 3.2, 58], linear],
+      [at('exploded', 26), [-5.4, 3.4, 46], easeInOutCubic],
+      [at('exploded', 124), [-10.4, 8.2, 56], easeInOutSine],
+      [at('exploded', 180), [-8.6, 9.4, 49], linear],
     ],
     target: [
-      [at('exploded', 26), [0, 1.2, 0], easeInOutCubic],
-      [at('exploded', 124), [0, -1.8, 0], easeInOutSine],
-      [at('exploded', 180), [0, -0.6, 0], linear],
+      [at('exploded', 26), [-1.0, 2.2, 0], easeInOutCubic],
+      [at('exploded', 124), [-3.0, 7.0, 0], easeInOutSine],
+      [at('exploded', 180), [-2.7, 7.8, 0], linear],
     ],
     roll: [[at('exploded', 26), 0, easeInOutCubic]],
     fov: [[at('exploded', 30), 30]],
@@ -313,25 +313,28 @@ const scene04: SceneTimeline = {
 /** head centre of the exploded pose = where the single crystal is born */
 export const CORE_POS: Vec3 = burToWorld(POSE.exploded, [0, 0, 0], [0, 16.15 + 1.02 + 2.7, 0]);
 const FLY0 = at('core', 0);
-const FLY1 = at('core', 82);
+const FLY1 = at('core', 80);
+/** the stone sits a little above frame centre: room for title above, specs below */
+const CORE_AIM: Vec3 = [CORE_POS[0], CORE_POS[1] - 0.36, CORE_POS[2]];
+const CORE_CAM: Vec3 = [0.9, CORE_POS[1] - 0.1, CORE_POS[2] + 11.6];
 const flyCam = new THREE.CatmullRomCurve3(
   [
-    new THREE.Vector3(-6.2, 3.2, 58),
-    new THREE.Vector3(-3.4, 8.2, 30),
-    new THREE.Vector3(3.6, 11.6, 14.5),
-    new THREE.Vector3(2.4, 10.9, CORE_POS[2] + 9.6),
-    new THREE.Vector3(0.9, CORE_POS[1] + 0.35, CORE_POS[2] + 8.6),
+    new THREE.Vector3(-8.6, 9.4, 49),
+    new THREE.Vector3(-3.6, 10.5, 22),
+    new THREE.Vector3(2.0, 10.7, 7.4),
+    new THREE.Vector3(1.6, 10.3, CORE_POS[2] + 9.8),
+    new THREE.Vector3(...CORE_CAM),
   ],
   false,
   'centripetal',
 );
 const flyTgt = new THREE.CatmullRomCurve3(
   [
-    new THREE.Vector3(0, -0.6, 0),
-    new THREE.Vector3(0, 6.5, 0.6),
-    new THREE.Vector3(0.6, 10.4, 1.4),
-    new THREE.Vector3(...CORE_POS),
-    new THREE.Vector3(...CORE_POS),
+    new THREE.Vector3(-2.7, 7.8, 0),
+    new THREE.Vector3(-1.0, 9.5, 0.8),
+    new THREE.Vector3(0.3, 10.0, 1.4),
+    new THREE.Vector3(...CORE_AIM),
+    new THREE.Vector3(...CORE_AIM),
   ],
   false,
   'centripetal',
@@ -342,12 +345,12 @@ const scene05: SceneTimeline = {
   keys: {
     // after the fly-through (handled in evaluate), a slow orbit around the stone
     cam: [
-      [FLY1, [0.9, CORE_POS[1] + 0.35, CORE_POS[2] + 8.6]],
-      [at('core', 120), [-1.0, CORE_POS[1] + 0.6, CORE_POS[2] + 8.2], easeInOutSine],
+      [FLY1, CORE_CAM],
+      [at('core', 120), [-1.2, CORE_POS[1] + 0.25, CORE_POS[2] + 11.2], easeInOutSine],
     ],
     target: [
-      [FLY1, CORE_POS],
-      [at('core', 120), CORE_POS],
+      [FLY1, CORE_AIM],
+      [at('core', 120), CORE_AIM],
     ],
     roll: [
       [FLY0, 0],
@@ -360,8 +363,8 @@ const scene05: SceneTimeline = {
       [FLY1, 32],
     ],
     dissolve: [
-      [at('core', 10), 0],
-      [at('core', 52), 1, easeInOutSine],
+      [at('core', 26), 0],
+      [at('core', 62), 1, easeInOutSine],
     ],
     env: [
       [at('core', 30), 1.0],
@@ -394,7 +397,7 @@ const scene05: SceneTimeline = {
     s.coreScale = 0.15 + 0.85 * s.core;
     s.coreRot = (f - BEATS.coreIn) * 0.024;
     s.corePos = CORE_POS;
-    if (f > at('core', 56) && f < at('snap', 1)) s.burVisible = false;
+    if (f > at('core', 64) && f < at('snap', 1)) s.burVisible = false;
     if (f >= at('core', 50) && f < at('snap', 30)) {
       s.focus = CORE_POS;
       s.aperture = 0.006;
@@ -409,14 +412,14 @@ const scene06: SceneTimeline = {
   id: 'snap',
   keys: {
     cam: [
-      [at('snap', 30), [-4.8, 3.6, 48], easeInOutCubic],
-      [BEATS.snap, [0, 0.6, 43.5], easeInCubic],
-      [at('snap', 90), [0, 0.5, 45.5], easeOutCubic],
+      [at('snap', 30), [-6.8, 3.6, 49], easeInOutCubic],
+      [BEATS.snap, [-2.4, 0.6, 43.5], easeInCubic],
+      [at('snap', 90), [-2.4, 0.5, 45.5], easeOutCubic],
     ],
     target: [
-      [at('snap', 30), [0, 0.6, 0], easeInOutCubic],
-      [BEATS.snap, [0, 0.3, 0], easeInCubic],
-      [at('snap', 90), [0, 0.3, 0]],
+      [at('snap', 30), [-2.0, 0.6, 0], easeInOutCubic],
+      [BEATS.snap, [-2.4, 0.3, 0], easeInCubic],
+      [at('snap', 90), [-2.4, 0.3, 0]],
     ],
     roll: [[at('snap', 24), 0, easeInOutSine]],
     fov: [[at('snap', 26), 30]],
@@ -512,17 +515,20 @@ export function variantAt(f: number): { variant: Variant; sweepTo: Variant | nul
 }
 
 const variationKeys = (): Partial<Channels> => {
-  const cam: Key<Vec3>[] = [[at('variations', 12), [2.2, 4.8, 23], easeInOutCubic]];
-  const target: Key<Vec3>[] = [[at('variations', 12), [0, 4.5, 0], easeInOutCubic]];
+  const X = -2.4; // bur sits on the right third, copy lives on the left
+  const wide = (side: number): Vec3 => [X + 1.6 * side, 6.6, 30];
+  const close = (side: number): Vec3 => [X + 0.3 + 2.4 * side, 7.3, 24];
+  const cam: Key<Vec3>[] = [[at('variations', 12), wide(1), easeInOutCubic]];
+  const target: Key<Vec3>[] = [[at('variations', 12), [X, 6.35, 0], easeInOutCubic]];
   SWEEPS.forEach((s, i) => {
     const side = i % 2 ? -1 : 1;
     const holdEnd = s.start + BEATS.sweepStep - 4;
-    // during the sweep: mid shot; after it: push in toward the new head
-    cam.push([s.end, [1.6 * side, 4.9, 22], easeInOutSine], [s.end + 14, [2.4 * side, 6.3, 15.5], easeInOutCubic]);
-    target.push([s.end, [0, 4.6, 0], easeInOutSine], [s.end + 14, [0, 5.7, 0], easeInOutCubic]);
+    // during the sweep: mid shot; after it: a gentle push toward the new head
+    cam.push([s.end, wide(side), easeInOutSine], [s.end + 14, close(side), easeInOutCubic]);
+    target.push([s.end, [X, 6.35, 0], easeInOutSine], [s.end + 14, [X + 0.3, 6.95, 0], easeInOutCubic]);
     if (i < SWEEPS.length - 1) {
-      cam.push([holdEnd, [2.2 * side, 6.1, 16.5], linear], [SWEEPS[i + 1].start, [1.6 * -side, 4.9, 22], easeInOutCubic]);
-      target.push([holdEnd, [0, 5.6, 0], linear], [SWEEPS[i + 1].start, [0, 4.6, 0], easeInOutCubic]);
+      cam.push([holdEnd, close(side), linear], [SWEEPS[i + 1].start, wide(-side), easeInOutCubic]);
+      target.push([holdEnd, [X + 0.3, 6.9, 0], linear], [SWEEPS[i + 1].start, [X, 6.35, 0], easeInOutCubic]);
     }
   });
   return { cam, target };
@@ -550,6 +556,7 @@ const scene07: SceneTimeline = {
       s.sweep = v.sweep;
       s.tint = GRITS[v.shown.grit].color;
       s.tintAmt = windowed(f, at('variations', 2), at('variations', 150), 12, 14) * 0.1;
+      s.bloom = 0.15;
       if (v.sweepTo) {
         const y = scanHeight(v.variant.shape, v.sweepTo.shape, v.sweep);
         s.probes.push({ id: 'scanC', p: [0, y, 0] }, { id: 'scanU', p: [0, y + 1, 0] });
@@ -560,28 +567,32 @@ const scene07: SceneTimeline = {
 
 // ---------------------------------------------------------------- 08 care
 export const FOAM_POS: Vec3 = [0, -14, 0];
+/** offer framing: the whole Limpa Pontas block in the lower half */
+const OFFER_CAM: Vec3 = [0, 58, 350];
+const OFFER_AIM: Vec3 = [0, 8, 0];
 const PLUNGE_DEPTH_Y = 4.6; // burPos.y with the head inside the foam
 const scene08: SceneTimeline = {
   id: 'care',
   keys: {
     cam: [
-      [at('care', 24), [9, 11, 52], easeInOutCubic],
-      [BEATS.plunge + 12, [7.5, 6.5, 44], easeInOutSine],
-      [BEATS.offer - 6, [6.5, 5.8, 42], linear],
-      [BEATS.offer + 20, [0, 15.5, 218], easeInOutCubic],
-      [at('care', 150), [-3, 15.5, 214], linear],
+      [at('care', 24), [5.0, 7.0, 46], easeInOutCubic],
+      [BEATS.plunge + 12, [4.4, 5.6, 42], easeInOutSine],
+      [BEATS.offer - 6, [4.0, 5.2, 41], linear],
+      [BEATS.offer + 22, OFFER_CAM, easeInOutCubic],
+      [at('final', -10), [-5, OFFER_CAM[1], OFFER_CAM[2] - 4], linear],
     ],
     target: [
-      [at('care', 24), [0, 1.5, 0], easeInOutCubic],
-      [BEATS.plunge + 12, [0, -1.2, 0], easeInOutSine],
-      [BEATS.offer - 6, [0, -1.2, 0]],
-      [BEATS.offer + 20, [0, 5.5, 0], easeInOutCubic],
-      [at('care', 150), [0, 5.5, 0]],
+      [at('care', 24), [-3.2, -3.0, 0], easeInOutCubic],
+      [BEATS.plunge + 12, [-3.2, -3.2, 0], easeInOutSine],
+      [BEATS.offer - 6, [-3.2, -3.2, 0]],
+      [BEATS.offer + 22, OFFER_AIM, easeInOutCubic],
+      [at('final', -10), OFFER_AIM],
     ],
     fov: [
       [at('care', 30), 30],
       [BEATS.offer - 6, 30],
-      [BEATS.offer + 20, 26, easeInOutCubic],
+      [BEATS.offer + 22, 22, easeInOutCubic],
+      [at('final', -10), 22],
     ],
     burRot: [
       [at('variations', 142), POSE.vertical],
@@ -593,8 +604,7 @@ const scene08: SceneTimeline = {
       [BEATS.plunge, [0, 19, 0]],
       [BEATS.plunge + 12, [0, PLUNGE_DEPTH_Y, 0], easeInCubic],
       [BEATS.plunge + 30, [0, PLUNGE_DEPTH_Y, 0]],
-      [BEATS.plunge + 46, [0, 11, 0], easeInOutCubic],
-      [at('care', 150), [0, 11.6, 0], linear],
+      [BEATS.plunge + 50, [0, 46, 0], easeInCubic],
     ],
     burSpin: [
       [at('care', 0), 1.6],
@@ -620,7 +630,7 @@ const scene08: SceneTimeline = {
     if (inn > 0 && out < 1) {
       s.foam = 1;
       s.foamPos = [FOAM_POS[0], FOAM_POS[1] - 80 * (1 - inn) - 110 * out, FOAM_POS[2]];
-      s.foamRot = [0.08, -0.44 + 0.14 * inn, 0];
+      s.foamRot = [0.08, -0.46 + 0.16 * inn, 0];
     }
     s.debris = windowed(f, BEATS.plunge + 9, BEATS.plunge + 42, 2, 10);
     s.debrisT = range(f, BEATS.plunge + 9, BEATS.plunge + 40) * 1.1;
@@ -629,22 +639,25 @@ const scene08: SceneTimeline = {
 
 // ---------------------------------------------------------------- 09 final
 const SIGN = BEATS.signoff;
+/** sign-off: vertical hero in the upper two thirds, brand + CTA below */
+const SIGN_AIM: Vec3 = [0, -7.35, 0];
+const SIGN_CAM: Vec3 = [0, -6.5, 80.6];
 const scene09: SceneTimeline = {
   id: 'final',
   keys: {
     cam: [
-      [at('final', 26), [0, 1.2, 50], easeInOutCubic],
+      [at('final', 30), [0, 1.2, 50], easeInOutCubic],
       [SIGN - 6, [1.4, 1.0, 46.5], linear],
-      [SIGN + 26, [0, 0.4, 50], easeInOutCubic],
-      [at('final', 240), [0, 0.4, 47], linear],
+      [SIGN + 26, SIGN_CAM, easeInOutCubic],
+      [at('final', 240), [0, SIGN_CAM[1], SIGN_CAM[2] - 3], linear],
     ],
     target: [
-      [at('final', 26), [0, -2.6, 0], easeInOutCubic],
+      [at('final', 30), [0, -2.6, 0], easeInOutCubic],
       [SIGN - 6, [0, -2.6, 0]],
-      [SIGN + 26, [0, 0.8, 0], easeInOutCubic],
-      [at('final', 240), [0, 0.8, 0]],
+      [SIGN + 26, SIGN_AIM, easeInOutCubic],
+      [at('final', 240), SIGN_AIM],
     ],
-    fov: [[at('final', 26), 30]],
+    fov: [[at('final', 30), 30, easeInOutCubic]],
     burRot: [
       [at('final', 2), POSE.care],
       [at('final', 30), POSE.promo, easeInOutCubic],
@@ -652,10 +665,10 @@ const scene09: SceneTimeline = {
       [SIGN + 28, POSE.vertical, easeInOutCubic],
     ],
     burPos: [
-      [at('final', 2), [0, 11.6, 0]],
-      [at('final', 30), [0.8, -7.4, 0], easeInOutCubic],
-      [SIGN, [0.8, -7.6, 0]],
-      [SIGN + 28, [0, -1.2, 0], easeInOutCubic],
+      [at('final', 0), [0, 46, 0]],
+      [at('final', 30), [1.2, -8.3, 0], easeOutCubic],
+      [SIGN, [1.2, -8.5, 0]],
+      [SIGN + 28, [0, 0, 0], easeInOutCubic],
     ],
     burSpin: [
       [at('final', 30), 31.4, easeOutCubic],
@@ -685,19 +698,19 @@ const scene09: SceneTimeline = {
     s.ringGlow += windowed(f, at('final', 20), at('final', 260), 30, 1) * 0.3;
     s.ringGlow += bump(f, BEATS.promo + 2, 4) * 1.2;
     s.flash = Math.max(s.flash, bump(f, BEATS.promo + 1, 2.5) * 0.6);
-    // closing title, behind the vertical hero
-    const t = smooth(range(f, SIGN + 10, SIGN + 40));
+    // the opening word returns, faint, behind the vertical hero (bookend)
+    const t = smooth(range(f, SIGN + 14, SIGN + 44));
     if (t > 0) {
       s.title = {
         ...s.title,
-        text: 'KG SORENSEN',
-        weight: 200,
-        tracking: 0.02,
-        opacity: t * 0.92,
-        reveal: easeOutCubic(range(f, SIGN + 10, SIGN + 56)),
+        text: COPY.reveal.title3d,
+        weight: 100,
+        tracking: -0.01,
+        opacity: t * 0.3,
+        reveal: easeOutCubic(range(f, SIGN + 14, SIGN + 60)),
         blur: 0,
-        pos: [0, 1.2, -14],
-        height: 2.65,
+        pos: [0, 1.1, -14],
+        height: 6.1,
         billboard: true,
       };
     }

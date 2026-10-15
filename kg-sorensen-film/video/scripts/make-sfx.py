@@ -19,7 +19,7 @@ import wave
 import numpy as np
 
 SR = 48000
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'public', 'sfx')
+OUT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'public', 'sfx'))
 
 
 def t_axis(dur):

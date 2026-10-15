@@ -15,7 +15,7 @@ export const Scene02Reveal: React.FC = () => {
   const vis = life(f, 40, 118, 10, 12);
   return (
     <AbsoluteFill>
-      <At x={SAFE.left} y={1336} w={SAFE.right - SAFE.left} opacity={vis}>
+      <At x={SAFE.left} y={1318} w={600} opacity={vis}>
         <Kicker text={COPY.reveal.kicker} start={40} />
         <div style={{ height: 22 }} />
         <Words text={COPY.reveal.body} start={48} stagger={3} style={bodyStyle(TYPE.body + 6, 300, COLORS.paper)} accent={['Precisão']} />

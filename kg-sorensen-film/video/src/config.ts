@@ -43,7 +43,7 @@ export const BEATS = {
   macroStep: 42,
   explodeStart: at('exploded', 22),
   explodeEnd: at('exploded', 122),
-  coreIn: at('core', 34),
+  coreIn: at('core', 44),
   snap: at('snap', 52),
   /** laser sweeps between variants */
   sweep0: at('variations', 14),
@@ -141,7 +141,7 @@ export const COPY = {
       { anchor: 'core', index: '03', title: 'NÚCLEO USINADO', sub: 'AÇO INOXIDÁVEL' },
       { anchor: 'neck', index: '04', title: 'PESCOÇO', sub: 'TRANSIÇÃO CÔNICA' },
       { anchor: 'ring', index: '05', title: 'ANEL', sub: 'CÓDIGO DE GRANULAÇÃO' },
-      { anchor: 'logo', index: '06', title: 'HASTE FG EM SEÇÕES', sub: 'Ø 1,60 MM · MARCAÇÃO A LASER' },
+      { anchor: 'steel', index: '06', title: 'HASTE FG EM SEÇÕES', sub: 'Ø 1,60 MM · MARCAÇÃO A LASER' },
     ],
   },
   core: {
@@ -211,12 +211,12 @@ export const SFX: SfxCue[] = [
   { frame: BEATS.reveal - 6, file: 'sfx/whoosh.wav', gain: 0.85, length: 45 },
   { frame: BEATS.rimIgnite - 2, file: 'sfx/shimmer.wav', gain: 0.4, length: 60 },
   ...[0, 1, 2, 3, 4].map((i) => tick(BEATS.macro0 + i * BEATS.macroStep + 16)),
-  { frame: BEATS.explodeStart - 52, file: 'sfx/riser.wav', gain: 0.7, length: 66 },
+  { frame: BEATS.explodeStart - 64, file: 'sfx/riser.wav', gain: 0.7, length: 66 },
   { frame: BEATS.explodeStart, file: 'sfx/whoosh.wav', gain: 0.5, length: 45 },
-  ...[0, 1, 2, 3, 4, 5].map((i) => tick(BEATS.explodeStart + 70 + i * 7, 0.42)),
+  ...[0, 1, 2, 3, 4, 5].map((i) => tick(BEATS.explodeEnd - 8 + i * 6, 0.42)),
   { frame: BEATS.coreIn - 20, file: 'sfx/shimmer.wav', gain: 0.55, length: 60 },
   ...[0, 1, 2].map((i) => tick(BEATS.coreIn + 26 + i * 9, 0.4)),
-  { frame: BEATS.snap - 26, file: 'sfx/riser.wav', gain: 0.35, length: 66 },
+  { frame: BEATS.snap - 64, file: 'sfx/riser.wav', gain: 0.35, length: 64 },
   { frame: BEATS.snap - 1, file: 'sfx/snap.wav', gain: 1.0, length: 24 },
   ...[0, 1, 2, 3].map((i) => ({
     frame: BEATS.sweep0 + i * BEATS.sweepStep - 1,

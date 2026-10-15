@@ -39,7 +39,7 @@ export class FilmRenderer {
   readonly foam: FoamBlock;
   readonly title = new TitlePlane();
   readonly grid = createGrid();
-  readonly key = new THREE.DirectionalLight(0xffffff, 0.9);
+  readonly key = new THREE.DirectionalLight(0xffffff, 0.5);
   readonly kicker = new THREE.PointLight(0xffffff, 0, 0, 2);
   width: number;
   height: number;
@@ -175,7 +175,7 @@ export class FilmRenderer {
     // ---- light
     this.scene.environmentIntensity = s.envIntensity;
     this.scene.environmentRotation.set(0, s.envRot, 0);
-    this.key.intensity = 0.9 * s.keyLight;
+    this.key.intensity = 0.5 * s.keyLight;
     this.kicker.position.set(...s.kicker);
     this.kicker.intensity = s.kickerIntensity;
     this.kicker.visible = s.kickerIntensity > 0;

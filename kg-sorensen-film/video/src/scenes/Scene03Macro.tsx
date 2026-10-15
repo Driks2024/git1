@@ -3,20 +3,20 @@ import { AbsoluteFill } from 'remotion';
 import type { AnchorName } from '../../../shared/bur/Bur';
 import { BEATS, COLORS, COPY, SAFE, TYPE } from '../config';
 import { life, prog } from '../components/anim';
-import { At } from '../components/Layout';
+import { At, Scrim } from '../components/Layout';
 import { LeaderLabel } from '../components/LeaderLabel';
 import { Kicker, MaskLine, bodyStyle, monoStyle } from '../components/Type';
-import { CamReadout } from '../components/CamReadout';
 import { useScene } from '../components/useScene';
 
-/** Where each macro label sits, relative to its anchor (px). */
-const PLACE: Record<string, { dx: number; dy: number }> = {
-  crystals: { dx: -250, dy: 330 },
-  matrix: { dx: 230, dy: 300 },
-  ring: { dx: -240, dy: 300 },
-  logo: { dx: 220, dy: 300 },
-  butt: { dx: -240, dy: -300 },
+/** Label x per pass (the text block hangs in the lower band, y fixed). */
+const LABEL_X: Record<string, number> = {
+  crystals: SAFE.left,
+  matrix: 420,
+  ring: SAFE.left,
+  logo: 420,
+  butt: SAFE.left,
 };
+const LABEL_Y = 1356;
 
 /**
  * 00:07–00:14 — MACRO. Five glued passes with photographic DOF:
@@ -25,10 +25,12 @@ const PLACE: Record<string, { dx: number; dy: number }> = {
  */
 export const Scene03Macro: React.FC = () => {
   const { f, stage } = useScene('macro');
-  const vis = life(f, 6, 206, 12, 10);
+  const vis = life(f, 4, 206, 12, 10);
   const step = BEATS.macroStep;
+  const pass = Math.min(5, Math.floor(f / step) + 1);
   return (
     <AbsoluteFill>
+      <Scrim top={0.62} bottom={0.78} height={640} opacity={vis} />
       <At x={SAFE.left} y={SAFE.top + 18} w={640} opacity={vis}>
         <Kicker text={COPY.macro.kicker} start={6} />
         <div style={{ height: 18 }} />
@@ -38,15 +40,15 @@ export const Scene03Macro: React.FC = () => {
       </At>
       {COPY.macroStops.map((m, i) => {
         const a = stage?.anchors[m.anchor as AnchorName] ?? null;
-        const p = PLACE[m.id];
         const s = i * step + 14;
         return (
           <LeaderLabel
             key={m.id}
+            mode="below"
             anchor={a}
-            to={a ? { x: a.x + p.dx, y: a.y + p.dy } : { x: 0, y: 0 }}
+            to={{ x: LABEL_X[m.id], y: LABEL_Y }}
             start={s}
-            end={s + step - 12}
+            end={s + step - 10}
             title={m.title}
             sub={m.sub}
             index={`0${i + 1}`}
@@ -54,23 +56,14 @@ export const Scene03Macro: React.FC = () => {
         );
       })}
       {/* pass counter */}
-      <At right={SAFE.right} y={SAFE.bottom - 46} opacity={vis}>
-        <div style={monoStyle(TYPE.monoSmall, COLORS.kgGray)}>
-          <span style={{ color: COLORS.paper }}>{String(Math.min(5, Math.floor(f / step) + 1)).padStart(2, '0')}</span> / 05 · MACRO
+      <At right={SAFE.right} y={SAFE.top + 22} opacity={vis}>
+        <div style={{ ...monoStyle(TYPE.monoSmall, COLORS.kgGray), textAlign: 'right' }}>
+          <span style={{ color: COLORS.paper }}>{String(pass).padStart(2, '0')}</span> / 05
         </div>
-        <div
-          style={{
-            marginTop: 10,
-            height: 2,
-            width: 220,
-            marginLeft: 'auto',
-            background: COLORS.hair,
-          }}
-        >
-          <div style={{ height: 2, width: 220 * prog(f, 0, 210, (t) => t), background: COLORS.lime }} />
+        <div style={{ marginTop: 12, height: 2, width: 150, marginLeft: 'auto', background: COLORS.hair }}>
+          <div style={{ height: 2, width: 150 * prog(f, 0, 208, (t) => t), background: COLORS.lime }} />
         </div>
       </At>
-      <CamReadout scene="macro" start={8} end={206} corner="top-right" />
     </AbsoluteFill>
   );
 };

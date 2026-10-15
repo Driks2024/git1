@@ -21,8 +21,8 @@ export const Scene05Core: React.FC = () => {
       <At x={SAFE.left} y={SAFE.top + 18} w={SAFE.right - SAFE.left} opacity={vis}>
         <Kicker text={COPY.core.kicker} start={c0 + 14} />
         <div style={{ height: 24 }} />
-        <Words text={COPY.core.title[0]} start={c0 + 20} stagger={4} style={displayStyle(TYPE.title - 12, 200)} />
-        <Words text={COPY.core.title[1]} start={c0 + 28} stagger={4} style={displayStyle(TYPE.title - 12, 200)} />
+        <Words text={COPY.core.title[0]} start={c0 + 20} stagger={4} style={displayStyle(TYPE.title - 22, 200)} />
+        <Words text={COPY.core.title[1]} start={c0 + 28} stagger={4} style={displayStyle(TYPE.title - 22, 200)} />
         <div style={{ height: 22 }} />
         <Words
           text={COPY.core.body}
@@ -32,7 +32,7 @@ export const Scene05Core: React.FC = () => {
           style={{ ...bodyStyle(TYPE.body - 6, 300, COLORS.steel), maxWidth: 640 }}
         />
       </At>
-      <At x={SAFE.left} y={SAFE.bottom - 300} w={SAFE.right - SAFE.left} opacity={vis}>
+      <At x={SAFE.left} y={SAFE.bottom - 286} w={SAFE.right - SAFE.left} opacity={vis}>
         {COPY.core.specs.map((s, i) => {
           const st = c0 + 26 + i * 9;
           const k = prog(f, st, 16);

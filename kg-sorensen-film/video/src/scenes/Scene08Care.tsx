@@ -24,8 +24,8 @@ export const Scene08Care: React.FC = () => {
       <At x={SAFE.left} y={SAFE.top + 18} w={SAFE.right - SAFE.left} opacity={care}>
         <Kicker text={COPY.care.kicker} start={8} />
         <div style={{ height: 24 }} />
-        <Words text={COPY.care.title[0]} start={14} stagger={4} style={displayStyle(TYPE.title - 8, 200)} />
-        <Words text={COPY.care.title[1]} start={20} stagger={4} style={displayStyle(TYPE.title - 8, 200)} />
+        <Words text={COPY.care.title[0]} start={14} stagger={4} style={displayStyle(TYPE.title - 24, 200)} />
+        <Words text={COPY.care.title[1]} start={20} stagger={4} style={displayStyle(TYPE.title - 24, 200)} />
         <div style={{ height: 26 }} />
         <MaskLine start={30} dur={16}>
           <div style={monoStyle(TYPE.monoSmall, COLORS.steel)}>{COPY.care.note}</div>

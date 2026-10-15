@@ -49,12 +49,12 @@ export const Scene06Snap: React.FC = () => {
           boxShadow: `0 0 24px ${COLORS.lime}`,
         }}
       />
-      <Dimension a={pts.dimA} b={pts.dimB} offset={-150} label="≈ 19 MM" start={s0 + 6} end={len + 18} />
-      <Dimension a={dia.b} b={dia.a} offset={-90} label="Ø 1,60 MM" start={s0 + 12} end={len + 18} extension={false} />
+      <Dimension a={pts.dimA} b={pts.dimB} offset={120} label="≈ 19 MM" start={s0 + 6} end={len + 18} />
+      <Dimension a={dia.b} b={dia.a} offset={-70} label="Ø 1,60 MM" start={s0 + 12} end={len + 18} extension={false} />
       <At x={SAFE.left} y={1330} w={SAFE.right - SAFE.left} opacity={vis}>
         <Words text={COPY.snap.title} start={s0 + 4} stagger={4} style={displayStyle(TYPE.title, 200)} />
         <div style={{ height: 18 }} />
-        <Words text={COPY.snap.body} start={s0 + 12} stagger={3} style={bodyStyle(TYPE.body, 300, COLORS.steel)} />
+        <Words text={COPY.snap.body} start={s0 + 12} stagger={3} style={{ ...bodyStyle(TYPE.body, 300, COLORS.steel), maxWidth: 520 }} />
       </At>
     </AbsoluteFill>
   );

@@ -66,7 +66,7 @@ export const Scene09Final: React.FC = () => {
           </div>
         </Centered>
         {/* bonus pill */}
-        <At x={SAFE.left + 40} y={SAFE.bottom - 128} opacity={prog(f, 44, 14)}>
+        <At right={SAFE.right} y={SAFE.bottom - 128} opacity={prog(f, 44, 14)}>
           <div
             style={{
               display: 'flex',
@@ -102,15 +102,15 @@ export const Scene09Final: React.FC = () => {
       </div>
 
       {/* ---------------- sign-off */}
-      <Centered y={SAFE.top + 10} opacity={life(f, sg + 18, len + 30, 16, 1)}>
+      <Centered y={1086} opacity={life(f, sg + 24, len + 30, 16, 1)}>
         <Img
           src={staticFile(ASSETS.lockupWhite)}
-          style={{ width: 440, transform: `translateY(${(1 - prog(f, sg + 18, 22)) * 24}px)` }}
+          style={{ width: 330, transform: `translateY(${(1 - prog(f, sg + 24, 22)) * 24}px)` }}
         />
       </Centered>
-      <Centered y={SAFE.bottom - 196} opacity={life(f, sg + 34, len + 30, 16, 1)}>
+      <Centered y={1306} opacity={life(f, sg + 36, len + 30, 16, 1)}>
         <div style={monoStyle(TYPE.monoSmall, COLORS.steel)}>{c.specs}</div>
-        <div style={{ height: 30 }} />
+        <div style={{ height: 26 }} />
         <div
           style={{
             display: 'flex',

@@ -24,11 +24,18 @@ export const LeaderLabel: React.FC<{
   index?: string;
   size?: number;
   accent?: boolean;
-}> = ({ anchor, to, start, end, title, sub, index, size = TYPE.mono, accent = false }) => {
+  /** 'side': text beside the run (default). 'below': text block hangs under `to`, left-aligned. */
+  mode?: 'side' | 'below';
+}> = ({ anchor, to, start, end, title, sub, index, size = TYPE.mono, accent = false, mode = 'side' }) => {
   const f = useCurrentFrame();
   if (!anchor || anchor.behind) return null;
   const vis = life(f, start, end, 8, 8);
   if (vis <= 0) return null;
+  if (mode === 'below') {
+    return (
+      <BelowLabel anchor={anchor} to={to} start={start} vis={vis} title={title} sub={sub} index={index} size={size} accent={accent} />
+    );
+  }
   const subSize = Math.round(size * 0.84);
   const head = index ? `${index}  ${title}` : title;
   const w = Math.max(monoWidth(head, size), sub ? monoWidth(sub, subSize) : 0);
@@ -88,6 +95,71 @@ export const LeaderLabel: React.FC<{
           {title}
         </div>
         {sub ? <div style={{ ...monoStyle(subSize, COLORS.steel), opacity: 0.85 }}>{sub}</div> : null}
+      </div>
+    </div>
+  );
+};
+
+const BelowLabel: React.FC<{
+  anchor: Projected;
+  to: { x: number; y: number };
+  start: number;
+  vis: number;
+  title: string;
+  sub?: string;
+  index?: string;
+  size: number;
+  accent: boolean;
+}> = ({ anchor, to, start, vis, title, sub, index, size, accent }) => {
+  const f = useCurrentFrame();
+  const subSize = Math.round(size * 0.84);
+  const head = index ? `${index}  ${title}` : title;
+  const w = Math.max(monoWidth(head, size), sub ? monoWidth(sub, subSize) : 0);
+  const x = Math.min(Math.max(to.x, SAFE.left), SAFE.right - w);
+  const y = Math.min(Math.max(to.y, SAFE.top + 40), SAFE.bottom - 80);
+  const ax = anchor.x;
+  const ay = anchor.y;
+  // anchor → elbow above the label → short run along the label's top edge
+  const ex = Math.min(Math.max(ax, x), x + w);
+  const ey = y - 22;
+  const runTo = ex <= x + 1 ? x + 90 : ex >= x + w - 1 ? x + w - 90 : ex + 70;
+  const L1 = Math.hypot(ex - ax, ey - ay);
+  const L = L1 + Math.abs(runTo - ex);
+  const draw = prog(f, start + 2, 16, EASE.inOut);
+  const dot = prog(f, start, 10);
+  const text = prog(f, start + 10, 14);
+  const lineColor = accent ? COLORS.lime : 'rgba(236,238,240,0.7)';
+  return (
+    <div style={{ position: 'absolute', inset: 0, opacity: vis }}>
+      <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, overflow: 'visible' }}>
+        <circle cx={ax} cy={ay} r={lerp(30, 12, dot)} fill="none" stroke={COLORS.paper} strokeOpacity={0.8 * dot} strokeWidth={1.5} />
+        <circle cx={ax} cy={ay} r={4 * dot} fill={COLORS.lime} />
+        <path
+          d={`M ${ax} ${ay} L ${ex} ${ey} L ${runTo} ${ey}`}
+          fill="none"
+          stroke={lineColor}
+          strokeWidth={1.4}
+          strokeDasharray={L}
+          strokeDashoffset={L * (1 - draw)}
+        />
+      </svg>
+      <div
+        style={{
+          position: 'absolute',
+          left: x,
+          top: y,
+          opacity: text,
+          transform: `translateY(${(1 - text) * 12}px)`,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}
+      >
+        <div style={monoStyle(size, COLORS.paper)}>
+          {index ? <span style={{ color: COLORS.lime, marginRight: '0.9em' }}>{index}</span> : null}
+          {title}
+        </div>
+        {sub ? <div style={{ ...monoStyle(subSize, COLORS.steel) }}>{sub}</div> : null}
       </div>
     </div>
   );

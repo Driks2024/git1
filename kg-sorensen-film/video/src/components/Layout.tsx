@@ -74,3 +74,54 @@ export const SafeAreaGuide: React.FC = () => (
     <div style={{ ...monoStyle(18, COLORS.lime), position: 'absolute', left: SAFE.left, top: SAFE.top - 30 }}>SAFE AREA</div>
   </AbsoluteFill>
 );
+
+/**
+ * Soft cinematic gradients at the top / bottom so copy stays readable over
+ * bright steel. Pure luminance falloff — never a box or a card.
+ */
+export const Scrim: React.FC<{ top?: number; bottom?: number; left?: number; opacity?: number; height?: number }> = ({
+  top = 0,
+  bottom = 0,
+  left = 0,
+  opacity = 1,
+  height = 620,
+}) => (
+  <AbsoluteFill style={{ opacity, pointerEvents: 'none' }}>
+    {top > 0 ? (
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height,
+          background: `linear-gradient(180deg, rgba(5,5,6,${top}) 0%, rgba(5,5,6,${top * 0.72}) 38%, rgba(5,5,6,0) 100%)`,
+        }}
+      />
+    ) : null}
+    {bottom > 0 ? (
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height,
+          background: `linear-gradient(0deg, rgba(5,5,6,${bottom}) 0%, rgba(5,5,6,${bottom * 0.72}) 38%, rgba(5,5,6,0) 100%)`,
+        }}
+      />
+    ) : null}
+    {left > 0 ? (
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          width: 720,
+          background: `linear-gradient(90deg, rgba(5,5,6,${left}) 0%, rgba(5,5,6,${left * 0.6}) 45%, rgba(5,5,6,0) 100%)`,
+        }}
+      />
+    ) : null}
+  </AbsoluteFill>
+);

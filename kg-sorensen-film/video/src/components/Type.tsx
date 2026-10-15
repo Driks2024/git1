@@ -8,6 +8,10 @@ import { EASE, formatBR, lerp, prog } from './anim';
  * Sequence-local frame; nothing depends on time outside Remotion.
  */
 
+/** Legibility over bright steel: soft ink halos, no visible boxes. */
+export const SHADOW_MONO = '0 1px 2px rgba(5,5,6,0.9), 0 0 14px rgba(5,5,6,0.85), 0 0 34px rgba(5,5,6,0.6)';
+export const SHADOW_TEXT = '0 2px 4px rgba(5,5,6,0.45), 0 0 30px rgba(5,5,6,0.55)';
+
 export const monoStyle = (size: number = TYPE.mono, color: string = COLORS.steel): React.CSSProperties => ({
   fontFamily: FONTS.mono,
   fontSize: size,
@@ -17,6 +21,7 @@ export const monoStyle = (size: number = TYPE.mono, color: string = COLORS.steel
   color,
   lineHeight: 1.35,
   whiteSpace: 'nowrap',
+  textShadow: SHADOW_MONO,
 });
 
 export const displayStyle = (size: number, weight = 200, color: string = COLORS.paper): React.CSSProperties => ({
@@ -27,6 +32,7 @@ export const displayStyle = (size: number, weight = 200, color: string = COLORS.
   letterSpacing: weight >= 700 ? '-0.035em' : '-0.03em',
   lineHeight: weight >= 700 ? 0.94 : 1.0,
   color,
+  textShadow: SHADOW_TEXT,
 });
 
 export const bodyStyle = (size: number = TYPE.body, weight = 300, color: string = COLORS.paper): React.CSSProperties => ({
@@ -37,6 +43,7 @@ export const bodyStyle = (size: number = TYPE.body, weight = 300, color: string 
   letterSpacing: '-0.012em',
   lineHeight: 1.18,
   color,
+  textShadow: SHADOW_TEXT,
 });
 
 /** Mono kicker: a short lime tick, then tracked uppercase text that types on. */
