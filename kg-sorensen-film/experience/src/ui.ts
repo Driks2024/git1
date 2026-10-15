@@ -60,6 +60,9 @@ export class Overlay {
   private tmpV = new THREE.Vector3();
   private proj = { x: 0, y: 0, z: 0, behind: false };
   private lastVariantKey = '';
+  private lastBeat = -1;
+  private lastMacro = -1;
+  private lastCount = -1;
   selected: Variant = { shape: 'esferica', grit: 'grossa' };
 
   constructor(root: HTMLElement, logoUrl: string, handlers: FinalHandlers) {
@@ -297,8 +300,10 @@ export class Overlay {
 
   private captionAnim(c: CapEl, p: number) {
     const fade = c.c.fade ?? 0.01;
-    const k = windowed(p, c.c.in, c.c.out, fade, fade);
-    const local = range(p, c.c.in, c.c.in + fade * 2.2);
+    // a caption that opens the film is already there at rest (no fade-in from p = 0)
+    const opening = c.c.in <= 0;
+    const k = opening ? 1 - smooth(range(p, c.c.out - fade, c.c.out)) : windowed(p, c.c.in, c.c.out, fade, fade);
+    const local = opening ? 1 : range(p, c.c.in, c.c.in + fade * 2.2);
     const leaving = p > c.c.out - fade;
     c.el.style.opacity = String(k > 0.001 ? 1 : 0);
     c.el.style.visibility = k > 0.001 ? 'visible' : 'hidden';
@@ -334,7 +339,10 @@ export class Overlay {
     // chrome
     const b = beatAt(p);
     const bi = BEATS.indexOf(b);
-    this.beatEl.innerHTML = `<b>${String(bi + 1).padStart(2, '0')}</b> — ${b.label}`;
+    if (bi !== this.lastBeat) {
+      this.lastBeat = bi;
+      this.beatEl.innerHTML = `<b>${String(bi + 1).padStart(2, '0')}</b> — ${b.label}`;
+    }
     const c = film.camera.position;
     this.coords.textContent = `CAM X ${fmt(c.x)} Y ${fmt(c.y)} Z ${fmt(c.z)} · FOV ${film.camera.fov.toFixed(1)}° · T ${(p * 100).toFixed(1).padStart(5, '0')}`;
     const hk = 1 - smooth(range(p, 0.004, 0.03));
@@ -416,7 +424,10 @@ export class Overlay {
       MACRO_STOPS.forEach((m, i) => {
         if (p >= m.at - 0.011) idx = i;
       });
-      this.macroIdx.innerHTML = `<div class="num">${String(idx + 1).padStart(2, '0')}<small> / 08</small></div><div class="mono">${MACRO_COPY[MACRO_STOPS[idx].id].title}</div>`;
+      if (idx !== this.lastMacro) {
+        this.lastMacro = idx;
+        this.macroIdx.innerHTML = `<div class="num">${String(idx + 1).padStart(2, '0')}<small> / 08</small></div><div class="mono">${MACRO_COPY[MACRO_STOPS[idx].id].title}</div>`;
+      }
     }
 
     // exploded counter
@@ -424,7 +435,10 @@ export class Overlay {
     this.counter.style.opacity = String(ck);
     if (ck > 0) {
       const n = Math.round(crystals * easeOutCubic(range(p, 0.445, 0.5)));
-      this.counterNum.innerHTML = `<em>${String(n).padStart(4, '0')}</em>`;
+      if (n !== this.lastCount) {
+        this.lastCount = n;
+        this.counterNum.innerHTML = `<em>${String(n).padStart(4, '0')}</em>`;
+      }
     }
 
     // core

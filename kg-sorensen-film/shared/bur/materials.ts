@@ -179,8 +179,9 @@ export function createBurMaterials(logo: ImageSource, fx: FxUniforms): BurMateri
 export function cloneForSlot(m: BurMaterials, fx: FxUniforms, plane: THREE.Plane) {
   const core = withFx(m.steel.clone(), fx, 'fx-slot');
   core.roughnessMap = null;
-  core.roughness = 0.42;
-  core.color.set(0xb9bdc2);
+  core.roughness = 0.55;
+  core.envMapIntensity = 0.55;
+  core.color.set(0xaeb2b7);
   core.clippingPlanes = [plane];
   const c = <T extends THREE.Material>(mat: T, key: string) => {
     const k = withFx(mat.clone() as T, fx, key);

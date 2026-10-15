@@ -40,6 +40,7 @@ for (let i = 0; i < argv.length; i++) {
   else if (a === '--browser') opts.browser = argv[++i];
   else if (a === '--prefix') opts.prefix = argv[++i];
   else if (a === '--full-warmup') opts.fastWarmup = false;
+  else if (a === '--debug') opts.debug = true;
   else if (/^\d+-\d+(:\d+)?$/.test(a)) {
     const [r, st] = a.split(':');
     const [lo, hi] = r.split('-').map(Number);
@@ -78,7 +79,7 @@ const browser = await openBrowser('chrome', {
   logLevel: 'warn',
 });
 
-const inputProps = { fastWarmup: opts.fastWarmup };
+const inputProps = { fastWarmup: opts.fastWarmup, debug: Boolean(opts.debug) };
 const onBrowserLog = (l) => {
   if (l.type === 'error' || l.type === 'warning') {
     const t = l.text ?? '';

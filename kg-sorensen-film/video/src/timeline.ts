@@ -146,6 +146,7 @@ const scene02: SceneTimeline = {
   keys: {
     cam: [[at('reveal', 108), [-0.7, 0.5, 42.5], easeInOutSine]],
     target: [[at('reveal', 108), [0, 0.6, 0], easeInOutSine]],
+    roll: [[at('reveal', 112), 0]],
     burRot: [[at('reveal', 106), POSE.hero, easeInOutSine]],
     burSpin: [[at('reveal', 106), 0, easeOutCubic]],
     env: [

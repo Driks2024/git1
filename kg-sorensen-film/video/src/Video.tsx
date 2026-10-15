@@ -5,6 +5,7 @@ import { BurStage } from './stage/BurStage';
 import { StageProvider } from './stage/StageContext';
 import { SoundDesign } from './components/SoundDesign';
 import { SafeAreaGuide } from './components/Layout';
+import { DebugAnchors } from './components/DebugAnchors';
 import { Scene01Dark } from './scenes/Scene01Dark';
 import { Scene02Reveal } from './scenes/Scene02Reveal';
 import { Scene03Macro } from './scenes/Scene03Macro';
@@ -40,6 +41,7 @@ export const Video: React.FC = () => (
           <Scene />
         </Sequence>
       ))}
+      <DebugAnchors />
     </StageProvider>
     <SoundDesign />
     {DEBUG.safeArea ? <SafeAreaGuide /> : null}

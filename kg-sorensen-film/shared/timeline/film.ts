@@ -115,6 +115,9 @@ for (const s of MACRO_STOPS) {
   camKeys.push([s.at - 0.004, s.cam, easeInOutQuart], [s.at + 0.007, drift, linear]);
   tgtKeys.push([s.at - 0.004, s.target, easeInOutQuart], [s.at + 0.007, [s.target[0], s.target[1] - 0.1, s.target[2]], linear]);
 }
+// macro → exploded: keep the hero in frame while it turns
+camKeys.push([0.383, [-5.5, 3.5, 25], easeInOutCubic]);
+tgtKeys.push([0.383, [0.5, 1.2, 0], easeInOutCubic]);
 // exploded wide
 camKeys.push([0.41, [-6, 6.5, 37], easeInOutCubic], [0.53, [4, 8.4, 31], easeInOutSine]);
 tgtKeys.push([0.41, [1.5, 2.4, 0], easeInOutCubic], [0.53, [1.5, 2.4, 0], easeInOutSine]);

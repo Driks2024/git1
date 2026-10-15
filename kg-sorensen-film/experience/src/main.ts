@@ -57,7 +57,8 @@ async function boot() {
   await tick();
 
   const scroll = new SmoothProgress(document.getElementById('spacer')!, 15);
-  if (params.has('snap') || matchMedia('(prefers-reduced-motion: reduce)').matches) scroll.snap = params.has('snap');
+  // reduced motion: no inertia, the film follows the scroll exactly
+  scroll.snap = params.has('snap') || matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ------------------------------------------------------------- final scene interaction
   const hero = VARIANT_SEQ[VARIANT_SEQ.length - 1];

@@ -13,6 +13,7 @@ const browser = await chromium.launch({
   args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'],
 });
 const page = await browser.newPage({ viewport: { width: +w, height: +h }, deviceScaleFactor: 1 });
+page.setDefaultTimeout(180000);
 page.on('console', (m) => {
   if (m.type() === 'error' || m.type() === 'warning') {
     const t = m.text();
@@ -28,7 +29,7 @@ for (const p of ps) {
   const f0 = await page.evaluate(() => window.__film.frames);
   await page.waitForFunction((f) => window.__film.frames >= f + 3, f0, { timeout: 120000 });
   const name = String(p).padEnd(5, '0');
-  await page.screenshot({ path: `${outDir}/p${name}.png` });
+  await page.screenshot({ path: `${outDir}/p${name}.png`, timeout: 180000 });
   console.log(name, `${Date.now() - t0}ms`);
 }
 await browser.close();
