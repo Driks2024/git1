@@ -203,7 +203,7 @@ async function boot() {
       s.cam = [s.cam[0] + live.px * 2.4 * k, s.cam[1] - live.py * 1.4 * k, s.cam[2]];
       s.burRot = [s.burRot[0] + (live.py * 0.08 + live.tilt) * k, s.burRot[1] + live.px * 0.12 * k, s.burRot[2]];
       s.burSpin += (live.spin + now * 0.22 * motion) * k;
-      s.envRot += now * 0.16 * motion * k;
+      s.envRot += Math.sin(now * 0.25) * 0.7 * motion * k;
       // live variant switch with a laser sweep
       if (live.to) {
         const u = motion ? clamp((now - live.t0) / 1.1) : 1;

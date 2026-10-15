@@ -298,15 +298,17 @@ const env = track([
   [0.73, 1.0],
 ]);
 
+// the studio swings back and forth in front of the bur (never behind it), so
+// the light travels over the steel while the steel stays silver
 const envRot = track([
   [0, -1.2],
   [0.17, 0.35, easeInOutSine],
-  [0.37, 1.1, linear],
-  [0.53, 1.9, linear],
-  [0.7, 2.6, linear],
-  [0.78, 3.2],
-  [0.87, 3.9, linear],
-  [1.0, 4.3, linear],
+  [0.37, -0.45, easeInOutSine],
+  [0.53, 0.55, easeInOutSine],
+  [0.7, -0.3, easeInOutSine],
+  [0.78, 0.4, easeInOutSine],
+  [0.87, -0.5, easeInOutSine],
+  [1.0, 0.15, easeInOutSine],
 ]);
 
 const rimBase = track([
@@ -360,8 +362,8 @@ const kickerPos = track<Vec3>([
 ]);
 const kickerI = track([
   [0, 0],
-  [0.008, 7],
-  [0.06, 7],
+  [0.008, 11],
+  [0.06, 11],
   [0.085, 0],
 ]);
 
@@ -464,7 +466,7 @@ export function evaluate(p: number, time = 0): FilmState {
       s.kicker[1] + (k[1] - s.kicker[1]) * idle,
       s.kicker[2] + (k[2] - s.kicker[2]) * idle,
     ];
-    s.kickerIntensity = Math.max(s.kickerIntensity, 7 * windowed(cyc, 0.0, 0.92, 0.12, 0.2) * idle);
+    s.kickerIntensity = Math.max(s.kickerIntensity, 11 * windowed(cyc, 0.0, 0.92, 0.12, 0.2) * idle);
   }
   s.exposure = 1.0;
 

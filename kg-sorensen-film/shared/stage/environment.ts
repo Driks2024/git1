@@ -64,8 +64,9 @@ export function createStudioEnvironment(renderer: THREE.WebGLRenderer) {
   rim.position.set(0, 9, -28);
   rim.lookAt(0, 0, 0);
   env.add(rim);
-  const fill = panel(22, 6, 0.22, new THREE.Color(0.95, 0.97, 1));
-  fill.position.set(6, -8, 30);
+  // large diffused front card: steel reads silver everywhere, without a point hotspot
+  const fill = panel(44, 26, 0.42, new THREE.Color(0.95, 0.97, 1));
+  fill.position.set(-8, 6, 32);
   fill.lookAt(0, 0, 0);
   env.add(fill);
 

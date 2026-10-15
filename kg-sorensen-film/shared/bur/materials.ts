@@ -86,7 +86,7 @@ export function createBurMaterials(logo: ImageSource, fx: FxUniforms): BurMateri
       roughness: 1,
       roughnessMap: textures.orm,
       normalMap: textures.normal,
-      normalScale: new THREE.Vector2(0.35, 0.35),
+      normalScale: new THREE.Vector2(0.18, 0.18),
       anisotropy: 0.4,
       anisotropyRotation: Math.PI / 2,
       envMapIntensity: 1.0,

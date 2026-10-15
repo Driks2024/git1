@@ -231,7 +231,7 @@ export class Overlay {
     bottom.append(
       ctas,
       note,
-      h('div', 'mono offer-mini', `${FINAL.offer.kicker} · Leve 2. <em>Pague 1.</em> · ${FINAL.offer.qty} <em>${FINAL.offer.price}</em>`),
+      h('div', 'mono offer-mini', `${FINAL.offer.kicker} · Leve 2. <em>Pague 1.</em> · ${FINAL.offer.qty} <em>${FINAL.offer.price.replace(' ', ' ')}</em>`),
     );
     this.final.append(bottom);
 
@@ -394,7 +394,7 @@ export class Overlay {
       const dx = (small ? (pr.x > W / 2 ? -1 : 1) * Math.abs(L.l.dx) : L.l.dx) * sc;
       const dy = L.l.dy * sc;
       const ex = clamp(pr.x + dx, 24, W - 24);
-      const ey = clamp(pr.y + dy, 90, H - 96);
+      const ey = clamp(pr.y + dy, small ? 200 : 90, H - 96);
       const ix = pr.x + (ex - pr.x) * 0.55;
       const iy = ey;
       const draw = smooth(range(p, L.l.in, L.l.in + 0.006));
