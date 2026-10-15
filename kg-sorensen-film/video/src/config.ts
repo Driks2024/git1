@@ -134,7 +134,7 @@ export const COPY = {
   exploded: {
     kicker: '03 — VISTA EXPLODIDA',
     title: ['Centenas de cristais.', 'Uma ponta.'],
-    counterLabel: 'PEÇAS · VISUALIZAÇÃO 3D',
+    counterLabel: 'CRISTAIS NESTE MODELO',
     labels: [
       { anchor: 'crystalFar', index: '01', title: 'CRISTAIS DE DIAMANTE', sub: 'ARESTAS DE CORTE' },
       { anchor: 'tile', index: '02', title: 'MATRIZ METÁLICA', sub: 'CAMADA DE FIXAÇÃO' },

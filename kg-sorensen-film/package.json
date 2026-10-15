@@ -10,7 +10,10 @@
     "preview": "vite preview --config experience/vite.config.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "studio": "remotion studio video/src/index.ts --no-open",
-    "still": "remotion still video/src/index.ts"
+    "still": "remotion still video/src/index.ts",
+    "stills": "node video/scripts/stills.mjs",
+    "video:sfx": "python3 video/scripts/make-sfx.py",
+    "video:fonts": "bash video/scripts/fetch-fonts.sh"
   },
   "dependencies": {
     "@remotion/cli": "4.0.535",

@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { AbsoluteFill, cancelRender, continueRender, delayRender, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, cancelRender, continueRender, delayRender, getInputProps, useCurrentFrame, useVideoConfig } from 'remotion';
 import * as THREE from 'three';
 import { FilmRenderer } from '../../../shared/stage/FilmRenderer';
 import type { AnchorName } from '../../../shared/bur/Bur';
@@ -69,7 +69,13 @@ export const BurStage: React.FC = () => {
         designAspect: 9 / 16,
       });
       const titles = new TitleRig(film);
-      await film.warmup();
+      // stills tooling: only prepare what this frame needs (any other variant
+      // is still built on demand by the rig, so the result is identical)
+      const fast = Boolean((getInputProps() as { fastWarmup?: boolean }).fastWarmup);
+      if (fast) {
+        const s = evaluateFrame(frame, fps);
+        await film.warmup(s.sweepTo ? [s.variant, s.sweepTo] : [s.variant]);
+      } else await film.warmup();
       created = { film, titles };
       if (!alive) {
         film.dispose();

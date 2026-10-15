@@ -28,7 +28,7 @@ export const Scene04Exploded: React.FC = () => {
   const vis = life(f, 26, len + 8, 12, 1);
   const e0 = BEATS.explodeStart - SCENES.exploded.from;
   const e1 = BEATS.explodeEnd - SCENES.exploded.from;
-  const pieces = stage?.counts?.pieces ?? 0;
+  const crystals = stage?.counts?.crystals ?? 0;
   return (
     <AbsoluteFill>
       <At x={SAFE.left} y={SAFE.top + 18} w={SAFE.right - SAFE.left} opacity={vis}>
@@ -43,10 +43,10 @@ export const Scene04Exploded: React.FC = () => {
           accent={['ponta']}
         />
       </At>
-      {/* piece counter (a count of the 3D model, labelled as visualisation) */}
+      {/* crystal counter: a count of the 3D model, labelled as such */}
       <At x={SAFE.left} y={SAFE.bottom - 120} opacity={life(f, e0 + 6, len + 8, 12, 1)}>
         <div style={{ ...displayStyle(84, 200, COLORS.paper), fontVariantNumeric: 'tabular-nums' }}>
-          {pieces > 0 ? <Counter to={pieces} start={e0 + 6} dur={e1 - e0} style={{ fontWeight: 200 }} /> : '—'}
+          {crystals > 0 ? <Counter to={crystals} start={e0 + 6} dur={e1 - e0} style={{ fontWeight: 200 }} /> : '—'}
         </div>
         <div style={{ ...monoStyle(TYPE.monoSmall, COLORS.steel), marginTop: 10 }}>{COPY.exploded.counterLabel}</div>
       </At>
