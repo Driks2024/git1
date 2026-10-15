@@ -282,8 +282,12 @@ export function printTexture(logo: ImageSource) {
   ctx.drawImage(logo, 40, (H - lh) / 2, lw, lh);
   ctx.fillStyle = '#fff';
   ctx.textBaseline = 'alphabetic';
+  const x0 = lw + 110;
   ctx.font = `600 ${H * 0.25}px "Inter", "DejaVu Sans", sans-serif`;
-  ctx.fillText('LIMPAPONTAS', lw + 120, H * 0.46);
-  ctx.fillText('E BROCAS', lw + 120, H * 0.78);
+  // fit the product name to the space next to the mark (never clip it)
+  const fs = H * 0.25 * Math.min(1, (W - x0 - 60) / ctx.measureText('LIMPAPONTAS').width);
+  ctx.font = `600 ${fs}px "Inter", "DejaVu Sans", sans-serif`;
+  ctx.fillText('LIMPAPONTAS', x0, H * 0.47);
+  ctx.fillText('E BROCAS', x0, H * 0.47 + fs * 1.2);
   return tex(c, { srgb: true, aniso: 16 });
 }

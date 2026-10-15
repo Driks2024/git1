@@ -170,7 +170,7 @@ body {
   right: calc(var(--gutter) + 22px);
 }
 .brandmark {
-  height: 22px;
+  height: 30px;
   width: auto;
   opacity: 0.92;
 }
@@ -255,7 +255,7 @@ body {
   position: absolute;
   right: 16px;
   top: -6px;
-  font-size: 9px;
+  font-size: 10px;
   opacity: 0;
   transition: opacity 0.4s;
   white-space: nowrap;
@@ -379,8 +379,9 @@ svg.leaders {
 }
 svg.leaders .ln {
   fill: none;
-  stroke: var(--hair-strong);
+  stroke: rgba(241, 241, 238, 0.6);
   stroke-width: 1;
+  filter: drop-shadow(0 0 1.5px rgba(5, 5, 6, 0.9));
 }
 svg.leaders .dot {
   fill: none;
@@ -513,7 +514,7 @@ svg.leaders .cross {
 .profile .mono {
   display: flex;
   justify-content: space-between;
-  font-size: 9px;
+  font-size: 10px;
   color: var(--kg-gray);
   margin-top: 6px;
 }
@@ -608,17 +609,23 @@ svg.leaders .cross {
 .btn:hover,
 .btn:focus-visible {
   border-color: var(--lime);
-  outline: none;
 }
+.btn:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+/* outlined, as on the campaign poster: lime is light, not surface */
 .btn.primary {
-  background: var(--lime);
   border-color: var(--lime);
-  color: #0b0b0c;
-  font-weight: 600;
+  color: var(--paper);
+  font-weight: 500;
+}
+.btn.primary .dot {
+  background: var(--lime);
 }
 .btn.primary:hover,
 .btn.primary:focus-visible {
-  background: var(--lime-soft);
+  background: rgba(212, 248, 46, 0.12);
 }
 .btn .dot {
   width: 6px;
@@ -626,9 +633,13 @@ svg.leaders .cross {
   border-radius: 50%;
   background: currentColor;
 }
+.offer-mini em {
+  font-style: normal;
+  color: var(--lime);
+}
 .offer-mini {
   display: none;
-  font-size: 9px;
+  font-size: 10px;
   color: var(--kg-gray);
   margin-top: 4px;
 }
@@ -662,7 +673,7 @@ svg.leaders .cross {
   gap: 10px;
 }
 .selector .group > .mono {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--kg-gray);
 }
 .selector .opts {
@@ -702,7 +713,10 @@ svg.leaders .cross {
 .selector button:hover,
 .selector button:focus-visible {
   color: var(--paper);
-  outline: none;
+}
+.selector button:focus-visible {
+  outline: 1px solid var(--lime);
+  outline-offset: 4px;
 }
 .selector .sw {
   width: 8px;
@@ -715,7 +729,7 @@ svg.leaders .cross {
   position: absolute;
   right: calc(var(--gutter) + 34px);
   bottom: calc(var(--gutter) * 1.3);
-  width: 230px;
+  width: 270px;
   border-top: 1px solid var(--hair-strong);
   padding-top: 14px;
   display: grid;
@@ -723,7 +737,7 @@ svg.leaders .cross {
   text-align: right;
 }
 .offer .mono {
-  font-size: 9px;
+  font-size: 10px;
 }
 .offer .ot {
   font-weight: 700;
@@ -741,7 +755,8 @@ svg.leaders .cross {
   letter-spacing: -0.03em;
   line-height: 1;
 }
-.offer .op span {
+.offer .op em {
+  font-style: normal;
   color: var(--lime);
 }
 .offer .on {
@@ -750,7 +765,7 @@ svg.leaders .cross {
   font-weight: 300;
 }
 .offer .ref {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--kg-gray);
 }
 
@@ -758,8 +773,8 @@ svg.leaders .cross {
 .drag-hint {
   position: absolute;
   left: var(--gutter);
-  top: calc(50% + 150px);
-  font-size: 9px;
+  bottom: calc(var(--gutter) * 2.2);
+  font-size: 10px;
   color: var(--kg-gray);
 }
 
@@ -896,29 +911,55 @@ svg.leaders .cross {
     font-size: 30px;
   }
   .specs .mono {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 0.1em;
   }
   .offer-mini {
     display: block !important;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--paper);
+    text-wrap: balance;
   }
   .chrome .br,
   .drag-hint {
     display: none;
-  }
-  .cap,
-  .variant,
-  .counter,
-  .final .bottom {
-    text-shadow: 0 0 18px rgba(5, 5, 6, 0.9), 0 0 4px rgba(5, 5, 6, 0.8);
   }
   .rail {
     right: 4px;
   }
 }
 
+/* legibility over the bright 3D, at every size */
+.cap,
+.variant,
+.counter,
+.final .bottom,
+.lab,
+.macro-index,
+.specs,
+.offer {
+  text-shadow: 0 0 18px rgba(5, 5, 6, 0.9), 0 0 4px rgba(5, 5, 6, 0.8);
+}
+.variant .unit {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.cap .b,
+.counter .mono,
+.final .specline,
+.variant .row,
+.specs .mono {
+  text-wrap: balance;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cursor {
+  .cursor,
+  .btn,
+  .selector button,
+  .selector button::before,
+  .contact-note,
+  #loader {
     transition: none;
   }
 }

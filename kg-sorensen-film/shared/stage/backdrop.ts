@@ -109,14 +109,14 @@ export function createGrid() {
       void main() {
         if (uOpacity <= 0.001) discard;
         vec2 p = vP;
-        float minor = max(line(p.x, 0.0), line(p.y, 0.0)) * 0.22;
-        float major = max(line(p.x / 5.0, 0.2), line(p.y / 5.0, 0.2)) * 0.55;
+        float minor = max(line(p.x, 0.0), line(p.y, 0.0)) * 0.12;
+        float major = max(line(p.x / 5.0, 0.2), line(p.y / 5.0, 0.2)) * 0.3;
         // crosses on major intersections
         vec2 c = abs(fract(p / 5.0 + 0.5) - 0.5) * 5.0;
-        float cross = (step(c.x, 0.03) * step(c.y, 0.45) + step(c.y, 0.03) * step(c.x, 0.45)) * 0.9;
+        float cross = (step(c.x, 0.03) * step(c.y, 0.45) + step(c.y, 0.03) * step(c.x, 0.45)) * 0.45;
         float axis = (1.0 - clamp(abs(p.y) / fwidth(p.y) - 0.5, 0.0, 1.0));
         float r = length(p) / 46.0;
-        float fade = exp(-r * r * 2.2);
+        float fade = exp(-r * r * 5.0);
         float a = max(max(minor, major), cross) * fade;
         vec3 col = mix(uColor, uAccent, axis * 0.85);
         a = max(a, axis * fade * 0.6);

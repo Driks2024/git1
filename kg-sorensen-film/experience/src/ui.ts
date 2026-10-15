@@ -64,6 +64,7 @@ export class Overlay {
   private lastMacro = -1;
   private lastCount = -1;
   selected: Variant = { shape: 'esferica', grit: 'grossa' };
+  reduceMotion = false;
 
   constructor(root: HTMLElement, logoUrl: string, handlers: FinalHandlers) {
     this.root = root;
@@ -210,7 +211,7 @@ export class Overlay {
     const bottom = h('div', 'bottom');
     bottom.append(
       h('div', 'mono promo-tag', FINAL.promo),
-      h('p', 'slogan', FINAL.slogan),
+      Object.assign(h('p', 'slogan', FINAL.slogan), { lang: 'en' }),
       h('p', 'claim', FINAL.claim),
       h('div', 'mono specline', FINAL.specs),
     );
@@ -219,12 +220,18 @@ export class Overlay {
     cta.type = 'button';
     cta.dataset.cursor = 'big';
     const note = h('div', 'mono contact-note', 'Peça ao seu representante KG Sorensen · condições especiais e bonificação');
-    cta.addEventListener('click', () => note.classList.toggle('open'));
+    note.id = 'contato';
+    cta.setAttribute('aria-controls', 'contato');
+    cta.setAttribute('aria-expanded', 'false');
+    cta.addEventListener('click', () => {
+      const open = note.classList.toggle('open');
+      cta.setAttribute('aria-expanded', String(open));
+    });
     ctas.append(cta);
     bottom.append(
       ctas,
       note,
-      h('div', 'mono offer-mini', `${FINAL.offer.kicker} · ${FINAL.offer.title} · ${FINAL.offer.price} · ${FINAL.offer.ref}`),
+      h('div', 'mono offer-mini', `${FINAL.offer.kicker} · Leve 2. <em>Pague 1.</em> · ${FINAL.offer.qty} <em>${FINAL.offer.price}</em>`),
     );
     this.final.append(bottom);
 
@@ -232,6 +239,8 @@ export class Overlay {
     const sel = h('div', 'selector interactive');
     const mkGroup = (title: string) => {
       const g = h('div', 'group');
+      g.setAttribute('role', 'group');
+      g.setAttribute('aria-label', title);
       g.append(h('div', 'mono', title));
       const opts = h('div', 'opts');
       g.append(opts);
@@ -275,9 +284,11 @@ export class Overlay {
     offer.append(
       h('div', 'mono', FINAL.offer.kicker),
       h('div', 'ot', FINAL.offer.title.replace('Pague 1.', '<em>Pague 1.</em>')),
-      h('div', 'op', `<span>R$</span> ${FINAL.offer.price.replace('R$ ', '')}`),
+      h('div', 'on', FINAL.offer.qty),
+      h('div', 'op', `R$ <em>${FINAL.offer.price.replace('R$ ', '')}</em>`),
       h('div', 'on', FINAL.offer.priceNote),
-      h('div', 'mono ref', `${FINAL.offer.ref} · Peça ao seu representante`),
+      h('div', 'on', FINAL.offer.ask),
+      h('div', 'mono ref', FINAL.offer.ref),
     );
     this.final.append(offer, h('div', 'mono drag-hint', 'Arraste para inspecionar'));
     this.root.append(chrome, this.final);
@@ -347,7 +358,7 @@ export class Overlay {
     this.coords.textContent = `CAM X ${fmt(c.x)} Y ${fmt(c.y)} Z ${fmt(c.z)} · FOV ${film.camera.fov.toFixed(1)}° · T ${(p * 100).toFixed(1).padStart(5, '0')}`;
     const hk = 1 - smooth(range(p, 0.004, 0.03));
     this.hint.style.opacity = String(hk);
-    this.hint.style.setProperty('--k', String((s.time * 0.6) % 1));
+    this.hint.style.setProperty('--k', this.reduceMotion ? '0.5' : String((s.time * 0.6) % 1));
     this.railFill.style.setProperty('--p', p.toFixed(4));
     this.ticks.forEach((t, i) => {
       t.classList.toggle('on', p >= BEATS[i].start);
@@ -380,10 +391,10 @@ export class Overlay {
         continue;
       }
       const sc = small ? 0.55 : Math.min(1.15, W / 1500);
-      const dx = L.l.dx * sc;
+      const dx = (small ? (pr.x > W / 2 ? -1 : 1) * Math.abs(L.l.dx) : L.l.dx) * sc;
       const dy = L.l.dy * sc;
       const ex = clamp(pr.x + dx, 24, W - 24);
-      const ey = clamp(pr.y + dy, 60, H - 60);
+      const ey = clamp(pr.y + dy, 90, H - 96);
       const ix = pr.x + (ex - pr.x) * 0.55;
       const iy = ey;
       const draw = smooth(range(p, L.l.in, L.l.in + 0.006));
@@ -471,7 +482,7 @@ export class Overlay {
         this.lastVariantKey = key;
         const g = GRITS[v.grit];
         this.variant.innerHTML = `<div class="name">${SHAPES[v.shape].label.charAt(0)}${SHAPES[v.shape].label.slice(1).toLowerCase()}</div>
-          <div class="row mono"><span class="swatch" style="--sw:${g.color}"></span><span>Granulação ${g.label.toLowerCase()} · anel ${g.ring.toLowerCase()} · ≈ ${g.microns} µm</span></div>`;
+          <div class="row mono"><span class="swatch" style="--sw:${g.color}"></span><span>Granulação ${g.label.toLowerCase()} · anel ${g.ring.toLowerCase()} · ≈&nbsp;${g.microns}&nbsp;<span class="unit">µm</span></span></div>`;
       }
     } else this.lastVariantKey = '';
 

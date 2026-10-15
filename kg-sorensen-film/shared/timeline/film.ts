@@ -111,7 +111,7 @@ const tgtKeys: V3[] = [
 ];
 // macro: glide → hold (with slight drift) → glide
 for (const s of MACRO_STOPS) {
-  const drift: Vec3 = [s.cam[0] * 0.04, s.cam[1] - 0.12, s.cam[2] * 0.97];
+  const drift: Vec3 = [s.cam[0] * 0.96, s.cam[1] - 0.12, s.cam[2] * 0.97];
   camKeys.push([s.at - 0.004, s.cam, easeInOutQuart], [s.at + 0.007, drift, linear]);
   tgtKeys.push([s.at - 0.004, s.target, easeInOutQuart], [s.at + 0.007, [s.target[0], s.target[1] - 0.1, s.target[2]], linear]);
 }
@@ -154,6 +154,7 @@ camKeys.push(
   [FLY1, [-0.7, 0.55, 7.0], linear],
   [0.7, [1.7, 0.95, 6.5], easeInOutSine],
   [0.726, [7, 3.2, 33], easeInOutCubic],
+  [0.748, [1.2, 1.4, 60], easeInOutCubic],
   [0.765, [0, 0.6, 38.5], easeInOutCubic],
   [0.782, [0, 0.4, 44], easeOutCubic],
 );
@@ -178,19 +179,23 @@ for (const [i, s] of SWEEPS.entries()) {
 camKeys.push(
   [0.872, [1.8, 8.5, 13], linear],
   [0.884, [0, 10, 96], easeInOutCubic],
+  [0.898, [-1, 5, 44], easeInOutCubic],
+  [0.906, [-1.5, 5, 42], linear],
   [0.912, [-5, 8, 92], easeInOutSine],
   [0.924, [0, 0.4, 40], easeInOutCubic],
   [0.958, [0, 0.4, 36], easeInOutSine],
-  [0.975, [0, -0.8, 57], easeInOutCubic],
-  [1.0, [0, -0.8, 56], linear],
+  [0.975, [0, -0.6, 65], easeInOutCubic],
+  [1.0, [0, -0.6, 64], linear],
 );
 tgtKeys.push(
   [0.872, [0, 7.3, 0], linear],
   [0.884, [0, 0, 0], easeInOutCubic],
-  [0.912, [0, 0, 0]],
+  [0.898, [0, 3.5, 0], easeInOutCubic],
+  [0.906, [0, 3.5, 0], linear],
+  [0.912, [0, 0, 0], easeInOutSine],
   [0.924, [0, 0.2, 0], easeInOutCubic],
   [0.958, [0, 0.2, 0]],
-  [0.975, [0, -4.1, 0], easeInOutCubic],
+  [0.975, [0, -3.7, 0], easeInOutCubic],
 );
 const cam = track(camKeys);
 const tgt = track(tgtKeys);
@@ -209,6 +214,9 @@ const fov = track([
 
 const roll = track([
   [0, 0],
+  [0.19, 0],
+  ...MACRO_STOPS.map((m, i) => [m.at, i % 2 ? -0.12 : 0.12] as Key<number>),
+  [0.37, 0],
   [0.53, 0],
   [0.575, -0.22, easeInOutSine],
   [0.61, 0.08, easeInOutSine],
@@ -347,13 +355,13 @@ const beam = track([
 ]);
 
 const kickerPos = track<Vec3>([
-  [0, [6.8, -6.9, 2.4]],
-  [0.066, [-4.2, 8.2, 4.4], easeInOutSine],
+  [0, [6.8, -6.9, -6]],
+  [0.066, [-4.2, 8.2, -6], easeInOutSine],
 ]);
 const kickerI = track([
   [0, 0],
-  [0.008, 16],
-  [0.06, 16],
+  [0.008, 7],
+  [0.06, 7],
   [0.085, 0],
 ]);
 
@@ -407,7 +415,7 @@ export function evaluate(p: number, time = 0): FilmState {
   if (p >= FLY0 && p <= FLY1) {
     const u = easeInOutSine(range(p, FLY0, FLY1));
     const c = flyCam.getPointAt(u);
-    const t = flyTgt.getPointAt(Math.min(1, u * 1.04));
+    const t = flyTgt.getPointAt(Math.min(1, u * 1.15));
     s.cam = [c.x, c.y, c.z];
     s.target = [t.x, t.y, t.z];
   } else {
@@ -456,7 +464,7 @@ export function evaluate(p: number, time = 0): FilmState {
       s.kicker[1] + (k[1] - s.kicker[1]) * idle,
       s.kicker[2] + (k[2] - s.kicker[2]) * idle,
     ];
-    s.kickerIntensity = Math.max(s.kickerIntensity, 16 * windowed(cyc, 0.0, 0.92, 0.12, 0.2) * idle);
+    s.kickerIntensity = Math.max(s.kickerIntensity, 7 * windowed(cyc, 0.0, 0.92, 0.12, 0.2) * idle);
   }
   s.exposure = 1.0;
 
@@ -478,11 +486,11 @@ export function evaluate(p: number, time = 0): FilmState {
       text: 'KG SORENSEN',
       weight: 200,
       tracking: 0.04,
-      opacity: tFinal * 0.92,
+      opacity: tFinal * 0.9,
       reveal: easeOutCubic(range(p, 0.962, 0.99)),
       blur: 0,
-      pos: [0, 0.6, -14],
-      height: 5.0,
+      pos: [0, -1.2, 12],
+      height: 3.6,
       billboard: true,
     };
   } else if (tReveal > 0) {
@@ -503,16 +511,19 @@ export function evaluate(p: number, time = 0): FilmState {
   // post -------------------------------------------------------------------
   s.dof = dofAmt.at(p);
   s.focus = p < 0.6 ? ([...tgt.at(p)] as Vec3) : [0, 0, 0];
-  s.aperture = p < 0.5 ? 0.011 : 0.006;
+  if (p < 0.5 && s.focus) {
+    const d = Math.hypot(s.cam[0] - s.focus[0], s.cam[1] - s.focus[1], s.cam[2] - s.focus[2]);
+    s.aperture = 0.011 * clamp(d / 4.5, 0.5, 1);
+  } else s.aperture = 0.006;
   s.maxBlur = 0.014;
-  s.bloom = 0.22 + snap * 0.5;
+  s.bloom = (p < 0.09 ? 0.1 : 0.22) + snap * 0.5;
   s.flash = snap;
   s.vignette = 0.62;
   s.fade = 0;
 
   // the core -----------------------------------------------------------------
   const coreIn = easeOutCubic(range(p, 0.585, 0.625));
-  const coreOut = 1 - easeInCubic(range(p, 0.7, 0.716));
+  const coreOut = 1 - easeInCubic(range(p, 0.686, 0.699));
   s.core = Math.min(coreIn, coreOut);
   s.coreScale = 0.15 + 0.85 * s.core;
   s.coreRot = (p - 0.585) * 14 + time * 0.08;

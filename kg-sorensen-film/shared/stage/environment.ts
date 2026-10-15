@@ -97,7 +97,7 @@ export function createStudioEnvironment(renderer: THREE.WebGLRenderer) {
     c.lookAt(0, 0, 0);
     gem.add(c);
   }
-  const lime = panel(4, 26, 2.2, new THREE.Color('#D4F82E'));
+  const lime = panel(1, 26, 0.8, new THREE.Color('#D4F82E'));
   lime.position.set(20, 0, -18);
   lime.lookAt(0, 0, 0);
   gem.add(lime);

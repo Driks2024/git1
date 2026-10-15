@@ -6,7 +6,6 @@ import { loadFonts, loadImage } from './assets';
 import { SmoothProgress } from './scroll';
 import { Overlay } from './ui';
 import markUrl from '../../shared/assets/logo-mark-white.png';
-import lockupUrl from '../../shared/assets/logo-lockup-white.png';
 
 declare global {
   interface Window {
@@ -57,8 +56,10 @@ async function boot() {
   await tick();
 
   const scroll = new SmoothProgress(document.getElementById('spacer')!, 15);
-  // reduced motion: no inertia, the film follows the scroll exactly
-  scroll.snap = params.has('snap') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // reduced motion: no inertia, the film follows the scroll exactly, no self-running loops
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motion = reduce ? 0 : 1;
+  scroll.snap = params.has('snap') || reduce;
 
   // ------------------------------------------------------------- final scene interaction
   const hero = VARIANT_SEQ[VARIANT_SEQ.length - 1];
@@ -82,7 +83,7 @@ async function boot() {
     lastY: 0,
   };
   let now = 0;
-  const overlay = new Overlay(document.getElementById('ui')!, lockupUrl, {
+  const overlay = new Overlay(document.getElementById('ui')!, markUrl, {
     onVariant: (v) => {
       if (live.to) live.current = live.to;
       if (v.shape === live.current.shape && v.grit === live.current.grit) return;
@@ -91,6 +92,7 @@ async function boot() {
       live.t0 = now;
     },
   });
+  overlay.reduceMotion = reduce;
   const crystals = () => film.bur.counts().crystals;
 
   // pointer
@@ -114,10 +116,13 @@ async function boot() {
     live.lastY = e.clientY;
     cursor.classList.add('drag');
   });
-  addEventListener('pointerup', () => {
+  const release = () => {
     live.dragging = false;
     cursor.classList.remove('drag');
-  });
+  };
+  addEventListener('pointerup', release);
+  addEventListener('pointercancel', release);
+  addEventListener('blur', release);
 
   // cursor
   const cursor = document.createElement('div');
@@ -197,11 +202,11 @@ async function boot() {
       }
       s.cam = [s.cam[0] + live.px * 2.4 * k, s.cam[1] - live.py * 1.4 * k, s.cam[2]];
       s.burRot = [s.burRot[0] + (live.py * 0.08 + live.tilt) * k, s.burRot[1] + live.px * 0.12 * k, s.burRot[2]];
-      s.burSpin += (live.spin + now * 0.22) * k;
-      s.envRot += now * 0.16 * k;
+      s.burSpin += (live.spin + now * 0.22 * motion) * k;
+      s.envRot += now * 0.16 * motion * k;
       // live variant switch with a laser sweep
       if (live.to) {
-        const u = clamp((now - live.t0) / 1.1);
+        const u = motion ? clamp((now - live.t0) / 1.1) : 1;
         s.variant = live.from;
         s.sweepTo = live.to;
         s.sweep = easeInOutSine(u);

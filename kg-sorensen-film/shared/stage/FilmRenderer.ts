@@ -83,7 +83,7 @@ export class FilmRenderer {
     this.bur.inner.add(this.particles.points);
     this.foam = new FoamBlock(o.logo);
 
-    this.key.position.set(-14, 22, 18);
+    this.key.position.set(-14, 22, -12);
     this.scene.add(this.key, this.kicker);
     this.scene.add(this.core.group, this.debris.points, this.foam.group, this.title.mesh, this.grid.mesh);
 
@@ -144,11 +144,15 @@ export class FilmRenderer {
     const cam = this.camera;
     // ---- camera, with aspect compensation for narrow viewports
     const aspect = this.width / this.height;
-    const k = 1 + s.fit * (Math.pow(Math.max(1, this.designAspect / aspect), 0.62) - 1);
+    // portrait screens: turn the long exploded axis upright instead of shrinking it
+    const portraitRoll = aspect < 0.9 && s.fit > 0.5 ? smoothstep01(s.explode / 0.3) : 0;
+    const effAspect = aspect + (1 / aspect - aspect) * portraitRoll;
+    const k = 1 + s.fit * (Math.pow(Math.max(1, this.designAspect / effAspect), 0.62) - 1);
     this.tmp.set(...s.target);
     this.tmp2.set(...s.cam).sub(this.tmp).multiplyScalar(k).add(this.tmp);
     cam.position.copy(this.tmp2);
-    cam.up.set(Math.sin(s.roll), Math.cos(s.roll), 0);
+    const roll = s.roll + (Math.PI / 2) * portraitRoll;
+    cam.up.set(Math.sin(roll), Math.cos(roll), 0);
     cam.lookAt(this.tmp);
     if (cam.fov !== s.fov) {
       cam.fov = s.fov;
@@ -175,7 +179,7 @@ export class FilmRenderer {
     // ---- light
     this.scene.environmentIntensity = s.envIntensity;
     this.scene.environmentRotation.set(0, s.envRot, 0);
-    this.key.intensity = 0.5 * s.keyLight;
+    this.key.intensity = 0.15 * s.keyLight;
     this.kicker.position.set(...s.kicker);
     this.kicker.intensity = s.kickerIntensity;
     this.kicker.visible = s.kickerIntensity > 0;
@@ -256,4 +260,9 @@ export class FilmRenderer {
     this.post.composer.dispose();
     this.renderer.dispose();
   }
+}
+
+function smoothstep01(x: number) {
+  const t = Math.min(1, Math.max(0, x));
+  return t * t * (3 - 2 * t);
 }

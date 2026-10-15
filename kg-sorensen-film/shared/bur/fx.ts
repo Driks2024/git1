@@ -54,6 +54,8 @@ float fxFbm(vec3 p) {
 `;
 
 export function withFx<M extends THREE.Material>(material: M, fx: FxUniforms, key = 'fx'): M {
+  // grazing facets (crystals, matrix plates) take only a trace of the lime rim
+  const rimScale = (material.userData.rimScale as number | undefined) ?? 1;
   const prev = material.onBeforeCompile;
   material.onBeforeCompile = (shader, renderer) => {
     prev?.call(material, shader, renderer);
@@ -85,13 +87,13 @@ export function withFx<M extends THREE.Material>(material: M, fx: FxUniforms, ke
         '#include <opaque_fragment>',
         `{
           float fxF = pow(1.0 - clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0), uRimPow);
-          outgoingLight += uRimColor * (uRimStrength * fxF);
+          outgoingLight += uRimColor * (uRimStrength * ${rimScale.toFixed(3)} * fxF);
           outgoingLight += uEdgeColor * (fxEdge * 2.2);
         }
         #include <opaque_fragment>`,
       );
   };
   const prevKey = material.customProgramCacheKey?.bind(material);
-  material.customProgramCacheKey = () => (prevKey ? prevKey() : '') + key;
+  material.customProgramCacheKey = () => (prevKey ? prevKey() : '') + key + rimScale;
   return material;
 }

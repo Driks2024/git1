@@ -54,7 +54,9 @@ export class DiamondCore {
       vertexShader: /* glsl */ `
         varying vec3 vWorldPos;
         varying vec3 vN;
+        varying vec3 vLocal;
         void main() {
+          vLocal = position;
           vec4 wp = modelMatrix * vec4(position, 1.0);
           vWorldPos = wp.xyz;
           vN = normalize(mat3(modelMatrix) * normal);
@@ -67,6 +69,7 @@ export class DiamondCore {
         uniform vec3 uLime;
         varying vec3 vWorldPos;
         varying vec3 vN;
+        varying vec3 vLocal;
         vec3 h3(vec3 p) {
           p = fract(p * vec3(0.1031, 0.1030, 0.0973));
           p += dot(p, p.yxz + 33.33);
@@ -82,8 +85,9 @@ export class DiamondCore {
           float F = 0.17 + 0.83 * pow(1.0 - cosT, 5.0);
           vec3 refl = env(reflect(V, N));
           // two pseudo internal bounces per facet, per wavelength (dispersion)
-          vec3 j1 = normalize(-N + 0.85 * h3(floor(N * 7.0) + 1.7));
-          vec3 j2 = normalize(N + 0.9 * h3(floor(N * 11.0) + 9.1));
+          // the jitter varies across each facet too: a mosaic of internal reflections
+          vec3 j1 = normalize(-N + 0.85 * h3(floor(N * 7.0) + floor(vLocal * 3.5) + 1.7));
+          vec3 j2 = normalize(N + 0.9 * h3(floor(N * 11.0) + floor(vLocal * 5.0) + 9.1));
           vec3 iors = vec3(2.385, 2.42, 2.465);
           vec3 fire;
           for (int i = 0; i < 3; i++) {
@@ -93,7 +97,9 @@ export class DiamondCore {
           }
           vec3 col = refl * F + fire * (1.0 - F) * 1.15;
           // faint lime caught on the rims, like the KG poster glow
-          col += uLime * pow(1.0 - cosT, 3.0) * 0.18;
+          col += uLime * pow(1.0 - cosT, 3.0) * 0.08;
+          // one dispersive facet must not bloom across the frame
+          col = min(col, vec3(1.4));
           gl_FragColor = vec4(col, uOpacity);
           #include <tonemapping_fragment>
           #include <colorspace_fragment>

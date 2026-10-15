@@ -126,24 +126,22 @@ export function createBurMaterials(logo: ImageSource, fx: FxUniforms): BurMateri
   );
 
   const mt = matrixTextures();
-  mt.normal.repeat.set(5, 5);
-  mt.orm.repeat.set(5, 5);
-  const matrix = withFx(
-    new THREE.MeshStandardMaterial({
-      color: 0x5d6066,
+  mt.normal.repeat.set(14, 14);
+  mt.orm.repeat.set(14, 14);
+  const matrixMat = new THREE.MeshStandardMaterial({
+      color: 0x9da1a7,
       metalness: 1,
-      roughness: 0.95,
+      roughness: 0.62,
       roughnessMap: mt.orm,
       normalMap: mt.normal,
       normalScale: new THREE.Vector2(0.9, 0.9),
       envMapIntensity: 0.9,
-    }),
-    fx,
-  );
+    });
+  matrixMat.userData.rimScale = 0.1;
+  const matrix = withFx(matrixMat, fx);
 
-  const crystal = withFx(
-    new THREE.MeshPhysicalMaterial({
-      color: 0x2c2f33,
+  const crystalMat = new THREE.MeshPhysicalMaterial({
+      color: 0x50545a,
       metalness: 0.0,
       roughness: 0.03,
       ior: 2.42,
@@ -154,9 +152,9 @@ export function createBurMaterials(logo: ImageSource, fx: FxUniforms): BurMateri
       iridescenceIOR: 1.8,
       iridescenceThicknessRange: [180, 520],
       flatShading: true,
-    }),
-    fx,
-  );
+    });
+  crystalMat.userData.rimScale = 0.1;
+  const crystal = withFx(crystalMat, fx);
 
   const ring = withFx(
     new THREE.MeshPhysicalMaterial({
