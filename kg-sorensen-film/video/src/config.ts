@@ -8,6 +8,8 @@
  * be claimed — do not add specs, prices, phones or URLs here.
  */
 
+import { SFX_RATE, SFX_SAMPLES, type SfxName } from './sfx-durations';
+
 export const VIDEO = {
   id: 'KGSorensenFG',
   width: 1080,
@@ -110,6 +112,25 @@ export const RENDER = {
   loadTimeoutMs: 600_000,
 } as const;
 
+/**
+ * Mode A grade, applied to this film's rig instance (video/src/stage/ModeALook.ts).
+ * The diamond head must read as bright grit on silver, as on the client poster.
+ */
+export const LOOK = {
+  crystal: { color: '#8f959c', envMapIntensity: 4.2, roughness: 0.02 },
+  matrix: { color: '#c4c8cd', roughness: 0.36, envMapIntensity: 1.15 },
+  /** dissolve seam: neutral and faint (was lime) */
+  dissolveEdge: '#e6e8ea',
+  dissolveEdgeGain: 0.22,
+  /** the diamond core's rim tint (was lime → olive cast) */
+  coreRim: '#8d9196',
+  /** snap flash colour: white light */
+  flashColor: '#ffffff',
+  /** Limpa Pontas print: texture filtering + how much foam relief shows through */
+  printAniso: 4,
+  printNormal: 0.08,
+} as const;
+
 // ---------------------------------------------------------------------------- copy (PT-BR)
 
 export const COPY = {
@@ -202,32 +223,34 @@ export const AUDIO = {
 } as const;
 
 export type SfxCue = { frame: number; file: string; gain: number; length: number };
-const tick = (frame: number, gain = 0.55): SfxCue => ({ frame, file: 'sfx/tick.wav', gain, length: 8 });
 
-/** SFX placement, synced to BEATS. `length` in frames (≥ the wav duration). */
+/** Exact length of a synthesised file in frames (from the generated metadata, never typed by hand). */
+export const sfxFrames = (name: SfxName, fps: number = VIDEO.fps) => Math.ceil((SFX_SAMPLES[name] / SFX_RATE) * fps);
+/** One cue: `length` always covers the whole file, so nothing is cut early. */
+const cue = (frame: number, name: SfxName, gain: number): SfxCue => ({ frame, file: `sfx/${name}.wav`, gain, length: sfxFrames(name) });
+const tick = (frame: number, gain = 0.55) => cue(frame, 'tick', gain);
+
+/** SFX placement, synced to BEATS. */
 export const SFX: SfxCue[] = [
-  { frame: 6, file: 'sfx/shimmer.wav', gain: 0.35, length: 60 },
-  { frame: BEATS.ringPing - 2, file: 'sfx/pop.wav', gain: 0.45, length: 12 },
-  { frame: BEATS.reveal - 6, file: 'sfx/whoosh.wav', gain: 0.85, length: 45 },
-  { frame: BEATS.rimIgnite - 2, file: 'sfx/shimmer.wav', gain: 0.4, length: 60 },
+  cue(6, 'shimmer', 0.35),
+  cue(BEATS.ringPing - 2, 'pop', 0.45),
+  cue(BEATS.reveal - 6, 'whoosh', 0.85),
+  cue(BEATS.rimIgnite - 2, 'shimmer', 0.4),
   ...[0, 1, 2, 3, 4].map((i) => tick(BEATS.macro0 + i * BEATS.macroStep + 16)),
-  { frame: BEATS.explodeStart - 64, file: 'sfx/riser.wav', gain: 0.7, length: 66 },
-  { frame: BEATS.explodeStart, file: 'sfx/whoosh.wav', gain: 0.5, length: 45 },
+  // the riser's climax (its last frames) lands on the first move of the explosion
+  cue(BEATS.explodeStart - sfxFrames('riser'), 'riser', 0.7),
+  cue(BEATS.explodeStart, 'whoosh', 0.5),
   ...[0, 1, 2, 3, 4, 5].map((i) => tick(BEATS.explodeEnd - 8 + i * 6, 0.42)),
-  { frame: BEATS.coreIn - 20, file: 'sfx/shimmer.wav', gain: 0.55, length: 60 },
+  cue(BEATS.coreIn - 20, 'shimmer', 0.55),
   ...[0, 1, 2].map((i) => tick(BEATS.coreIn + 26 + i * 9, 0.4)),
-  { frame: BEATS.snap - 64, file: 'sfx/riser.wav', gain: 0.35, length: 64 },
-  { frame: BEATS.snap - 1, file: 'sfx/snap.wav', gain: 1.0, length: 24 },
-  ...[0, 1, 2, 3].map((i) => ({
-    frame: BEATS.sweep0 + i * BEATS.sweepStep - 1,
-    file: 'sfx/sweep.wav',
-    gain: 0.55,
-    length: 24,
-  })),
-  { frame: BEATS.plunge - 4, file: 'sfx/plunge.wav', gain: 0.8, length: 40 },
-  { frame: BEATS.offer, file: 'sfx/pop.wav', gain: 0.5, length: 12 },
-  { frame: BEATS.promo, file: 'sfx/hit.wav', gain: 0.9, length: 75 },
-  { frame: BEATS.signoff, file: 'sfx/hit.wav', gain: 0.45, length: 75 },
+  // the riser resolves exactly on the snap
+  cue(BEATS.snap - sfxFrames('riser'), 'riser', 0.35),
+  cue(BEATS.snap - 1, 'snap', 1.0),
+  ...[0, 1, 2, 3].map((i) => cue(BEATS.sweep0 + i * BEATS.sweepStep - 1, 'sweep', 0.55)),
+  cue(BEATS.plunge - 4, 'plunge', 0.8),
+  cue(BEATS.offer, 'pop', 0.5),
+  cue(BEATS.promo, 'hit', 0.9),
+  cue(BEATS.signoff, 'hit', 0.45),
 ];
 
 /** Toggle helpers for review. */

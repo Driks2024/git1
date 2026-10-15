@@ -8,6 +8,7 @@ import { evaluateFrame } from '../timeline';
 import { loadBrandFonts, loadImage } from './load';
 import { useStageSetter, type Projected, type StageInfo } from './StageContext';
 import { TitleRig } from './TitleRig';
+import { StageExtras, applyModeALook } from './ModeALook';
 
 const ANCHORS: AnchorName[] = [
   'crystals',
@@ -26,7 +27,7 @@ const ANCHORS: AnchorName[] = [
   'center',
 ];
 
-type Rig = { film: FilmRenderer; titles: TitleRig };
+type Rig = { film: FilmRenderer; titles: TitleRig; extras: StageExtras };
 
 /**
  * The one persistent 3D layer of the film. Creates a single FilmRenderer
@@ -34,11 +35,15 @@ type Rig = { film: FilmRenderer; titles: TitleRig };
  * evaluates the frame → FilmState timeline and renders synchronously.
  * After rendering it measures every rig anchor in screen space and hands
  * the result to the overlay through StageContext.
+ *
+ * Every renderer gets its OWN <canvas> (created here, removed on cleanup), so
+ * a Studio Fast Refresh never builds a second WebGL renderer on a context the
+ * previous one still holds.
  */
 export const BurStage: React.FC = () => {
   const frame = useCurrentFrame();
   const { width, height, fps } = useVideoConfig();
-  const canvas = useRef<HTMLCanvasElement>(null);
+  const host = useRef<HTMLDivElement>(null);
   const [rig, setRig] = useState<Rig | null>(null);
   const setStage = useStageSetter();
   const [handle] = useState(() =>
@@ -49,16 +54,21 @@ export const BurStage: React.FC = () => {
   );
   const released = useRef(false);
 
-  // ---- create once
+  // ---- create once per mount (and again, cleanly, after a Fast Refresh)
   useEffect(() => {
     let alive = true;
     let created: Rig | null = null;
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.cssText = 'width:100%;height:100%;display:block';
+    host.current?.appendChild(canvas);
     (async () => {
       await loadBrandFonts();
       const logo = await loadImage(ASSETS.logoMark);
-      if (!alive || !canvas.current) return;
+      if (!alive) return;
       const film = new FilmRenderer({
-        canvas: canvas.current,
+        canvas,
         logo,
         width,
         height,
@@ -68,7 +78,11 @@ export const BurStage: React.FC = () => {
         preserveDrawingBuffer: true,
         designAspect: 9 / 16,
       });
+      // Mode A grade + extra props, applied to this instance only (shared/ untouched)
+      applyModeALook(film);
+      const extras = new StageExtras(film, logo);
       const titles = new TitleRig(film);
+      created = { film, titles, extras };
       // stills tooling: only prepare what this frame needs (any other variant
       // is still built on demand by the rig, so the result is identical)
       const fast = Boolean((getInputProps() as { fastWarmup?: boolean }).fastWarmup);
@@ -76,11 +90,7 @@ export const BurStage: React.FC = () => {
         const s = evaluateFrame(frame, fps);
         await film.warmup(s.sweepTo ? [s.variant, s.sweepTo] : [s.variant]);
       } else await film.warmup();
-      created = { film, titles };
-      if (!alive) {
-        film.dispose();
-        return;
-      }
+      if (!alive) return;
       setRig(created);
     })().catch((err) => {
       // fail loudly instead of hanging until the delayRender timeout
@@ -88,7 +98,14 @@ export const BurStage: React.FC = () => {
     });
     return () => {
       alive = false;
-      created?.film.dispose();
+      setRig(null);
+      if (created) {
+        created.titles.dispose();
+        created.extras.dispose();
+        created.film.dispose();
+        created.film.renderer.forceContextLoss();
+      }
+      canvas.remove();
     };
     // width/height are fixed for the composition
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,11 +114,12 @@ export const BurStage: React.FC = () => {
   // ---- draw this frame, synchronously, then report anchors
   useLayoutEffect(() => {
     if (!rig) return;
-    const { film, titles } = rig;
+    const { film, titles, extras } = rig;
     try {
       const state = evaluateFrame(frame, fps);
       titles.set(state.extras);
       titles.apply(state);
+      extras.apply(state);
       film.render(state);
       const v = new THREE.Vector3();
       const anchors: Partial<Record<AnchorName, Projected>> = {};
@@ -137,9 +155,5 @@ export const BurStage: React.FC = () => {
     }
   }, [rig, frame, fps, setStage, handle]);
 
-  return (
-    <AbsoluteFill>
-      <canvas ref={canvas} width={width} height={height} style={{ width: '100%', height: '100%', display: 'block' }} />
-    </AbsoluteFill>
-  );
+  return <AbsoluteFill ref={host} />;
 };

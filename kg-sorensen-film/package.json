@@ -9,8 +9,8 @@
     "build": "vite build --config experience/vite.config.ts",
     "preview": "vite preview --config experience/vite.config.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "studio": "remotion studio video/src/index.ts --no-open",
-    "still": "remotion still video/src/index.ts",
+    "studio": "remotion studio video/src/index.ts --public-dir video/public --gl swangle --no-open",
+    "still": "remotion still video/src/index.ts KGSorensenFG --public-dir video/public --gl swangle --timeout 600000 --browser-executable /opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
     "stills": "node video/scripts/stills.mjs",
     "video:sfx": "python3 video/scripts/make-sfx.py",
     "video:fonts": "bash video/scripts/fetch-fonts.sh"

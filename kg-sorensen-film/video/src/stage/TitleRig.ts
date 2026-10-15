@@ -78,4 +78,18 @@ export class TitleRig {
       p.uniforms.uBlur.value = 0;
     }
   }
+
+  /** Remove the extra planes from the scene and free their GPU resources. */
+  dispose() {
+    for (const p of this.pool) {
+      this.film.scene.remove(p.mesh);
+      const hide = this.film.post.dof.hide;
+      const i = hide.indexOf(p.mesh);
+      if (i >= 0) hide.splice(i, 1);
+      p.mesh.geometry.dispose();
+      (p.mesh.material as THREE.Material).dispose();
+      p.uniforms.map.value?.dispose();
+    }
+    this.pool = [];
+  }
 }
