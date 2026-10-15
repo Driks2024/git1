@@ -88,7 +88,7 @@ export class FilmRenderer {
     this.scene.add(this.core.group, this.debris.points, this.foam.group, this.title.mesh, this.grid.mesh);
 
     this.post = new Post(r, this.scene, this.camera, o.width, o.height, o.samples ?? 4);
-    this.post.dof.hide = [this.title.mesh, this.grid.mesh, this.particles.points, this.debris.points];
+    this.post.dof.hide.push(this.title.mesh, this.grid.mesh, this.particles.points, this.debris.points);
     this.resize(o.width, o.height, o.dpr);
   }
 
@@ -118,12 +118,25 @@ export class FilmRenderer {
     });
     this.bur.setExplode(0.5);
     this.bur.setExplode(0);
+    // compile against the target the scene really renders into, so the program
+    // keys (tone mapping, colour space) match and nothing recompiles mid-film
+    const prev = this.renderer.getRenderTarget();
+    this.renderer.setRenderTarget(this.post.render.msaa);
     try {
       await this.renderer.compileAsync(this.scene, this.camera);
     } catch {
       this.renderer.compile(this.scene, this.camera);
     }
+    this.renderer.setRenderTarget(prev);
     for (const [o, v] of vis) o.visible = v;
+  }
+
+  /**
+   * Render a few representative frames behind the loader: builds the post
+   * programs (depth of field, bloom), uploads every texture and instance buffer.
+   */
+  warmFrames(states: FilmState[]) {
+    for (const s of states) this.render(s);
   }
 
   anchor(name: AnchorName, out = new THREE.Vector3()) {
@@ -182,7 +195,6 @@ export class FilmRenderer {
     this.key.intensity = 0.15 * s.keyLight;
     this.kicker.position.set(...s.kicker);
     this.kicker.intensity = s.kickerIntensity;
-    this.kicker.visible = s.kickerIntensity > 0;
     this.renderer.toneMappingExposure = s.exposure;
 
     // ---- backdrop

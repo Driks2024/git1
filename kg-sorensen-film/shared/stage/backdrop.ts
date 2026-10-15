@@ -1,11 +1,12 @@
 import * as THREE from 'three';
-import { Pass, FullScreenQuad } from 'three/examples/jsm/postprocessing/Pass.js';
 
 /**
- * Background painted before the 3D scene: neutral near-black gradient, a soft
- * light pool behind the hero, a faint volumetric beam, dithered against banding.
+ * Background painted as the first thing in the scene: neutral near-black
+ * gradient, a soft light pool behind the hero, a faint volumetric beam,
+ * dithered against banding. A full-screen quad drawn first (renderOrder),
+ * without depth, so the scene and the backdrop share one MSAA resolve.
  */
-export class BackdropPass extends Pass {
+export class Backdrop {
   readonly uniforms = {
     uRes: { value: new THREE.Vector2(1, 1) },
     uTime: { value: 0 },
@@ -20,12 +21,11 @@ export class BackdropPass extends Pass {
     uBeamX: { value: 0.32 },
     uLift: { value: 0 },
   };
-  private quad: FullScreenQuad;
+  readonly mesh: THREE.Mesh;
 
   constructor() {
-    super();
-    this.needsSwap = false;
-    this.quad = new FullScreenQuad(
+    this.mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2, 2),
       new THREE.ShaderMaterial({
         uniforms: this.uniforms,
         depthTest: false,
@@ -68,20 +68,13 @@ export class BackdropPass extends Pass {
           }`,
       }),
     );
+    this.mesh.name = 'backdrop';
+    this.mesh.frustumCulled = false;
+    this.mesh.renderOrder = -10000;
   }
 
   setSize(w: number, h: number) {
     this.uniforms.uRes.value.set(w, h);
-  }
-
-  render(renderer: THREE.WebGLRenderer, _w: THREE.WebGLRenderTarget, readBuffer: THREE.WebGLRenderTarget) {
-    renderer.setRenderTarget(this.renderToScreen ? null : readBuffer);
-    renderer.clear(true, true, true);
-    this.quad.render(renderer);
-  }
-
-  dispose() {
-    this.quad.dispose();
   }
 }
 

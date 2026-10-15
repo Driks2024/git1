@@ -269,11 +269,13 @@ export class Bur {
     this.fill(this.b, to);
     const top = Math.max(this.a.assets.topY, this.b.assets.topY) + 0.25;
     const y = top - clamp(s) * (top + 0.4);
+    const wasVisible = this.b.group.visible;
     this.b.group.visible = s > 0;
+    // slot B needs its matrices the first frame it shows (fill() marks new meshes)
+    if (!wasVisible && this.b.group.visible) this.dirty = true;
     // A keeps y < scan, B keeps y > scan (local), mapped to world each frame
     this.a.localPlane.set(new THREE.Vector3(0, -1, 0), y);
     this.b.localPlane.set(new THREE.Vector3(0, 1, 0), -y);
-    this.dirty = true;
     this.scan.visible = s > 0.001 && s < 0.999;
     this.scan.position.y = y;
     this.scan.scale.setScalar(Math.max(this.radiusAt(this.a, y), this.radiusAt(this.b, y)) + 0.16);

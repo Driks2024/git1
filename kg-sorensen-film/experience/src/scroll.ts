@@ -10,22 +10,27 @@ export class SmoothProgress {
   private spacer: HTMLElement;
   snap = false;
 
-  constructor(spacer: HTMLElement, private screens = 15) {
+  /** `viewH` must be a stable viewport height (the 100lvh canvas box). */
+  constructor(
+    spacer: HTMLElement,
+    private screens = 15,
+    private viewH: () => number = () => innerHeight,
+  ) {
     this.spacer = spacer;
     this.layout();
-    addEventListener('resize', () => this.layout());
     addEventListener('scroll', () => this.read(), { passive: true });
     this.read();
     this.value = this.target;
   }
 
   layout() {
-    this.spacer.style.height = `${Math.round(innerHeight * this.screens)}px`;
+    this.spacer.style.height = `${Math.round(this.viewH() * this.screens)}px`;
     this.read();
   }
 
+  /** Stable denominator: does not move when a mobile toolbar collapses. */
   private max() {
-    return Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    return Math.max(1, this.viewH() * (this.screens - 1));
   }
 
   read() {
@@ -34,6 +39,7 @@ export class SmoothProgress {
 
   /** Jump (scroll position and smoothed value) to p. */
   seek(p: number, instant = true) {
+    if (!Number.isFinite(p)) return;
     const y = p * this.max();
     scrollTo({ top: y, behavior: instant ? 'instant' : 'smooth' } as ScrollToOptions);
     this.target = p;
@@ -48,6 +54,10 @@ export class SmoothProgress {
       this.value = this.target;
       this.vel = 0;
       return this.value;
+    }
+    if (!Number.isFinite(this.value) || !Number.isFinite(this.vel)) {
+      this.value = Number.isFinite(this.target) ? this.target : 0;
+      this.vel = 0;
     }
     const k = 34; // stiffness
     const c = 2 * Math.sqrt(k); // critical damping

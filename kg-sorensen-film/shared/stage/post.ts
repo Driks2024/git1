@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { Pass, FullScreenQuad } from 'three/examples/jsm/postprocessing/Pass.js';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-import { BackdropPass } from './backdrop';
+import { Backdrop } from './backdrop';
 
 /** Depth of field that ignores overlays (title, grid, particles) when measuring depth. */
 class DofPass extends BokehPass {
@@ -21,6 +21,51 @@ class DofPass extends BokehPass {
     this.hide.forEach((o) => (o.visible = false));
     super.render(renderer, writeBuffer, readBuffer, deltaTime, maskActive);
     this.hide.forEach((o, i) => (o.visible = was[i]));
+  }
+}
+
+/**
+ * Backdrop + scene into ONE multisampled target (one resolve per frame), then
+ * a plain copy into the composer's single-sample chain. Only this pass pays
+ * for MSAA; bloom, depth of field and grading run on cheap targets.
+ */
+class ScenePass extends Pass {
+  readonly msaa: THREE.WebGLRenderTarget;
+  private quad: FullScreenQuad;
+  private copy: THREE.ShaderMaterial;
+  constructor(
+    private scene: THREE.Scene,
+    private camera: THREE.Camera,
+    samples: number,
+  ) {
+    super();
+    this.needsSwap = false;
+    this.msaa = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples, depthBuffer: true });
+    this.msaa.resolveDepthBuffer = false;
+    this.copy = new THREE.ShaderMaterial({
+      uniforms: { tDiffuse: { value: null as THREE.Texture | null } },
+      depthTest: false,
+      depthWrite: false,
+      vertexShader: /* glsl */ `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`,
+      fragmentShader: /* glsl */ `varying vec2 vUv; uniform sampler2D tDiffuse; void main() { gl_FragColor = texture2D(tDiffuse, vUv); }`,
+    });
+    this.quad = new FullScreenQuad(this.copy);
+  }
+  setSize(w: number, h: number) {
+    this.msaa.setSize(w, h);
+  }
+  render(renderer: THREE.WebGLRenderer, _write: THREE.WebGLRenderTarget, readBuffer: THREE.WebGLRenderTarget) {
+    renderer.setRenderTarget(this.msaa);
+    renderer.clear(true, true, false);
+    renderer.render(this.scene, this.camera);
+    this.copy.uniforms.tDiffuse.value = this.msaa.texture;
+    renderer.setRenderTarget(this.renderToScreen ? null : readBuffer);
+    this.quad.render(renderer);
+  }
+  dispose() {
+    this.msaa.dispose();
+    this.quad.dispose();
+    this.copy.dispose();
   }
 }
 
@@ -64,8 +109,8 @@ const GradeShader = {
 
 export class Post {
   readonly composer: EffectComposer;
-  readonly backdrop = new BackdropPass();
-  readonly render: RenderPass;
+  readonly backdrop = new Backdrop();
+  readonly render: ScenePass;
   readonly dof: DofPass;
   readonly bloom: UnrealBloomPass;
   readonly output = new OutputPass();
@@ -79,15 +124,15 @@ export class Post {
     h: number,
     samples = 4,
   ) {
-    const rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, samples });
+    scene.add(this.backdrop.mesh);
+    // single-sample, depth-less chain: depth of field renders its own depth
+    const rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, depthBuffer: false });
     this.composer = new EffectComposer(renderer, rt);
-    this.render = new RenderPass(scene, camera);
-    this.render.clear = false;
-    this.render.clearDepth = true;
+    this.render = new ScenePass(scene, camera, samples);
     this.dof = new DofPass(scene, camera, { focus: 40, aperture: 0.0002, maxblur: 0.008 });
     this.dof.enabled = false;
+    this.dof.hide.push(this.backdrop.mesh);
     this.bloom = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.22, 0.32, 1.1);
-    this.composer.addPass(this.backdrop);
     this.composer.addPass(this.render);
     this.composer.addPass(this.dof);
     this.composer.addPass(this.bloom);

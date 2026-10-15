@@ -20,7 +20,7 @@ const sv = <K extends keyof SVGElementTagNameMap>(tag: K, cls = '') => {
   return el;
 };
 
-type CapEl = { c: Caption; el: HTMLElement; words: HTMLElement[] };
+type CapEl = { c: Caption; el: HTMLElement; words: HTMLElement[]; monos: HTMLElement[]; lastK: number };
 type LabEl = {
   l: Label;
   el: HTMLElement;
@@ -29,6 +29,8 @@ type LabEl = {
   dotc: SVGCircleElement;
   cross: SVGPathElement;
   len: number;
+  w: number;
+  wForW: number;
 };
 
 export type FinalHandlers = {
@@ -65,6 +67,8 @@ export class Overlay {
   private lastCount = -1;
   selected: Variant = { shape: 'esferica', grit: 'grossa' };
   reduceMotion = false;
+  private finalLive: boolean | null = null;
+  private interactiveEls: HTMLElement[] | null = null;
 
   constructor(root: HTMLElement, logoUrl: string, handlers: FinalHandlers) {
     this.root = root;
@@ -127,7 +131,8 @@ export class Overlay {
       if (c.body) el.append(split(c.body, 'b', 'p'));
       if (c.note) el.append(h('div', 'mono n', c.note));
       this.root.append(el);
-      this.caps.push({ c, el, words });
+      const monos = (Array.from(el.children) as HTMLElement[]).filter((ch) => ch.classList.contains('mono'));
+      this.caps.push({ c, el, words, monos, lastK: -1 });
     }
 
     // ---------------------------------------------------------- labels
@@ -150,7 +155,7 @@ export class Overlay {
       const cross = sv('path', 'cross');
       this.svg.append(line, dot, dotc, cross);
       this.root.append(el);
-      this.labels.push({ l, el, line, dot, dotc, cross, len: 0 });
+      this.labels.push({ l, el, line, dot, dotc, cross, len: 0, w: 0, wForW: 0 });
     }
 
     // ---------------------------------------------------------- macro index
@@ -316,14 +321,15 @@ export class Overlay {
     const k = opening ? 1 - smooth(range(p, c.c.out - fade, c.c.out)) : windowed(p, c.c.in, c.c.out, fade, fade);
     const local = opening ? 1 : range(p, c.c.in, c.c.in + fade * 2.2);
     const leaving = p > c.c.out - fade;
+    // hidden and staying hidden: nothing to write
+    if (k <= 0.001 && c.lastK <= 0.001 && c.lastK !== -1) return;
+    c.lastK = k;
     c.el.style.opacity = String(k > 0.001 ? 1 : 0);
     c.el.style.visibility = k > 0.001 ? 'visible' : 'hidden';
     const n = c.words.length;
     const style = c.c.style ?? 'fade';
     // kicker / note follow the block
-    for (const child of Array.from(c.el.children) as HTMLElement[]) {
-      if (child.classList.contains('mono')) child.style.opacity = String(k);
-    }
+    for (const child of c.monos) child.style.opacity = String(k);
     c.words.forEach((w, i) => {
       let o = k;
       let y = 0;
@@ -420,7 +426,12 @@ export class Overlay {
         `M${X - a1} ${Y}H${X - a0}M${X + a0} ${Y}H${X + a1}M${X} ${Y - a1}V${Y - a0}M${X} ${Y + a0}V${Y + a1}`,
       );
       const left = dx < 0;
-      const w = L.el.offsetWidth || 160;
+      // measured once per viewport width (no layout flush every frame)
+      if (L.wForW !== W || !L.w) {
+        L.w = L.el.offsetWidth || 160;
+        L.wForW = W;
+      }
+      const w = L.w;
       // keep the text inside the viewport: clamp, never clip
       const tx = left ? clamp(ex - 10 - w, 24, W - 24 - w) : clamp(ex + 10, 24, W - 64 - w);
       L.el.style.transform = `translate3d(${tx.toFixed(1)}px, ${(ey - 9).toFixed(1)}px, 0)`;
@@ -490,9 +501,12 @@ export class Overlay {
     const fk = smooth(range(p, 0.968, 0.992));
     this.final.style.opacity = String(fk);
     this.final.style.visibility = fk > 0.01 ? 'visible' : 'hidden';
-    this.final.classList.toggle('live', fk > 0.6);
-    for (const el of Array.from(this.final.querySelectorAll<HTMLElement>('.interactive'))) {
-      el.style.pointerEvents = fk > 0.6 ? 'auto' : 'none';
+    const live = fk > 0.6;
+    if (live !== this.finalLive) {
+      this.finalLive = live;
+      this.final.classList.toggle('live', live);
+      if (!this.interactiveEls) this.interactiveEls = Array.from(this.final.querySelectorAll<HTMLElement>('.interactive'));
+      for (const el of this.interactiveEls) el.style.pointerEvents = live ? 'auto' : 'none';
     }
 
     // debug
