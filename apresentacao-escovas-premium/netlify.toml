@@ -1,0 +1,22 @@
+# Deploy no Netlify a partir do GitHub.
+# Em "Add new site > Import an existing project", use
+# Base directory: apresentacao-escovas-premium (o resto vem deste arquivo).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Proposta para discussão: pede aos buscadores para não indexar.
+# Isso não é controle de acesso; quem tiver o link consegue abrir.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
