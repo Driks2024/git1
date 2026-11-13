@@ -504,20 +504,24 @@ p {
 }
 
 /* ============ Cartão de destaque ============ */
+/* Proporção da própria imagem no desktop; recorte guiado por ponto focal
+   (--pos, --pos-t, --pos-m) no tablet e no celular. */
 .feature-card {
   position: relative;
   margin: 0;
+  width: 100%;
   border-radius: var(--radius);
   overflow: hidden;
-  height: min(84svh, 860px);
+  aspect-ratio: 16 / 9;
+  max-height: min(86svh, 900px);
   background: var(--ink-900);
 }
 .feature-card--wide {
-  height: min(70svh, 720px);
+  max-height: min(74svh, 760px);
   margin-top: clamp(48px, 6vw, 96px);
 }
 .feature-card--tall {
-  height: min(90svh, 900px);
+  max-height: min(90svh, 940px);
 }
 .pimg {
   position: absolute;
@@ -528,6 +532,40 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--pos, 50% 50%);
+}
+@media (max-width: 999px) {
+  .feature-card {
+    aspect-ratio: 16 / 10;
+    max-height: none;
+  }
+  .pimg img {
+    object-position: var(--pos-t, var(--pos, 50% 50%));
+  }
+}
+@media (max-width: 640px) {
+  .feature-card {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+  }
+  .feature-card .pimg {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .pimg img {
+    object-position: var(--pos-m, var(--pos-t, var(--pos, 50% 50%)));
+  }
+  .feature-card .feature-card__cap {
+    position: static;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px 18px 20px;
+    background: none;
+  }
 }
 .feature-card__cap {
   position: absolute;

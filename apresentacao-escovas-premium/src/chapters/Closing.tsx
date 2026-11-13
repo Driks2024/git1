@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { ArrowButton } from '../components/ArrowButton';
 import { BrandTiles } from '../components/BrandMarks';
 import { FitText } from '../components/FitText';
@@ -22,7 +23,7 @@ export function Closing({ onEconomics, onRollout, onPremises }: Props) {
       <div className="sec-dark closing__kit" data-header="dark">
         <div className="wrap">
           <Rise>
-            <figure className="feature-card feature-card--tall">
+            <figure className="feature-card feature-card--tall" style={{ '--pos': '60% 50%', '--pos-t': '64% 50%', '--pos-m': '71% 58%' } as CSSProperties}>
               <ParallaxImage src={IMG.kitCaixa} alt="O kit montado: expositor com quatro escovas e o doce de goiaba na caixa" />
               <figcaption className="feature-card__cap">
                 <span className="feature-card__title">O conjunto montado, pronto para o balcão</span>

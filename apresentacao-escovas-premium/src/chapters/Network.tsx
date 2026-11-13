@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Reveal } from '../components/Reveal';
 import { Scramble } from '../components/Scramble';
 import { HoverList, type HoverItem } from '../components/HoverList';
@@ -44,7 +45,7 @@ export function Network() {
 
       <div className="wrap">
         <Rise>
-          <figure className="feature-card">
+          <figure className="feature-card" style={{ '--pos': '60% 50%', '--pos-t': '66% 50%', '--pos-m': '69% 62%' } as CSSProperties}>
             <ParallaxImage
               src={IMG.redeConsultorio}
               alt="Ilustração de uma dentista apresentando escovas a uma família, ligada por fios de luz a outros consultórios e famílias"

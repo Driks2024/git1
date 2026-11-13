@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { lazy, useRef, useState } from 'react';
 import { DrenchPanel } from '../components/DrenchPanel';
 import { SceneHost } from '../scene/SceneHost';
@@ -179,7 +180,7 @@ function GiftStory() {
           </div>
         </div>
         <Rise>
-          <figure className="feature-card feature-card--wide">
+          <figure className="feature-card feature-card--wide" style={{ '--pos': '60% 50%', '--pos-t': '64% 50%', '--pos-m': '71% 58%' } as CSSProperties}>
             <ParallaxImage
               src={IMG.kitCaixa}
               alt="Mão abrindo uma caixa preta com o doce de goiaba, ao lado do expositor com quatro escovas"
