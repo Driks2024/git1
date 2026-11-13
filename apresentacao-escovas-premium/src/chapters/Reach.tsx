@@ -51,7 +51,8 @@ export function Reach() {
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => e.isIntersecting && setActive(Number((e.target as HTMLElement).dataset.i))),
-      { rootMargin: '-40% 0px -40% 0px' },
+      // No celular a imagem fica fixa no topo: a linha de leitura desce para 66%.
+      { rootMargin: window.matchMedia('(max-width: 999px)').matches ? '-64% 0px -32% 0px' : '-40% 0px -40% 0px' },
     );
     refs.current.forEach((r) => r && io.observe(r));
     return () => io.disconnect();

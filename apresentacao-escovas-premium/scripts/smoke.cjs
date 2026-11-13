@@ -36,7 +36,10 @@ const check = (name, ok, info = '') => {
     const ch1 = await page.textContent('.site-header__chapter');
     check('ArrowRight leva ao capítulo 02', /02/.test(ch1 || ''), ch1 || '');
     await page.keyboard.press('End');
-    await page.waitForTimeout(2500);
+    // A rolagem passa por cenas 3D pesadas: espera até 8 s pelo capítulo final.
+    await page
+      .waitForFunction(() => /10 \/ 10/.test(document.querySelector('.site-header__chapter')?.textContent || ''), null, { timeout: 8000 })
+      .catch(() => undefined);
     const chEnd = await page.textContent('.site-header__chapter');
     check('End leva ao capítulo 10', /10 \/ 10/.test(chEnd || ''), chEnd || '');
     await page.keyboard.press('Home');

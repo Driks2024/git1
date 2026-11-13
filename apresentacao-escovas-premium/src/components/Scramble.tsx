@@ -1,4 +1,4 @@
-import { useCallback, useRef, type ElementType } from 'react';
+import { useCallback, useEffect, useRef, type ElementType } from 'react';
 import { motionAllowed } from '../lib/motion';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=<>/';
@@ -35,6 +35,23 @@ export function Scramble({ text, as: Tag = 'span', className, duration = 1100 }:
     };
     requestAnimationFrame(frame);
   }, [duration, text]);
+
+  // Em telas de toque não existe hover: o efeito roda uma vez ao entrar na tela.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !window.matchMedia('(hover: none)').matches) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e?.isIntersecting) {
+          run();
+          io.disconnect();
+        }
+      },
+      { threshold: 0.8 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [run]);
 
   return (
     <Tag ref={ref} className={className} aria-label={text} onMouseEnter={run} onFocus={run}>

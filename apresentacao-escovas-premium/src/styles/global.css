@@ -503,6 +503,32 @@ p {
   padding: 18px 12px;
 }
 
+/* Abertura em telas em pé (celular, tablet vertical): a imagem ocupa a parte
+   de cima com a escova inteira, e o título fica na parte de baixo. */
+@media (max-aspect-ratio: 1/1) {
+  .opening__bg img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: auto;
+    height: 80svh;
+    max-width: none;
+    margin-left: calc(80svh * -0.515);
+    object-fit: fill;
+  }
+  .opening__shade {
+    background:
+      linear-gradient(0deg, var(--ink-950) 22%, rgb(7 9 15 / 0) 56%),
+      linear-gradient(180deg, rgb(7 9 15 / 0.5) 0%, rgb(7 9 15 / 0) 16%);
+  }
+  .opening__inner {
+    justify-content: flex-end;
+  }
+  .opening__center {
+    margin: 0 0 32px;
+  }
+}
+
 /* ============ Cartão de destaque ============ */
 /* Proporção da própria imagem no desktop; recorte guiado por ponto focal
    (--pos, --pos-t, --pos-m) no tablet e no celular. */
@@ -697,6 +723,32 @@ p {
   .hlist__follower {
     display: none;
   }
+}
+.hlist__thumb {
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.7s var(--ease-out);
+}
+.hlist__thumb-inner {
+  overflow: hidden;
+}
+.hlist__thumb img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  margin-top: 14px;
+  border-radius: 12px;
+  clip-path: inset(14% 14% round 12px);
+  transition: clip-path 0.9s var(--ease-hover);
+}
+.hlist__row.is-active .hlist__thumb {
+  grid-template-rows: 1fr;
+}
+.hlist__row.is-active .hlist__thumb img {
+  clip-path: inset(0 round 12px);
 }
 
 /* ============ Painel de cor (cortina) ============ */
@@ -2176,8 +2228,7 @@ dialog::backdrop {
   .composition__grid,
   .econ__grid,
   .conditions__grid,
-  .closing__row,
-  .formula {
+  .closing__row {
     grid-template-columns: 1fr;
   }
   .detail__sticky,
@@ -2206,14 +2257,96 @@ dialog::backdrop {
     height: 70%;
     margin: 18% -12% 0 0;
   }
+  /* Fórmula: imagem fixa no topo enquanto os passos passam por baixo */
+  .formula {
+    display: block;
+  }
   .formula__visual {
-    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    height: calc(44svh + 64px);
+    padding-top: 64px;
+    background: linear-gradient(180deg, var(--ink-950) 88%, rgb(7 9 15 / 0));
+  }
+  .formula__sticky {
+    position: relative;
+    top: 0;
+    height: 100%;
+  }
+  .formula__sticky img {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: none;
+  }
+  .formula__chain {
+    margin-bottom: 0;
+    font-size: 12px;
   }
   .formula__steps li {
-    min-height: auto;
-    padding: 48px 0;
-    opacity: 1;
-    border-top: 1px solid var(--line);
+    min-height: 62svh;
+    justify-content: flex-start;
+    padding: 4svh 0 0;
+  }
+  .formula__value {
+    font-size: clamp(56px, 16vw, 110px);
+  }
+  /* Cenas 3D fixadas também no celular e no tablet */
+  .scrub.is-pinned,
+  .scrub--kit.is-pinned {
+    height: 300vh;
+  }
+  .scrub.is-pinned .scrub__stage {
+    grid-template-columns: 1fr;
+    align-items: end;
+  }
+  .scrub.is-pinned .scrub__stage::after {
+    inset: auto 0 0 0;
+    width: 100%;
+    height: 58%;
+    background: linear-gradient(180deg, rgb(7 9 15 / 0), rgb(7 9 15 / 0.92) 42%);
+  }
+  .scrub.is-pinned .scrub__panel {
+    grid-column: 1;
+    gap: 10px;
+    padding: 0 var(--gutter) calc(22px + env(safe-area-inset-bottom));
+  }
+  .scrub.is-pinned .scrub__panel .t-body {
+    font-size: 15px;
+  }
+  .scrub.is-pinned .kit-facts,
+  .scrub.is-pinned .scrub__panel .t-note {
+    display: none;
+  }
+  .scrub.is-pinned .scene-tag {
+    top: 72px;
+    bottom: auto;
+  }
+  /* Linha do tempo horizontal no celular e no tablet */
+  .htrack.is-horizontal {
+    height: 640vh;
+  }
+  .htrack.is-horizontal .hpanel {
+    width: 84vw;
+    min-height: 56svh;
+    padding: 0 6vw;
+  }
+  .htrack.is-horizontal .hpanel--intro {
+    width: 90vw;
+  }
+  .htrack.is-horizontal .hpanel--total {
+    width: 92vw;
+  }
+  .htrack.is-horizontal .rollout__progress {
+    top: 72px;
+    gap: 4px;
+  }
+  .rollout__tick {
+    font-size: 10px;
+  }
+  .matrix {
+    gap: 3px;
   }
   .band__inner {
     grid-template-columns: 1fr;

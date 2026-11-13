@@ -11,6 +11,7 @@ import { FitText } from '../components/FitText';
 import { ParallaxImage, Rise } from '../components/ScrollBits';
 import { OdontoprevHorizontal, dentalPartnerLogo } from '../components/BrandMarks';
 import { IMG } from '../content/images';
+import { kitOpenAt } from '../scene/stages';
 import { useGSAP } from '@gsap/react';
 import { gsap, motionAllowed } from '../lib/motion';
 
@@ -20,7 +21,7 @@ function KitAssembly() {
   const track = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const { progress, pinned, goTo } = useScrubTrack(track, (p) => {
-    const isOpen = p > 0.2 && p < 0.8;
+    const isOpen = kitOpenAt(p);
     setOpen((prev) => (prev === isOpen ? prev : isOpen));
   });
 

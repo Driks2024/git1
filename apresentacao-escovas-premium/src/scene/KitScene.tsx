@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { COLORWAYS, KitBrush } from './Brush';
 import { StudioLights } from './StudioLights';
 import type { ProgressRef } from './types';
+import { useResponsiveCamera } from './useResponsiveCamera';
 import odontoprevTile from '../assets/brand/odontoprev-vertical.jpg';
 import dentalPartnerTile from '../assets/brand/dental-partner.jpg';
 
@@ -108,6 +109,54 @@ function Goiabada() {
   );
 }
 
+type V3 = [number, number, number];
+type Layout = {
+  root: V3;
+  scale: number;
+  rotY: number;
+  fan: number;
+  bonus: V3;
+  bonusOpen: V3;
+  bonusRotY: number;
+  gift: V3;
+  giftOpen: V3;
+  cam: V3;
+  camOpen: V3;
+  look: V3;
+};
+
+/** Composição para tela deitada (desktop) e em pé (celular, tablet vertical). */
+const LAYOUT: Record<'wide' | 'tall', Layout> = {
+  wide: {
+    root: [-1.25, -1.2, 0],
+    scale: 1,
+    rotY: -0.42,
+    fan: 0.45,
+    bonus: [-2.95, 0.05, 0.8],
+    bonusOpen: [-0.3, 0, 0.45],
+    bonusRotY: 0,
+    gift: [2.45, 0, 1.05],
+    giftOpen: [0.9, 0.55, 0.4],
+    cam: [0.4, 3.1, 13.2],
+    camOpen: [0, 0.6, 2.8],
+    look: [0, 1.5, 0],
+  },
+  tall: {
+    root: [0, -0.2, 0],
+    scale: 0.92,
+    rotY: -0.32,
+    fan: 0.2,
+    bonus: [-1.2, 0.05, 2.0],
+    bonusOpen: [-0.3, 0, 1.0],
+    bonusRotY: Math.PI / 2,
+    gift: [1.25, 0, 2.25],
+    giftOpen: [0.3, 0.45, 1.0],
+    cam: [0, 4.2, 12.4],
+    camOpen: [0, 0.8, 2.4],
+    look: [0, 0.4, 0.6],
+  },
+};
+
 const LABELS = [
   { key: 'display', text: 'Expositor acrílico de balcão' },
   { key: 'exposed', text: '4 escovas expostas' },
@@ -126,6 +175,7 @@ function Label({ position, text, on }: { position: [number, number, number]; tex
 }
 
 export default function KitScene({ progress }: { progress: ProgressRef }) {
+  const portrait = useResponsiveCamera(30, 52);
   const root = useRef<THREE.Group>(null);
   const display = useRef<THREE.Group>(null);
   const exposed = useRef<THREE.Group>(null);
@@ -143,29 +193,38 @@ export default function KitScene({ progress }: { progress: ProgressRef }) {
     const isOn = e > 0.55;
     if (isOn !== exploded) setExploded(isOn);
     const t = state.clock.elapsedTime;
-    if (root.current) root.current.rotation.y = -0.42 + Math.sin(t * 0.25) * 0.04 + e * 0.12;
+    const L = LAYOUT[portrait ? 'tall' : 'wide'];
+    if (root.current) {
+      root.current.position.set(...L.root);
+      root.current.scale.setScalar(L.scale);
+      root.current.rotation.y = L.rotY + Math.sin(t * 0.25) * 0.04 + e * 0.12;
+    }
     if (display.current) display.current.position.set(0, 0, -e * 0.9);
     if (exposed.current) {
       exposed.current.position.set(0, e * 2.1, D / 2 - 0.4 + e * 0.4);
       exposed.current.children.forEach((c, i) => {
-        c.position.x = (-1.05 + i * 0.7) * (1 + e * 0.45);
+        if (i > 3) return;
+        c.position.x = (-1.05 + i * 0.7) * (1 + e * L.fan);
         c.rotation.z = (i - 1.5) * -0.08 * e;
       });
     }
-    if (bonus.current) bonus.current.position.set(-2.95 - e * 0.3, 0.05, 0.8 + e * 0.45);
+    if (bonus.current) {
+      bonus.current.position.set(L.bonus[0] + e * L.bonusOpen[0], L.bonus[1] + e * L.bonusOpen[1], L.bonus[2] + e * L.bonusOpen[2]);
+      bonus.current.rotation.y = L.bonusRotY;
+    }
     layers.current.forEach((l, i) => {
       if (l) l.position.y = 0.1 + i * (0.16 + e * 0.32);
     });
-    if (gift.current) gift.current.position.set(2.45 + e * 0.9, e * 0.55, 1.05 + e * 0.4);
-    camTarget.set(0.4, 3.1 + e * 0.6, 13.2 + e * 2.8);
+    if (gift.current) gift.current.position.set(L.gift[0] + e * L.giftOpen[0], L.gift[1] + e * L.giftOpen[1], L.gift[2] + e * L.giftOpen[2]);
+    camTarget.set(L.cam[0], L.cam[1] + e * L.camOpen[1], L.cam[2] + e * L.camOpen[2]);
     state.camera.position.lerp(camTarget, 0.08);
-    state.camera.lookAt(0, 1.5 + e * 0.5, 0);
+    state.camera.lookAt(L.look[0], L.look[1] + e * 0.5, L.look[2]);
   });
 
   return (
     <>
       <StudioLights />
-      <group ref={root} position={[-1.25, -1.2, 0]}>
+      <group ref={root}>
         <group ref={display}>
           <Display />
           <Label position={[0, 3.75, -0.5]} text={LABELS[0].text} on={exploded} />

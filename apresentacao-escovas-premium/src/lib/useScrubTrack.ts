@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
-import { ScrollTrigger, isDesktop, motionAllowed } from './motion';
+import { ScrollTrigger, motionAllowed } from './motion';
 import { scrollToTarget } from './smoothScroll';
 
 /**
- * Trilho de rolagem para cenas fixadas: no desktop, o contêiner alto mantém o
- * palco preso (position: sticky) e a rolagem vira um progresso 0–1, a única
- * autoridade sobre a cena. No mobile ou com movimento reduzido não há trilho;
- * os botões definem o progresso diretamente.
+ * Trilho de rolagem para cenas fixadas, em qualquer tamanho de tela: o
+ * contêiner alto mantém o palco preso (position: sticky) e a rolagem vira um
+ * progresso 0–1, a única autoridade sobre a cena. Com movimento reduzido ou no
+ * modo leve não há trilho; os botões definem o progresso diretamente.
  */
 export function useScrubTrack(track: RefObject<HTMLElement | null>, onProgress?: (p: number) => void) {
   const progress = useRef(0);
@@ -15,14 +15,8 @@ export function useScrubTrack(track: RefObject<HTMLElement | null>, onProgress?:
   cb.current = onProgress;
 
   useEffect(() => {
-    const el = track.current;
-    if (!el) return;
-    const evaluate = () => setPinned(isDesktop() && motionAllowed());
-    evaluate();
-    const mq = window.matchMedia('(min-width: 1000px)');
-    mq.addEventListener('change', evaluate);
-    return () => mq.removeEventListener('change', evaluate);
-  }, [track]);
+    setPinned(motionAllowed());
+  }, []);
 
   useEffect(() => {
     const el = track.current;

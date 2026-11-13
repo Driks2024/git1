@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ScrollTrigger, gsap, isDesktop, motionAllowed } from '../lib/motion';
+import { ScrollTrigger, gsap, motionAllowed } from '../lib/motion';
 import { formatBRL, formatInt } from '../domain/money';
 import {
   KIT_PRICE_CENTS,
@@ -36,11 +36,7 @@ export function Rollout() {
   const [month, setMonth] = useState(-1);
 
   useEffect(() => {
-    const evaluate = () => setHorizontal(isDesktop() && motionAllowed());
-    evaluate();
-    const mq = window.matchMedia('(min-width: 1000px)');
-    mq.addEventListener('change', evaluate);
-    return () => mq.removeEventListener('change', evaluate);
+    setHorizontal(motionAllowed());
   }, []);
 
   useEffect(() => {

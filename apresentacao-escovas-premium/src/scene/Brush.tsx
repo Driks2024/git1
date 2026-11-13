@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { BRUSH, bristlePositions, createBrushBodyGeometry, seeded, tuftPositions } from './brushGeometry';
 
@@ -29,7 +29,16 @@ function handleMaterial(color: string) {
 }
 
 /** Escova principal: 5.460 filamentos em uma única InstancedMesh. */
-export function HeroBrush({ colorway, count = 5460 }: { colorway: Colorway; count?: number }) {
+export function HeroBrush({
+  colorway,
+  count = 5460,
+  bristleGroupRef,
+}: {
+  colorway: Colorway;
+  count?: number;
+  /** Grupo das cerdas, com origem na face da cabeça (escala em Z faz as cerdas crescerem). */
+  bristleGroupRef?: RefObject<THREE.Group | null>;
+}) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const geo = useMemo(() => {
     const g = new THREE.CylinderGeometry(0.0058, 0.0064, 0.5, 6, 1);
@@ -54,7 +63,7 @@ export function HeroBrush({ colorway, count = 5460 }: { colorway: Colorway; coun
     for (let i = 0; i < count; i++) {
       const x = pos[i * 2]!;
       const y = pos[i * 2 + 1]!;
-      dummy.position.set(x, y, BRUSH.faceZ - 0.01);
+      dummy.position.set(x, y, -0.01);
       // Leve abertura das cerdas na borda e variação natural de altura.
       const edge = Math.min(1, Math.hypot(x / BRUSH.headHalfW, (y - BRUSH.headCenterY) / BRUSH.headHalfL));
       dummy.rotation.set(-(y - BRUSH.headCenterY) * 0.06 * edge + (rnd() - 0.5) * 0.05, x * 0.12 * edge + (rnd() - 0.5) * 0.05, 0);
@@ -72,7 +81,9 @@ export function HeroBrush({ colorway, count = 5460 }: { colorway: Colorway; coun
   return (
     <group>
       <mesh geometry={sharedBody()} material={body} castShadow />
-      <instancedMesh ref={mesh} args={[geo, mat, count]} />
+      <group ref={bristleGroupRef} position={[0, 0, BRUSH.faceZ]}>
+        <instancedMesh ref={mesh} args={[geo, mat, count]} />
+      </group>
     </group>
   );
 }

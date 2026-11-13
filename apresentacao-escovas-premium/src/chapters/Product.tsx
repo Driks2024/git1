@@ -4,37 +4,36 @@ import { DetailBlock } from '../components/DetailBlock';
 import { SceneHost } from '../scene/SceneHost';
 import { useScrubTrack } from '../lib/useScrubTrack';
 import { IMG } from '../content/images';
+import { productStageOf } from '../scene/stages';
 
 const ProductScene = lazy(() => import('../scene/ProductScene'));
 
 const STAGES = [
   {
-    p: 0.04,
-    short: 'Visão geral',
-    title: 'Cabo e cabeça em uma peça contínua',
-    text: 'A escova Ultra Gentle em representação conceitual: cabo alongado, pescoço fino e cabeça compacta.',
+    p: 0.27,
+    short: 'Montagem',
+    title: 'A escova toma forma',
+    text: 'O cabo chega à posição, as cerdas crescem a partir da cabeça e a capa protetora encaixa.',
   },
   {
-    p: 0.3,
+    p: 0.48,
     short: 'Capa protetora',
     title: 'Capa protetora de cerdas',
     text: 'A capa cobre as cerdas até o primeiro uso. É a única peça que se separa da escova.',
   },
   {
-    p: 0.96,
+    p: 0.97,
     short: '5.460 cerdas',
     title: '5.460 cerdas ultramacias',
     text: 'Nesta cena, os 5.460 filamentos são desenhados um a um, na densidade descrita no briefing.',
   },
 ];
 
-const stageOf = (p: number) => (p < 0.14 ? 0 : p < 0.5 ? 1 : 2);
-
 export function Product() {
   const track = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState(0);
   const { progress, pinned, goTo } = useScrubTrack(track, (p) => {
-    const s = stageOf(p);
+    const s = productStageOf(p);
     setStage((prev) => (prev === s ? prev : s));
   });
   const current = STAGES[stage]!;
