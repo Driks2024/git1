@@ -1,0 +1,67 @@
+/* Zalando Sans: fallback autohospedado (licença OFL) para quem não tem SF Pro.
+   Em Macs, iPhones e iPads a apresentação usa a SF Pro do sistema. */
+@font-face {
+  font-family: 'Zalando Sans';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('../assets/fonts/zalando-sans-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Zalando Sans';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('../assets/fonts/zalando-sans-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* Marcas (valores extraídos dos arquivos fornecidos; não são cores oficiais declaradas) */
+  --odp: #003caa;
+  --odp-bright: #0366ff;
+  --dp: #720ab7;
+  --dp-deep: #4f0782;
+  --mint: #8efaf0;
+
+  /* Superfícies */
+  --ink-950: #07090f; /* fundo das imagens conceituais */
+  --ink-900: #0b0f1a;
+  --surface-cinematic: #071426;
+  --surface-financial: #101b2b;
+  --surface-muted: #f4f7fb;
+  --surface: #ffffff;
+  --goiaba: #b0233a;
+
+  /* Texto */
+  --text: #f5f8fc;
+  --text-2: rgb(245 248 252 / 0.74);
+  --text-3: rgb(245 248 252 / 0.62);
+  --ink: #102039;
+  --ink-2: #40516a;
+  --line: rgb(255 255 255 / 0.18);
+  --line-dark: rgb(16 32 57 / 0.14);
+
+  /* Tipografia: SF Pro primeiro; Zalando Sans fora do ecossistema Apple */
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Zalando Sans', sans-serif;
+  --font-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Zalando Sans', sans-serif;
+
+  --gutter: clamp(16px, 4.2vw, 60px);
+  --radius: 20px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-hover: cubic-bezier(0.1, 0.75, 0.5, 1);
+  --ease-line: cubic-bezier(0.65, 0, 0.25, 1);
+
+  /* Escala de camadas */
+  --z-over: 2;
+  --z-header: 50;
+  --z-follower: 60;
+  --z-present: 70;
+  --z-modal: 100;
+  --z-noise: 120;
+
+  color-scheme: dark;
+}
