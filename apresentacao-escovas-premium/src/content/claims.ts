@@ -34,6 +34,7 @@ export type Claim = {
 
 const INFO = 'Proposta_Estrategica_de_Escovas_Premium.png';
 const BRIEF = 'PROMPT_UNICO_CLAUDE_COWORK.md';
+const PHOTOS = 'Fotos enviadas pelo cliente (expositor original e lata)';
 const r = reach();
 
 export const STATUS_LABEL: Record<EvidenceStatus, string> = {
@@ -49,9 +50,10 @@ export const claims: Claim[] = [
   { id: 'secretarias', label: 'Secretárias atuantes', value: '50.000', status: 'fornecido', sourceAsset: INFO, sourceLocator: 'Alcance e capilaridade' },
   { id: 'cerdas', label: 'Cerdas por escova', value: '5.460', status: 'pendente-validacao', sourceAsset: BRIEF, note: 'Característica descrita no briefing; ficha técnica a confirmar.' },
   { id: 'tecnologia', label: 'Tecnologia alemã', status: 'pendente-validacao', sourceAsset: BRIEF, note: '“Tecnologia alemã” não equivale a “fabricado na Alemanha”.' },
-  { id: 'kit-escovas', label: 'Escovas por kit', value: '16 (4 expostas + 12 bonificadas)', status: 'fornecido', sourceAsset: INFO, sourceLocator: 'Estrutura do kit', note: 'A ilustração do infográfico parece mostrar 5 escovas; adotado o texto: 4.' },
+  { id: 'kit-escovas', label: 'Escovas por kit', value: '16 (4 expostas + kit de 12 bonificadas)', status: 'fornecido', sourceAsset: INFO, sourceLocator: 'Estrutura do kit', note: 'Correção do cliente: o expositor vai com 4 escovas mais um kit de 12.' },
+  { id: 'expositor', label: 'Expositor', value: 'Acrílico em L, painel inclinado com dois trilhos de presilhas', status: 'fornecido', sourceAsset: PHOTOS, sourceLocator: 'Fotos do expositor original', note: 'Escovas expostas no blister. Medidas e espessura a confirmar.' },
   { id: 'kit-valor', label: 'Valor por kit', value: formatBRL(KIT_PRICE_CENTS), status: 'fornecido', sourceAsset: INFO, sourceLocator: 'Estrutura do kit', note: 'Frete incluído conforme a proposta.' },
-  { id: 'brinde', label: 'Brinde', value: 'Doce de goiaba tradicional de Minas Gerais', status: 'fornecido', sourceAsset: INFO, sourceLocator: 'Estrutura do kit', note: 'Quantidade, embalagem e fornecedor a definir.' },
+  { id: 'brinde', label: 'Brinde', value: 'Goiabada cascão em lata, de Minas Gerais', status: 'fornecido', sourceAsset: PHOTOS, sourceLocator: 'Foto da lata', note: 'Rótulo da foto: Zélia, Ponte Nova (MG). Quantidade por kit, peso e fornecedor a confirmar.' },
   { id: 'compra', label: 'Compra pelo dentista', value: formatBRL(PURCHASE_COST_CENTS), unit: 'por escova', status: 'fornecido', sourceAsset: INFO, sourceLocator: 'Modelo econômico' },
   { id: 'revenda', label: 'Faixa de revenda', value: 'R$ 17,80 a R$ 19,80', unit: 'por escova', status: 'fornecido', sourceAsset: INFO, sourceLocator: 'Modelo econômico' },
   { id: 'markup', label: 'Markup', value: `${formatPercent(markupPercent(1780, PURCHASE_COST_CENTS))} a ${formatPercent(markupPercent(1980, PURCHASE_COST_CENTS))}`, status: 'calculado', sourceAsset: BRIEF, formula: '(venda − compra) ÷ compra × 100' },

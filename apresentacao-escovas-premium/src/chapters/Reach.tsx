@@ -125,13 +125,13 @@ export function Reach() {
         </div>
         <div className="wrap statement-wrap">
           <InlineStatement
-            label="Do balcão do consultório para a pia de casa, com um doce de goiaba de Minas no caminho."
+            label="Do balcão do consultório para a pia de casa, com uma goiabada de Minas no caminho."
             segments={[
               { text: 'Do balcão do consultório' },
               { img: IMG.kitEstudio, alt: '' },
               { text: 'para a pia de casa,' },
               { img: IMG.paiFilha, alt: '' },
-              { text: 'com um doce de goiaba' },
+              { text: 'com uma goiabada' },
               { img: IMG.brinde, alt: '' },
               { text: 'de Minas no caminho.' },
             ]}

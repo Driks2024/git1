@@ -593,6 +593,37 @@ p {
     background: none;
   }
 }
+/* Díptico: duas imagens no mesmo cartão (expositor e lata) */
+.feature-card--duo .duo {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: 3px;
+  background: var(--ink-950);
+}
+.feature-card--duo .duo .pimg {
+  position: relative;
+  inset: auto;
+}
+.feature-card--duo .duo .pimg:last-child img {
+  object-position: 60% 50%;
+}
+@media (max-width: 640px) {
+  .feature-card--duo .duo {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 4 / 5;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .feature-card--duo .duo .pimg {
+    aspect-ratio: auto;
+  }
+  .feature-card--duo .duo .pimg:last-child img {
+    object-position: 58% 50%;
+  }
+}
 .feature-card__cap {
   position: absolute;
   inset: auto 0 0 0;
@@ -984,7 +1015,7 @@ p {
   height: 340vh;
 }
 .scrub--kit.is-pinned {
-  height: 320vh;
+  height: 380vh;
 }
 .scrub__stage {
   position: sticky;
@@ -1177,11 +1208,42 @@ p {
   gap: clamp(32px, 5vw, 80px);
   align-items: start;
 }
-.composition__photo {
+/* Frente e perfil do expositor, lado a lado e com a mesma altura */
+.composition__views {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 12px;
+  aspect-ratio: 4 / 3.1;
+}
+.composition__views figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
   border-radius: var(--radius);
+  background: #b8b9c2;
+}
+.composition__views img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 1072 / 1300;
+  height: 100%;
   object-fit: cover;
+}
+.composition__views figure:last-child img {
+  object-position: 54% 50%;
+}
+.composition__tag {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-950);
+  background: rgb(255 255 255 / 0.82);
+  border-radius: 999px;
+  padding: 5px 10px;
 }
 .composition__brands {
   display: flex;
@@ -1346,14 +1408,15 @@ p {
   color: rgb(245 248 252 / 0.92);
 }
 .gift__photo {
-  width: min(42%, 620px);
+  width: min(52%, 760px);
   margin: clamp(32px, 4vw, 56px) auto 0;
 }
 .gift__photo img {
   width: 100%;
   border-radius: var(--radius);
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  object-position: 56% 50%;
 }
 .gift__story {
   max-width: 760px;
@@ -2293,9 +2356,11 @@ dialog::backdrop {
     font-size: clamp(56px, 16vw, 110px);
   }
   /* Cenas 3D fixadas também no celular e no tablet */
-  .scrub.is-pinned,
-  .scrub--kit.is-pinned {
+  .scrub.is-pinned {
     height: 300vh;
+  }
+  .scrub--kit.is-pinned {
+    height: 340vh;
   }
   .scrub.is-pinned .scrub__stage {
     grid-template-columns: 1fr;

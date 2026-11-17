@@ -8,8 +8,13 @@ import { scrollToTarget } from './smoothScroll';
  * progresso 0–1, a única autoridade sobre a cena. Com movimento reduzido ou no
  * modo leve não há trilho; os botões definem o progresso diretamente.
  */
-export function useScrubTrack(track: RefObject<HTMLElement | null>, onProgress?: (p: number) => void) {
-  const progress = useRef(0);
+export function useScrubTrack(
+  track: RefObject<HTMLElement | null>,
+  onProgress?: (p: number) => void,
+  /** Progresso usado sem trilho (movimento reduzido): o estado final da cena. */
+  initial = 0,
+) {
+  const progress = useRef(initial);
   const [pinned, setPinned] = useState(false);
   const cb = useRef(onProgress);
   cb.current = onProgress;

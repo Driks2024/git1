@@ -8,16 +8,24 @@ Todas as imagens foram fornecidas pelo usuário nesta conversa. São imagens ger
 | `rede-consultorio-familias.webp` | EB5B857C (rede com dentista e família) | WebP | Rede, cartão de destaque |
 | `rede-multidao.webp` | 5EE5A721 (9 milhões, versão multidão) | Recorte sem texto | Rede, imagem do hover |
 | `produto-macro-cerdas.webp` | 3ED5A0F4 (macro das cerdas) | WebP | Painel do produto, pôster 3D |
-| `kit-expositor-escuro.webp` | AA58298A (expositor em pedra escura) | WebP | Painel do kit, pôster 3D |
-| `kit-caixa-goiabada.webp` | A9A89AAC (caixa com doce e expositor) | WebP | Brinde, encerramento |
-| `kit-expositor-estudio.webp` | 5F194C7A (expositor em estúdio claro) | WebP | Composição do kit, frase final |
-| `brinde-goiabada.webp` | 58467618 (doce e goiaba) | WebP | Seção Minas Gerais, frase final |
-| `ativacao-recepcao.webp` | DEB8462E (balcão da recepção) | WebP | Painel de ativação, hover da rede |
+| `kit-expositor-escuro.webp` | Expositor original em fundo escuro (2ª rodada) | WebP | Painel do kit, pôster 3D, díptico do brinde |
+| `kit-expositor-estudio.webp` | Expositor original de frente, estúdio cinza (2ª rodada) | WebP | Composição do kit (frente), frase final |
+| `kit-expositor-perfil.webp` | Expositor original de perfil, estúdio cinza (2ª rodada) | WebP | Composição do kit (perfil) |
+| `brinde-goiabada.webp` | Lata de goiabada cascão com meia goiaba (2ª rodada) | WebP | Seção Minas Gerais, díptico, frase final |
+| `ativacao-recepcao.webp` | Expositor original no balcão da recepção (2ª rodada) | WebP | Painel de ativação, hover da rede, encerramento |
 | `alcance-panorama-rede.webp` | B3509518 (panorama da rede) | WebP | Painel do alcance |
 | `alcance-250-pacientes.webp` | 12B48E88 (250.000) | Recorte sem texto | Fórmula do alcance, hover da rede |
 | `alcance-750-dependentes.webp` | 567CE368 (750.000) | Recorte sem texto | Fórmula do alcance |
 | `alcance-1mi-exposicoes.webp` | A006E4BC (1 milhão) | Recorte sem texto | Fórmula do alcance |
 | `lar-pai-filha.webp` | 64694B8A (pai e filha no banheiro) | WebP | Frase final |
+
+Removido na 2ª rodada: `kit-caixa-goiabada.webp` (caixa com doce embrulhado), substituído porque o brinde real é goiabada em lata.
+
+## Texturas (`src/assets/tex/`)
+
+| Arquivo | Origem | Tratamento | Uso |
+|---|---|---|---|
+| `goiabada-rotulo.webp` | Foto da lata (2ª rodada) | Rótulo desenrolado em textura cilíndrica de 360°: a parte da frente vem da foto, com a curvatura e o sombreamento compensados; a volta é completada com o vermelho e a faixa creme do próprio rótulo | Lata da goiabada no kit 3D |
 
 ## Marcas (`src/assets/brand/`)
 
@@ -31,11 +39,13 @@ Logos usados sem alteração de cor, proporção ou desenho, sem filtros. São J
 
 ## Não usados
 
-Infográfico (só fonte de dados), imagem KG Sorensen (descartada pelo usuário), mão com escova preta (cor fora do kit), expositor com blisters (textos com erro e bandeira que sugere fabricação na Alemanha), dentista escovando arcada (simulação de limpeza vetada), versão alternativa de "9 milhões" e duplicatas.
+Infográfico (só fonte de dados), imagem KG Sorensen (descartada pelo usuário), mão com escova preta (cor fora do kit), dentista escovando arcada (simulação de limpeza vetada), versão alternativa de "9 milhões" e duplicatas.
 
 ## Criados no projeto
 
-- Escova 3D procedural com 5.460 filamentos (`src/scene/brushGeometry.ts`), kit 3D com expositor, 16 escovas e doce de goiaba (`src/scene/KitScene.tsx`): autoria própria, representação conceitual.
+- Escova 3D procedural com 5.460 filamentos (`src/scene/brushGeometry.ts`): autoria própria, representação conceitual.
+- Kit 3D (`src/scene/KitScene.tsx`) modelado a partir das fotos do expositor original: acrílico em L com painel inclinado, faixa frontal com as marcas, apoio inferior, dois trilhos de presilhas e quatro escovas no blister; bandeja com o kit de 12 escovas (três camadas de quatro); lata de goiabada com o rótulo da foto e tampa plástica.
+- Cartão do blister desenhado em canvas (`src/scene/kitTextures.ts`): "ULTRASOFT", "5460 ultra gentle and fine filaments", degradê rosa e roxo e o selo Dental Partner fornecido. Ficaram de fora a bandeira e a palavra "Germany" das fotos, pelo mesmo motivo do item "Tecnologia alemã" (não equivale a fabricação na Alemanha). A embalagem do kit de 12 ainda não foi definida: a bandeja é ilustrativa.
 - Fundo pontilhado em WebGL (`src/components/DitherCanvas.tsx`) e matriz de pontos da implantação (250 pontos = 25.000 kits).
 - Ruído de textura em SVG inline (`.noise`).
 

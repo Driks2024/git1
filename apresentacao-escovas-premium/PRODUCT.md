@@ -14,7 +14,7 @@ Apresentação executiva web da proposta "Projeto Escovas Premium": explicar o p
 
 ## Brand Personality
 
-Premium, humano, preciso. Cinematográfico na abertura e nas cenas de produto; sóbrio e exato nos números. O doce de goiaba de Minas Gerais traz o calor humano da proposta.
+Premium, humano, preciso. Cinematográfico na abertura e nas cenas de produto; sóbrio e exato nos números. A goiabada cascão em lata, de Minas Gerais, traz o calor humano da proposta.
 
 ## Anti-references
 

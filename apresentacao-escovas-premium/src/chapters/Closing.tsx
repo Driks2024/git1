@@ -23,10 +23,13 @@ export function Closing({ onEconomics, onRollout, onPremises }: Props) {
       <div className="sec-dark closing__kit" data-header="dark">
         <div className="wrap">
           <Rise>
-            <figure className="feature-card feature-card--tall" style={{ '--pos': '60% 50%', '--pos-t': '64% 50%', '--pos-m': '71% 58%' } as CSSProperties}>
-              <ParallaxImage src={IMG.kitCaixa} alt="O kit montado: expositor com quatro escovas e o doce de goiaba na caixa" />
+            <figure className="feature-card feature-card--tall" style={{ '--pos': '40% 50%', '--pos-t': '30% 50%', '--pos-m': '20% 50%' } as CSSProperties}>
+              <ParallaxImage
+                src={IMG.recepcao}
+                alt="Expositor de acrílico com quatro escovas no balcão da recepção, com a recepcionista atendendo um paciente ao fundo"
+              />
               <figcaption className="feature-card__cap">
-                <span className="feature-card__title">O conjunto montado, pronto para o balcão</span>
+                <span className="feature-card__title">O kit no balcão, pronto para a conversa</span>
                 <span className="feature-card__tag">Representação conceitual</span>
               </figcaption>
             </figure>
@@ -46,7 +49,7 @@ export function Closing({ onEconomics, onRollout, onPremises }: Props) {
                 as="p"
                 className="closing__lead"
                 variant="words"
-                text="Um kit expositor com 16 escovas premium e um doce de goiaba de Minas, com distribuição projetada de 25.000 kits em cinco meses."
+                text="Um kit expositor com 16 escovas premium e uma goiabada cascão de Minas, com distribuição projetada de 25.000 kits em cinco meses."
               />
               <p className="closing__text">
                 Escopo: produto Ultra Gentle, expositor de balcão com as marcas Odontoprev e Dental Partner, modelo

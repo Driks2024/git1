@@ -1,6 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { BRUSH, bristlePositions, createBrushBodyGeometry, seeded, tuftPositions } from './brushGeometry';
+import { makeHandlePrintTexture } from './kitTextures';
 
 export type Colorway = { handle: string; bristle: string };
 
@@ -88,8 +89,26 @@ export function HeroBrush({
   );
 }
 
-/** Versão leve para o kit: 40 tufos por escova. */
-export function KitBrush({ colorway }: { colorway: Colorway }) {
+let printMat: THREE.Material | null = null;
+let printGeo: THREE.BufferGeometry | null = null;
+/** Inscrição do cabo, compartilhada por todas as escovas do kit. */
+function handlePrint() {
+  if (!printMat || !printGeo) {
+    printGeo = new THREE.PlaneGeometry(1.7, 0.2125);
+    printMat = new THREE.MeshStandardMaterial({
+      map: makeHandlePrintTexture(),
+      transparent: true,
+      roughness: 0.4,
+      depthWrite: false,
+      polygonOffset: true,
+      polygonOffsetFactor: -2,
+    });
+  }
+  return { geo: printGeo, mat: printMat };
+}
+
+/** Versão leve para o kit: 40 tufos por escova, com a inscrição no cabo. */
+export function KitBrush({ colorway, print = false }: { colorway: Colorway; print?: boolean }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const tufts = useMemo(() => tuftPositions(), []);
   const geo = useMemo(() => {
@@ -122,6 +141,14 @@ export function KitBrush({ colorway }: { colorway: Colorway }) {
     <group>
       <mesh geometry={sharedBody()} material={body} />
       <instancedMesh ref={mesh} args={[geo, mat, tufts.length]} />
+      {print ? (
+        <mesh
+          geometry={handlePrint().geo}
+          material={handlePrint().mat}
+          position={[0, 1.75, BRUSH.faceZ + 0.004]}
+          rotation={[0, 0, -Math.PI / 2]}
+        />
+      ) : null}
     </group>
   );
 }

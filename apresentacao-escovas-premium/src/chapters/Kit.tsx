@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import { lazy, useRef, useState } from 'react';
 import { DrenchPanel } from '../components/DrenchPanel';
 import { SceneHost } from '../scene/SceneHost';
@@ -11,19 +10,26 @@ import { FitText } from '../components/FitText';
 import { ParallaxImage, Rise } from '../components/ScrollBits';
 import { OdontoprevHorizontal, dentalPartnerLogo } from '../components/BrandMarks';
 import { IMG } from '../content/images';
-import { kitOpenAt } from '../scene/stages';
+import { kitStageOf } from '../scene/stages';
 import { useGSAP } from '@gsap/react';
 import { gsap, motionAllowed } from '../lib/motion';
 
 const KitScene = lazy(() => import('../scene/KitScene'));
 
+const KIT_TITLES = ['O kit se monta', 'Cada peça no seu lugar', 'O conjunto montado'] as const;
+
 function KitAssembly() {
   const track = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
-  const { progress, pinned, goTo } = useScrubTrack(track, (p) => {
-    const isOpen = kitOpenAt(p);
-    setOpen((prev) => (prev === isOpen ? prev : isOpen));
-  });
+  const [stage, setStage] = useState<0 | 1 | 2>(2);
+  const { progress, pinned, goTo } = useScrubTrack(
+    track,
+    (p) => {
+      const next = kitStageOf(p);
+      setStage((prev) => (prev === next ? prev : next));
+    },
+    1,
+  );
+  const open = stage === 1;
 
   return (
     <div ref={track} className={`scrub scrub--kit ${pinned ? 'is-pinned' : ''}`} data-header="dark">
@@ -31,26 +37,26 @@ function KitAssembly() {
         <SceneHost
           poster={IMG.kitEscuro}
           posterAlt="Expositor de acrílico com quatro escovas coloridas"
-          camera={{ position: [0.4, 3.1, 11.6], fov: 30 }}
-          label="Kit em 3D: expositor acrílico, 4 escovas expostas, 12 bonificadas e doce de goiaba"
+          camera={{ position: [0.2, 3.0, 14.2], fov: 30 }}
+          label="Kit em 3D: expositor acrílico original com 4 escovas no blister, kit com 12 escovas e goiabada cascão em lata"
         >
           <KitScene progress={progress} />
         </SceneHost>
         <aside className="scrub__panel" aria-live="polite">
           <p className="t-label">Composição do kit</p>
-          <h3 className="scrub__title">{open ? 'Cada peça no seu lugar' : 'O conjunto montado'}</h3>
+          <h3 className="scrub__title">{KIT_TITLES[stage]}</h3>
           <ul className="kit-facts">
             <li>
-              <strong>1</strong> expositor acrílico de balcão
+              <strong>1</strong> expositor de acrílico para o balcão
             </li>
             <li>
-              <strong>4</strong> escovas expostas
+              <strong>4</strong> escovas expostas, no blister
             </li>
             <li>
-              <strong>12</strong> escovas bonificadas
+              <strong>12</strong> escovas bonificadas, em kit
             </li>
             <li>
-              <strong>1</strong> brinde: doce de goiaba de Minas Gerais
+              <strong>1</strong> brinde: goiabada cascão em lata, de Minas Gerais
             </li>
           </ul>
           <p className="kit-price">
@@ -58,10 +64,10 @@ function KitAssembly() {
             <span className="kit-price__label">por kit, com frete incluído conforme a proposta</span>
           </p>
           <div className="stage-btns" role="group" aria-label="Visualização do kit">
-            <button type="button" aria-pressed={open} onClick={() => goTo(0.55)}>
+            <button type="button" aria-pressed={open} onClick={() => goTo(0.6)}>
               Ver componentes
             </button>
-            <button type="button" aria-pressed={!open} onClick={() => goTo(0.98)}>
+            <button type="button" aria-pressed={!open} onClick={() => goTo(0.99)}>
               Ver conjunto montado
             </button>
           </div>
@@ -83,7 +89,24 @@ function KitComposition() {
       </div>
       <div className="wrap composition__grid">
         <Rise className="composition__media">
-          <img className="composition__photo" src={IMG.kitEstudio} alt="Expositor de acrílico em estúdio claro com quatro escovas: branca, azul, roxa e verde" loading="lazy" />
+          <div className="composition__views">
+            <figure>
+              <img
+                src={IMG.kitEstudio}
+                alt="Expositor de acrílico visto de frente, com quatro escovas (branca, azul, roxa e verde) presas em dois trilhos e as marcas Odontoprev e Dental Partner na faixa inferior"
+                loading="lazy"
+              />
+              <figcaption className="composition__tag">Frente</figcaption>
+            </figure>
+            <figure>
+              <img
+                src={IMG.kitPerfil}
+                alt="Expositor de acrílico visto de lado: base apoiada no balcão e painel inclinado para trás, com a escova presa no blister"
+                loading="lazy"
+              />
+              <figcaption className="composition__tag">Perfil</figcaption>
+            </figure>
+          </div>
           <div className="composition__brands">
             <OdontoprevHorizontal />
             <img className="brand-tile brand-tile--dp" src={dentalPartnerLogo} alt="Dental Partner" />
@@ -96,12 +119,13 @@ function KitComposition() {
             items={[
               {
                 id: 'expositor',
-                title: 'Expositor acrílico de balcão',
+                title: 'Expositor de acrílico original',
                 meta: <span className="pill">1 unidade</span>,
                 body: (
                   <p>
-                    Display transparente para a recepção, com aplicação das marcas Odontoprev e Dental Partner. Medidas,
-                    espessura e método de gravação ainda serão definidos.
+                    Acrílico transparente em L: a base apoia no balcão e o painel inclinado traz dois trilhos de
+                    presilhas, que seguram as quatro escovas no blister. As marcas Odontoprev e Dental Partner ficam na
+                    faixa frontal. Medidas e espessura a confirmar.
                   </p>
                 ),
               },
@@ -109,19 +133,19 @@ function KitComposition() {
                 id: 'expostas',
                 title: 'Escovas expostas',
                 meta: <span className="pill">4 escovas</span>,
-                body: <p>Ficam no expositor, à vista do paciente durante a espera e o atendimento.</p>,
+                body: <p>Cada uma no próprio blister, presa ao painel, à vista do paciente durante a espera e o atendimento.</p>,
               },
               {
                 id: 'bonificadas',
-                title: 'Escovas bonificadas',
+                title: 'Kit de escovas bonificadas',
                 meta: <span className="pill">12 escovas</span>,
-                body: <p>Acompanham o kit para reposição do expositor. Embalagem a definir.</p>,
+                body: <p>Um kit com 12 escovas acompanha o expositor, para reposição. Embalagem do kit a definir.</p>,
               },
               {
                 id: 'brinde',
-                title: 'Brinde: doce de goiaba de Minas Gerais',
+                title: 'Brinde: goiabada cascão em lata',
                 meta: <span className="pill">Brinde</span>,
-                body: <p>Um doce de goiaba tradicional de Minas Gerais acompanha cada kit. Quantidade e embalagem a definir.</p>,
+                body: <p>Uma lata de goiabada cascão de Minas Gerais acompanha cada kit. Quantidade por kit e fornecedor a confirmar.</p>,
               },
               {
                 id: 'valor',
@@ -160,19 +184,24 @@ function GiftStory() {
           <FitText text="DE MINAS GERAIS" className="gift__giant" ariaHidden max={210} />
         </div>
         <Rise className="gift__photo">
-          <img src={IMG.brinde} alt="Doce de goiaba embrulhado em papel de seda, ao lado de uma goiaba cortada ao meio" loading="lazy" />
+          <img
+            src={IMG.brinde}
+            alt="Lata de goiabada cascão Zélia, de Ponte Nova (MG), com rótulo vermelho e tampa plástica transparente, ao lado de meia goiaba"
+            loading="lazy"
+          />
         </Rise>
         <div className="gift__story">
           <Reveal
             as="p"
             className="gift__lead"
             variant="blur"
-            text="Todo kit chega com um doce de goiaba tradicional de Minas Gerais. Um gesto simples, de quem sabe receber."
+            text="Todo kit chega com uma lata de goiabada cascão de Minas Gerais. Um gesto simples, de quem sabe receber."
           />
           <div className="t-body gift__text">
             <p>
-              Em Minas, receber alguém quase sempre passa pela cozinha. O doce de goiaba embrulhado em papel faz parte
-              dessa hospitalidade, e é ele que acompanha o expositor até o balcão de cada consultório.
+              Em Minas, receber alguém quase sempre passa pela cozinha. A goiabada cascão, apurada no tacho e
+              guardada na lata, é dessas receitas de família que atravessam gerações, e é ela que acompanha o
+              expositor até o balcão de cada consultório.
             </p>
             <p>
               O brinde não muda o produto nem as condições comerciais. A intenção é outra: que a chegada do kit tenha
@@ -181,11 +210,17 @@ function GiftStory() {
           </div>
         </div>
         <Rise>
-          <figure className="feature-card feature-card--wide" style={{ '--pos': '60% 50%', '--pos-t': '64% 50%', '--pos-m': '71% 58%' } as CSSProperties}>
-            <ParallaxImage
-              src={IMG.kitCaixa}
-              alt="Mão abrindo uma caixa preta com o doce de goiaba, ao lado do expositor com quatro escovas"
-            />
+          <figure className="feature-card feature-card--wide feature-card--duo">
+            <div className="duo">
+              <ParallaxImage
+                src={IMG.kitEscuro}
+                alt="Expositor de acrílico com quatro escovas coloridas e as marcas Odontoprev e Dental Partner, sobre pedra escura"
+              />
+              <ParallaxImage
+                src={IMG.brinde}
+                alt="Lata de goiabada cascão de Minas Gerais ao lado de meia goiaba, sobre fundo escuro"
+              />
+            </div>
             <figcaption className="feature-card__cap">
               <span className="feature-card__title">O kit e o brinde, lado a lado</span>
               <span className="feature-card__tag">Representação conceitual</span>
