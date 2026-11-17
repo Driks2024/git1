@@ -77,6 +77,67 @@ function KitAssembly() {
   );
 }
 
+const VIEWS = [
+  {
+    id: 'frente',
+    label: 'Frente',
+    src: IMG.kitFrente,
+    alt: 'Expositor de acrílico visto de frente, com quatro escovas (branca, azul, roxa e verde) presas em dois trilhos e as marcas Odontoprev e Dental Partner na faixa inferior',
+  },
+  {
+    id: 'perfil',
+    label: 'Perfil',
+    src: IMG.kitPerfil,
+    alt: 'Expositor de acrílico visto de lado: base apoiada no balcão e painel inclinado para trás, com a escova presa no blister',
+  },
+  {
+    id: 'verso',
+    label: 'Verso',
+    src: IMG.kitVerso,
+    alt: 'Verso do expositor: os quatro cartões brancos dos blisters, com o furo de gancheira, e as marcas vistas por trás do acrílico',
+  },
+  {
+    id: 'verso-34',
+    label: 'Verso 3/4',
+    src: IMG.kitVerso34,
+    alt: 'Expositor visto de trás, em ângulo, mostrando a base em L, os trilhos de presilhas e os cartões dos blisters',
+  },
+] as const;
+
+/** Visualizador de ângulos do expositor original: miniaturas trocam a foto principal. */
+function AngleViewer() {
+  const [cur, setCur] = useState(0);
+  const view = VIEWS[cur] ?? VIEWS[0];
+  return (
+    <div className="angles">
+      <div className="angles__stage">
+        {VIEWS.map((v, i) => (
+          <img
+            key={v.id}
+            src={v.src}
+            alt={i === cur ? v.alt : ''}
+            aria-hidden={i === cur ? undefined : true}
+            className={i === cur ? 'is-on' : ''}
+            loading="lazy"
+            decoding="async"
+          />
+        ))}
+        <span className="angles__now" aria-live="polite">
+          {view.label}
+        </span>
+      </div>
+      <div className="angles__thumbs" role="group" aria-label="Ângulos do expositor">
+        {VIEWS.map((v, i) => (
+          <button key={v.id} type="button" aria-pressed={i === cur} onClick={() => setCur(i)}>
+            <img src={v.src} alt="" loading="lazy" decoding="async" />
+            <span>{v.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function KitComposition() {
   return (
     <div className="sec-light composition" data-header="light">
@@ -89,24 +150,7 @@ function KitComposition() {
       </div>
       <div className="wrap composition__grid">
         <Rise className="composition__media">
-          <div className="composition__views">
-            <figure>
-              <img
-                src={IMG.kitEstudio}
-                alt="Expositor de acrílico visto de frente, com quatro escovas (branca, azul, roxa e verde) presas em dois trilhos e as marcas Odontoprev e Dental Partner na faixa inferior"
-                loading="lazy"
-              />
-              <figcaption className="composition__tag">Frente</figcaption>
-            </figure>
-            <figure>
-              <img
-                src={IMG.kitPerfil}
-                alt="Expositor de acrílico visto de lado: base apoiada no balcão e painel inclinado para trás, com a escova presa no blister"
-                loading="lazy"
-              />
-              <figcaption className="composition__tag">Perfil</figcaption>
-            </figure>
-          </div>
+          <AngleViewer />
           <div className="composition__brands">
             <OdontoprevHorizontal />
             <img className="brand-tile brand-tile--dp" src={dentalPartnerLogo} alt="Dental Partner" />

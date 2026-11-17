@@ -9,8 +9,10 @@ Todas as imagens foram fornecidas pelo usuário nesta conversa. São imagens ger
 | `rede-multidao.webp` | 5EE5A721 (9 milhões, versão multidão) | Recorte sem texto | Rede, imagem do hover |
 | `produto-macro-cerdas.webp` | 3ED5A0F4 (macro das cerdas) | WebP | Painel do produto, pôster 3D |
 | `kit-expositor-escuro.webp` | Expositor original em fundo escuro (2ª rodada) | WebP | Painel do kit, pôster 3D, díptico do brinde |
-| `kit-expositor-estudio.webp` | Expositor original de frente, estúdio cinza (2ª rodada) | WebP | Composição do kit (frente), frase final |
-| `kit-expositor-perfil.webp` | Expositor original de perfil, estúdio cinza (2ª rodada) | WebP | Composição do kit (perfil) |
+| `kit-expositor-frente.webp` | Expositor original de frente, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Frente), frase final |
+| `kit-expositor-perfil.webp` | Expositor original de perfil, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Perfil) |
+| `kit-expositor-verso.webp` | Verso do expositor com os cartões dos blisters, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Verso) |
+| `kit-expositor-verso-34.webp` | Verso do expositor em ângulo, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Verso 3/4) |
 | `brinde-goiabada.webp` | Lata de goiabada cascão com meia goiaba (2ª rodada) | WebP | Seção Minas Gerais, díptico, frase final |
 | `ativacao-recepcao.webp` | Expositor original no balcão da recepção (2ª rodada) | WebP | Painel de ativação, hover da rede, encerramento |
 | `alcance-panorama-rede.webp` | B3509518 (panorama da rede) | WebP | Painel do alcance |
@@ -19,7 +21,7 @@ Todas as imagens foram fornecidas pelo usuário nesta conversa. São imagens ger
 | `alcance-1mi-exposicoes.webp` | A006E4BC (1 milhão) | Recorte sem texto | Fórmula do alcance |
 | `lar-pai-filha.webp` | 64694B8A (pai e filha no banheiro) | WebP | Frase final |
 
-Removido na 2ª rodada: `kit-caixa-goiabada.webp` (caixa com doce embrulhado), substituído porque o brinde real é goiabada em lata.
+Removidos: `kit-caixa-goiabada.webp` (caixa com doce embrulhado), porque o brinde real é goiabada em lata; `kit-expositor-estudio.webp` (fundo cinza), trocado pelas versões escuras no mesmo padrão. A foto duplicada da frente (11) e as fotos do expositor com blister enviadas no meio da conversa (que não chegaram como arquivo) não estão no projeto.
 
 ## Texturas (`src/assets/tex/`)
 

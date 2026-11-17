@@ -3,8 +3,10 @@ import redeConsultorio from '../assets/img/rede-consultorio-familias.webp';
 import redeMultidao from '../assets/img/rede-multidao.webp';
 import produtoMacro from '../assets/img/produto-macro-cerdas.webp';
 import kitEscuro from '../assets/img/kit-expositor-escuro.webp';
-import kitEstudio from '../assets/img/kit-expositor-estudio.webp';
+import kitFrente from '../assets/img/kit-expositor-frente.webp';
 import kitPerfil from '../assets/img/kit-expositor-perfil.webp';
+import kitVerso from '../assets/img/kit-expositor-verso.webp';
+import kitVerso34 from '../assets/img/kit-expositor-verso-34.webp';
 import brinde from '../assets/img/brinde-goiabada.webp';
 import recepcao from '../assets/img/ativacao-recepcao.webp';
 import panorama from '../assets/img/alcance-panorama-rede.webp';
@@ -20,8 +22,10 @@ export const IMG = {
   redeMultidao,
   produtoMacro,
   kitEscuro,
-  kitEstudio,
+  kitFrente,
   kitPerfil,
+  kitVerso,
+  kitVerso34,
   brinde,
   recepcao,
   panorama,

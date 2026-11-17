@@ -10,7 +10,7 @@ Ambiente: contêiner Linux, Node 22.23.4, npm 10.9.9, Chromium headless do Playw
 | `npm run lint` | sem erros nem avisos |
 | `npm run test` | 18/18 testes passaram (3 arquivos) |
 | `npm run build` | ok |
-| `npm run build:single` | ok, `dist-single/index.html` com 2,95 MB |
+| `npm run build:single` | ok, `dist-single/index.html` com 3,19 MB |
 | `npm run test:e2e` (com `npm run preview`) | 17/17 verificações passaram |
 
 ### Testes de domínio (Vitest)
@@ -25,7 +25,7 @@ Ambiente: contêiner Linux, Node 22.23.4, npm 10.9.9, Chromium headless do Playw
 
 Capturas em 1440×900 e 390×844 de todos os capítulos, incluindo os estados da escova 3D (visão geral, capa, macro das 5.460 cerdas) e do kit (montado e explodido com etiquetas).
 
-Segunda rodada (expositor original, kit de 12 e goiabada em lata): kit 3D conferido montando, montado e aberto em 1440×900, 1280×800, 1024×768, 768×1024 e 390×844, e montado com movimento reduzido; composição (frente e perfil), brinde, díptico, ativação e encerramento conferidos em 1440×900, 768×1024 e 390×844.
+Segunda rodada (expositor original, kit de 12 e goiabada em lata): kit 3D conferido montando, montado e aberto em 1440×900, 1280×800, 1024×768, 768×1024 e 390×844, e montado com movimento reduzido; composição, brinde, díptico, ativação e encerramento conferidos em 1440×900, 768×1024 e 390×844. Visualizador de ângulos do expositor (frente, perfil, verso e verso 3/4) testado com clique em 1440×900 e toque em 390×844: troca a foto, atualiza `aria-pressed` e o texto alternativo, sem erros nem rolagem horizontal.
 
 Problemas encontrados e corrigidos durante a inspeção:
 
@@ -50,7 +50,7 @@ Problemas encontrados e corrigidos durante a inspeção:
 | Luzes/ambiente drei (sob demanda) | 67 KB | 24 KB |
 | Cena do kit (sob demanda) | 16 KB | 5 KB |
 | CSS | 40 KB | 9 KB |
-| Imagens (14 WebP) e textura do rótulo | 0,97 MB no total | |
+| Imagens (17 WebP) e textura do rótulo | 1,1 MB no total | |
 
 ## Não verificado
 

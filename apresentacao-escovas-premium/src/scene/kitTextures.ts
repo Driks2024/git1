@@ -93,12 +93,13 @@ export function makeCardTexture(dpLogo: CanvasImageSource) {
   const y = H * 0.115;
   ctx.lineCap = 'round';
   ctx.lineWidth = 26;
+  // Aberto pela esquerda, com a onda no meio, como nos cartões das fotos.
   ctx.beginPath();
-  ctx.moveTo(W * 0.24, y);
-  ctx.lineTo(W * 0.38, y);
-  ctx.quadraticCurveTo(W * 0.43, y - 22, W * 0.5, y - 20);
-  ctx.quadraticCurveTo(W * 0.57, y - 22, W * 0.62, y);
-  ctx.lineTo(W * 0.76, y);
+  ctx.moveTo(-20, y);
+  ctx.lineTo(W * 0.4, y);
+  ctx.quadraticCurveTo(W * 0.45, y - 22, W * 0.52, y - 20);
+  ctx.quadraticCurveTo(W * 0.59, y - 22, W * 0.64, y);
+  ctx.lineTo(W * 0.78, y);
   ctx.stroke();
   ctx.globalCompositeOperation = 'source-over';
 
@@ -117,12 +118,13 @@ export function makeCardBackTexture() {
   const y = H * 0.115;
   ctx.lineCap = 'round';
   ctx.lineWidth = 9;
+  // Visto por trás, o recorte abre pela direita.
   ctx.beginPath();
-  ctx.moveTo(W * 0.24, y);
-  ctx.lineTo(W * 0.38, y);
-  ctx.quadraticCurveTo(W * 0.43, y - 7, W * 0.5, y - 7);
-  ctx.quadraticCurveTo(W * 0.57, y - 7, W * 0.62, y);
-  ctx.lineTo(W * 0.76, y);
+  ctx.moveTo(W + 8, y);
+  ctx.lineTo(W * 0.6, y);
+  ctx.quadraticCurveTo(W * 0.55, y - 7, W * 0.48, y - 7);
+  ctx.quadraticCurveTo(W * 0.41, y - 7, W * 0.36, y);
+  ctx.lineTo(W * 0.22, y);
   ctx.stroke();
   return finish(c, 2);
 }

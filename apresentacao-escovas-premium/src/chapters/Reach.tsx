@@ -128,7 +128,7 @@ export function Reach() {
             label="Do balcão do consultório para a pia de casa, com uma goiabada de Minas no caminho."
             segments={[
               { text: 'Do balcão do consultório' },
-              { img: IMG.kitEstudio, alt: '' },
+              { img: IMG.kitFrente, alt: '' },
               { text: 'para a pia de casa,' },
               { img: IMG.paiFilha, alt: '' },
               { text: 'com uma goiabada' },
