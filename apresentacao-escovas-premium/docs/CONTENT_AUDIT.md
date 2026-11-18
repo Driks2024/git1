@@ -18,7 +18,7 @@ Todos os números vivem em `src/content/claims.ts`, com status `fornecido`, `cal
 | Correção do cliente | 12 escovas bonificadas soltas | "12 escovas fora do expositor", além das 4 no expositor | O cliente informou: display com 4 escovas e mais 12 fora do display |
 | Informação do cliente | Kit como item comercial | "Presente para o dentista": expositor, 4 + 12 escovas e goiabada; R$ 258,00 por kit completo; todos os kits entregues em 5 meses | Mensagem do cliente; quem financia segue pendente |
 | Informação do cliente | "Goiabada cascão em lata, de Minas Gerais" | "Goiabada cascão de Ponte Nova (MG)" no texto da página | O cliente pediu destacar a origem |
-| Pedido do cliente | "A importação vai ser 35% mais barato que Curaprox" | Cartão "Custo de importação: 35% abaixo" com selo "A validar" e nota de base a confirmar | O briefing havia retirado "35% Menor Custo de Importação" por falta de respaldo; o cliente reafirmou o dado. Fica visível, marcado como pendente, até haver a base da conta |
+| Pedido do cliente | "A importação vai ser 35% mais barato que Curaprox" | Cartão "Custo de importação: 35% abaixo", status "Fornecido", com a nota "Informado pelo cliente. Comparação de custo de importação, não de desempenho" | O briefing havia retirado "35% Menor Custo de Importação" por falta de respaldo; o cliente reafirmou duas vezes que a importação é 35% mais barata que a da Curaprox. Valores absolutos não foram informados |
 | Pedido do cliente | "Patrimônio histórico e imaterial" | Linha "Reconhecimento" na ficha da goiabada, com selo "A validar" | O briefing havia vetado a alegação sem fonte; a busca pública não encontrou o ato de registro de Ponte Nova (há registros em Barão de Cocais e em Ouro Preto). Confirmar o ato antes de divulgar |
 | Correção do cliente | Expositor genérico de acrílico | Expositor original das fotos (L inclinado, trilhos, escovas no blister) | O expositor precisa ser o original |
 | Pedido do usuário | Mostrar que é "tão bom quanto" o concorrente | "Escova premium de 5.460 cerdas por menos da metade do preço de referência" + nota de que a comparação é de preço | O briefing veta afirmar equivalência técnica sem ficha técnica; pode ser ajustado quando houver especificação |
@@ -37,7 +37,7 @@ Todos os números vivem em `src/content/claims.ts`, com status `fornecido`, `cal
 
 ## Pendências (capítulo 09)
 
-Especificações da escova; aplicação das marcas; desenho e capacidade do expositor; financiamento do kit; adesão, logística, instalação e reposição; regra da comissão e tratamento do presente; comparação de importação (35%); goiabada: registro de patrimônio e fornecimento; bases e premissas de alcance (9 itens).
+Especificações da escova; aplicação das marcas; desenho e capacidade do expositor; financiamento do kit; adesão, logística, instalação e reposição; regra da comissão e tratamento do presente; goiabada: registro de patrimônio e fornecimento; bases e premissas de alcance (8 itens).
 
 ## Divergências registradas
 

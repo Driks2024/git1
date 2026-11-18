@@ -35,11 +35,6 @@ const ITEMS = [
     body: 'Base, incidência e forma de pagamento dos 14%, e o tratamento comercial do kit entregue como presente.',
   },
   {
-    id: 'importacao',
-    title: 'Comparação de importação',
-    body: 'O que entra na conta dos 35% de custo de importação abaixo da Curaprox, e a data da comparação.',
-  },
-  {
     id: 'goiabada',
     title: 'Goiabada: registro e fornecimento',
     body: 'Ato que reconhece a goiabada cascão de Ponte Nova como patrimônio histórico e imaterial, peso da lata e fornecedor.',
