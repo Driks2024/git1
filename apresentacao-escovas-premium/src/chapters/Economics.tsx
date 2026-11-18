@@ -112,7 +112,6 @@ export function Economics() {
               <h3 className="econ__h3">Custo de importação</h3>
               <p className="econ__mid num">35% abaixo</p>
               <p className="t-body">Importação 35% mais barata que a da Curaprox.</p>
-              <p className="t-note">Informado pelo cliente. Comparação de custo de importação, não de desempenho.</p>
             </div>
             <div className="econ__card">
               <h3 className="econ__h3">Comissão indicada</h3>

@@ -36,8 +36,8 @@ const ITEMS = [
   },
   {
     id: 'goiabada',
-    title: 'Goiabada: registro e fornecimento',
-    body: 'Ato que reconhece a goiabada cascão de Ponte Nova como patrimônio histórico e imaterial, peso da lata e fornecedor.',
+    title: 'Goiabada: fornecimento',
+    body: 'Peso da lata, fornecedor e o número do ato municipal que registrou a goiabada cascão como patrimônio (2016).',
   },
   {
     id: 'premissas',

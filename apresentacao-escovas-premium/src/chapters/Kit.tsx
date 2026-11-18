@@ -292,10 +292,7 @@ function GiftStory() {
             </div>
             <div>
               <dt>Reconhecimento</dt>
-              <dd>
-                Patrimônio histórico e imaterial
-                <span className="status status--pendente-validacao">A validar</span>
-              </dd>
+              <dd>Patrimônio cultural imaterial de Ponte Nova, desde 2016</dd>
             </div>
           </dl>
         </div>

@@ -18,8 +18,8 @@ Todos os números vivem em `src/content/claims.ts`, com status `fornecido`, `cal
 | Correção do cliente | 12 escovas bonificadas soltas | "12 escovas fora do expositor", além das 4 no expositor | O cliente informou: display com 4 escovas e mais 12 fora do display |
 | Informação do cliente | Kit como item comercial | "Presente para o dentista": expositor, 4 + 12 escovas e goiabada; R$ 258,00 por kit completo; todos os kits entregues em 5 meses | Mensagem do cliente; quem financia segue pendente |
 | Informação do cliente | "Goiabada cascão em lata, de Minas Gerais" | "Goiabada cascão de Ponte Nova (MG)" no texto da página | O cliente pediu destacar a origem |
-| Pedido do cliente | "A importação vai ser 35% mais barato que Curaprox" | Cartão "Custo de importação: 35% abaixo", status "Fornecido", com a nota "Informado pelo cliente. Comparação de custo de importação, não de desempenho" | O briefing havia retirado "35% Menor Custo de Importação" por falta de respaldo; o cliente reafirmou duas vezes que a importação é 35% mais barata que a da Curaprox. Valores absolutos não foram informados |
-| Pedido do cliente | "Patrimônio histórico e imaterial" | Linha "Reconhecimento" na ficha da goiabada, com selo "A validar" | O briefing havia vetado a alegação sem fonte; a busca pública não encontrou o ato de registro de Ponte Nova (há registros em Barão de Cocais e em Ouro Preto). Confirmar o ato antes de divulgar |
+| Pedido do cliente | "A importação vai ser 35% mais barato que Curaprox" | Cartão "Custo de importação: 35% abaixo. Importação 35% mais barata que a da Curaprox.", status "Fornecido", sem nota (pedido do cliente: na apresentação, só a informação) | O briefing havia retirado "35% Menor Custo de Importação" por falta de respaldo; o cliente reafirmou duas vezes que a importação é 35% mais barata que a da Curaprox. Valores absolutos não foram informados |
+| Pedido do cliente | "Patrimônio histórico e imaterial" | "Patrimônio cultural imaterial de Ponte Nova, desde 2016" na ficha da goiabada, status "Fornecido" | Fonte: reportagem do Estado de Minas (29/07/2021), que cita a Secretaria Municipal de Cultura, e a página da Doces Zélia enviada pelo cliente. O termo segue a fonte ("cultural imaterial"). As páginas não abriram nesta sessão por bloqueio de rede; a reportagem foi lida pelo resumo da busca. O número do ato segue pendente |
 | Correção do cliente | Expositor genérico de acrílico | Expositor original das fotos (L inclinado, trilhos, escovas no blister) | O expositor precisa ser o original |
 | Pedido do usuário | Mostrar que é "tão bom quanto" o concorrente | "Escova premium de 5.460 cerdas por menos da metade do preço de referência" + nota de que a comparação é de preço | O briefing veta afirmar equivalência técnica sem ficha técnica; pode ser ajustado quando houver especificação |
 
@@ -28,16 +28,17 @@ Todos os números vivem em `src/content/claims.ts`, com status `fornecido`, `cal
 - Os três públicos da rede (9 mi, 25 mil, 50 mil) aparecem separados, com nota de que não se somam.
 - 25.000 dentistas não são tratados como 25.000 consultórios cadastrados.
 - A recepção não recebe função de venda, meta, comissão ou obrigação.
-- A goiabada é apresentada como "goiabada cascão em lata, de Ponte Nova (MG)", uma lata por kit, sem afirmação de eficácia comercial. "Patrimônio histórico e imaterial" aparece só na ficha da goiabada, com selo "A validar". Peso e fornecedor a confirmar.
+- A goiabada é apresentada como "goiabada cascão em lata, de Ponte Nova (MG)", uma lata por kit, sem afirmação de eficácia comercial. "Patrimônio cultural imaterial de Ponte Nova, desde 2016" aparece na ficha da goiabada, com a fonte nas premissas. Peso e fornecedor a confirmar.
 - O kit inteiro é tratado como presente para o dentista; o texto não diz quem paga os kits.
 - "Tecnologia alemã" vem acompanhada da nota de que não significa fabricação na Alemanha.
 - A comparação com R$ 44,00 é identificada como referência atribuída à Curaprox no briefing, sem pesquisa de preço atual.
 - Comissão: R$ 1,246 exato, exibido como "aprox. R$ 1,25"; regra de pagamento e divisão a confirmar.
 - Nenhum CTA de aprovação, assinatura ou envio de dados.
+- O texto visível não atribui dados ao cliente ("informado pelo cliente"): é uma apresentação, e a origem de cada dado fica registrada aqui e em `sourceAsset`, que não aparece na página.
 
 ## Pendências (capítulo 09)
 
-Especificações da escova; aplicação das marcas; desenho e capacidade do expositor; financiamento do kit; adesão, logística, instalação e reposição; regra da comissão e tratamento do presente; goiabada: registro de patrimônio e fornecimento; bases e premissas de alcance (8 itens).
+Especificações da escova; aplicação das marcas; desenho e capacidade do expositor; financiamento do kit; adesão, logística, instalação e reposição; regra da comissão e tratamento do presente; goiabada: fornecimento e número do ato de registro; bases e premissas de alcance (8 itens).
 
 ## Divergências registradas
 
