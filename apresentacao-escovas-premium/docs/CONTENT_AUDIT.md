@@ -37,5 +37,6 @@ Especificações da escova; aprovação das marcas; desenho e capacidade do expo
 ## Divergências registradas
 
 - Aplicação das marcas: o briefing fala em "faces distintas"; as fotos do expositor original mostram as duas marcas na faixa frontal. A cena 3D segue as fotos (Odontoprev à esquerda, Dental Partner à direita).
-- Embalagem das escovas: as fotos do expositor original mostram blister com bandeira da Alemanha e a palavra "Germany". A apresentação não reproduz esses elementos, porque o briefing diz que "tecnologia alemã" não equivale a fabricação na Alemanha. Confirmar a arte final da embalagem.
+- Embalagem das escovas: as fotos do expositor original mostram blister com bandeira da Alemanha e a palavra "Germany". A apresentação não reproduz esses elementos, porque o briefing diz que "tecnologia alemã" não equivale a fabricação na Alemanha. Confirmar a arte final da embalagem. A foto de frente com blister (visualizador de ângulos) mostra a embalagem como ela é, com a bandeira; o texto da página não afirma fabricação na Alemanha.
+- Foto de frente com blister: o texto pequeno dos cartões tem letras deformadas pela edição da imagem ("Pro…ech Orales", "Gentle and h… care", "S460" no lugar de "5460"). No tamanho da página quase não se lê; vale corrigir na arte antes de uso ampliado.
 - Fonte: o briefing pede SF Pro com OTFs anexados, mas os arquivos não foram recebidos. A pilha usa a SF Pro do sistema nos aparelhos Apple e Zalando Sans (OFL) nos demais.

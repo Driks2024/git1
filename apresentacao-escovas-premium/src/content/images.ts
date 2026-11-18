@@ -4,6 +4,7 @@ import redeMultidao from '../assets/img/rede-multidao.webp';
 import produtoMacro from '../assets/img/produto-macro-cerdas.webp';
 import kitEscuro from '../assets/img/kit-expositor-escuro.webp';
 import kitFrente from '../assets/img/kit-expositor-frente.webp';
+import kitBlister from '../assets/img/kit-expositor-blister.webp';
 import kitPerfil from '../assets/img/kit-expositor-perfil.webp';
 import kitVerso from '../assets/img/kit-expositor-verso.webp';
 import kitVerso34 from '../assets/img/kit-expositor-verso-34.webp';
@@ -23,6 +24,7 @@ export const IMG = {
   produtoMacro,
   kitEscuro,
   kitFrente,
+  kitBlister,
   kitPerfil,
   kitVerso,
   kitVerso34,

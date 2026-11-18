@@ -9,7 +9,8 @@ Todas as imagens foram fornecidas pelo usuário nesta conversa. São imagens ger
 | `rede-multidao.webp` | 5EE5A721 (9 milhões, versão multidão) | Recorte sem texto | Rede, imagem do hover |
 | `produto-macro-cerdas.webp` | 3ED5A0F4 (macro das cerdas) | WebP | Painel do produto, pôster 3D |
 | `kit-expositor-escuro.webp` | Expositor original em fundo escuro (2ª rodada) | WebP | Painel do kit, pôster 3D, díptico do brinde |
-| `kit-expositor-frente.webp` | Expositor original de frente, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Frente), frase final |
+| `kit-expositor-frente.webp` | Expositor original de frente, fundo escuro (3ª rodada) | WebP | Frase final do alcance |
+| `kit-expositor-blister.webp` | Expositor original de frente, com as escovas no blister, fundo escuro (4ª rodada) | WebP | Visualizador de ângulos (Frente) |
 | `kit-expositor-perfil.webp` | Expositor original de perfil, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Perfil) |
 | `kit-expositor-verso.webp` | Verso do expositor com os cartões dos blisters, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Verso) |
 | `kit-expositor-verso-34.webp` | Verso do expositor em ângulo, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Verso 3/4) |
@@ -21,7 +22,7 @@ Todas as imagens foram fornecidas pelo usuário nesta conversa. São imagens ger
 | `alcance-1mi-exposicoes.webp` | A006E4BC (1 milhão) | Recorte sem texto | Fórmula do alcance |
 | `lar-pai-filha.webp` | 64694B8A (pai e filha no banheiro) | WebP | Frase final |
 
-Removidos: `kit-caixa-goiabada.webp` (caixa com doce embrulhado), porque o brinde real é goiabada em lata; `kit-expositor-estudio.webp` (fundo cinza), trocado pelas versões escuras no mesmo padrão. A foto duplicada da frente (11) e as fotos do expositor com blister enviadas no meio da conversa (que não chegaram como arquivo) não estão no projeto.
+Removidos: `kit-caixa-goiabada.webp` (caixa com doce embrulhado), porque o brinde real é goiabada em lata; `kit-expositor-estudio.webp` (fundo cinza), trocado pelas versões escuras no mesmo padrão. A foto duplicada da frente (11) não está no projeto. Das três fotos escuras do expositor com blister, chegou como arquivo a de frente (12); as duas em três quartos ainda faltam.
 
 ## Texturas (`src/assets/tex/`)
 
@@ -47,7 +48,7 @@ Infográfico (só fonte de dados), imagem KG Sorensen (descartada pelo usuário)
 
 - Escova 3D procedural com 5.460 filamentos (`src/scene/brushGeometry.ts`): autoria própria, representação conceitual.
 - Kit 3D (`src/scene/KitScene.tsx`) modelado a partir das fotos do expositor original: acrílico em L com painel inclinado, faixa frontal com as marcas, apoio inferior, dois trilhos de presilhas e quatro escovas no blister; bandeja com o kit de 12 escovas (três camadas de quatro); lata de goiabada com o rótulo da foto e tampa plástica.
-- Cartão do blister desenhado em canvas (`src/scene/kitTextures.ts`): "ULTRASOFT", "5460 ultra gentle and fine filaments", degradê rosa e roxo e o selo Dental Partner fornecido. Ficaram de fora a bandeira e a palavra "Germany" das fotos, pelo mesmo motivo do item "Tecnologia alemã" (não equivale a fabricação na Alemanha). A embalagem do kit de 12 ainda não foi definida: a bandeja é ilustrativa.
+- Cartão do blister desenhado em canvas (`src/scene/kitTextures.ts`): "ULTRASOFT", "5460 ultra gentle and fine filaments", degradê rosa e roxo, o selo Dental Partner fornecido e o furo de gancheira aberto pela direita (visto de frente), como nas fotos de frente e de verso. Ficaram de fora a bandeira e a palavra "Germany" das fotos, pelo mesmo motivo do item "Tecnologia alemã" (não equivale a fabricação na Alemanha). A embalagem do kit de 12 ainda não foi definida: a bandeja é ilustrativa.
 - Fundo pontilhado em WebGL (`src/components/DitherCanvas.tsx`) e matriz de pontos da implantação (250 pontos = 25.000 kits).
 - Ruído de textura em SVG inline (`.noise`).
 

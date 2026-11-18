@@ -81,8 +81,8 @@ const VIEWS = [
   {
     id: 'frente',
     label: 'Frente',
-    src: IMG.kitFrente,
-    alt: 'Expositor de acrílico visto de frente, com quatro escovas (branca, azul, roxa e verde) presas em dois trilhos e as marcas Odontoprev e Dental Partner na faixa inferior',
+    src: IMG.kitBlister,
+    alt: 'Expositor de acrílico visto de frente, com quatro escovas (branca, azul, roxa e verde), cada uma no próprio blister ULTRASOFT, presas em dois trilhos, e as marcas Odontoprev e Dental Partner na faixa inferior',
   },
   {
     id: 'perfil',
