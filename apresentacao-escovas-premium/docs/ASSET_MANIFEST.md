@@ -8,9 +8,11 @@ Todas as imagens foram fornecidas pelo usuário nesta conversa. São imagens ger
 | `rede-consultorio-familias.webp` | EB5B857C (rede com dentista e família) | WebP | Rede, cartão de destaque |
 | `rede-multidao.webp` | 5EE5A721 (9 milhões, versão multidão) | Recorte sem texto | Rede, imagem do hover |
 | `produto-macro-cerdas.webp` | 3ED5A0F4 (macro das cerdas) | WebP | Painel do produto, pôster 3D |
-| `kit-expositor-escuro.webp` | Expositor original em fundo escuro (2ª rodada) | WebP | Painel do kit, pôster 3D, díptico do brinde |
+| `kit-expositor-escuro.webp` | Expositor original em fundo escuro (2ª rodada) | WebP | Painel do kit, pôster 3D |
 | `kit-expositor-frente.webp` | Expositor original de frente, fundo escuro (3ª rodada) | WebP | Frase final do alcance |
 | `kit-expositor-blister.webp` | Expositor original de frente, com as escovas no blister, fundo escuro (4ª rodada) | WebP | Visualizador de ângulos (Frente) |
+| `kit-expositor-blister-34-esq.webp` | Expositor com blister em 3/4 pela esquerda, fundo escuro (5ª rodada, foto 13) | WebP | Visualizador de ângulos (3/4 esq.), díptico do presente |
+| `kit-expositor-blister-34-dir.webp` | Expositor com blister em 3/4 pela direita, fundo escuro (5ª rodada, foto 14) | WebP | Visualizador de ângulos (3/4 dir.) |
 | `kit-expositor-perfil.webp` | Expositor original de perfil, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Perfil) |
 | `kit-expositor-verso.webp` | Verso do expositor com os cartões dos blisters, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Verso) |
 | `kit-expositor-verso-34.webp` | Verso do expositor em ângulo, fundo escuro (3ª rodada) | WebP | Visualizador de ângulos (Verso 3/4) |
@@ -22,7 +24,7 @@ Todas as imagens foram fornecidas pelo usuário nesta conversa. São imagens ger
 | `alcance-1mi-exposicoes.webp` | A006E4BC (1 milhão) | Recorte sem texto | Fórmula do alcance |
 | `lar-pai-filha.webp` | 64694B8A (pai e filha no banheiro) | WebP | Frase final |
 
-Removidos: `kit-caixa-goiabada.webp` (caixa com doce embrulhado), porque o brinde real é goiabada em lata; `kit-expositor-estudio.webp` (fundo cinza), trocado pelas versões escuras no mesmo padrão. A foto duplicada da frente (11) não está no projeto. Das três fotos escuras do expositor com blister, chegou como arquivo a de frente (12); as duas em três quartos ainda faltam.
+Removidos: `kit-caixa-goiabada.webp` (caixa com doce embrulhado), porque o brinde real é goiabada em lata; `kit-expositor-estudio.webp` (fundo cinza), trocado pelas versões escuras no mesmo padrão. A foto duplicada da frente (11) não está no projeto. As três fotos escuras do expositor com blister estão no projeto (12, 13 e 14). As fotos 15, 16 e 17 da 5ª rodada são iguais às já usadas (`kit-expositor-escuro`, `ativacao-recepcao`, `brinde-goiabada`) e não foram trocadas.
 
 ## Texturas (`src/assets/tex/`)
 

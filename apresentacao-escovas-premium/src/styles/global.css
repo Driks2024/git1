@@ -606,6 +606,10 @@ p {
   position: relative;
   inset: auto;
 }
+/* No desktop a legenda fica sobre a foto: mostra o painel e deixa a base de fora */
+.feature-card--duo .duo .pimg:first-child img {
+  object-position: 50% 6%;
+}
 .feature-card--duo .duo .pimg:last-child img {
   object-position: 60% 50%;
 }
@@ -619,6 +623,9 @@ p {
   }
   .feature-card--duo .duo .pimg {
     aspect-ratio: auto;
+  }
+  .feature-card--duo .duo .pimg:first-child img {
+    object-position: 50% 42%;
   }
   .feature-card--duo .duo .pimg:last-child img {
     object-position: 58% 50%;
@@ -1248,9 +1255,14 @@ p {
 }
 .angles__thumbs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
   margin-top: 10px;
+}
+@media (max-width: 640px) {
+  .angles__thumbs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 .angles__thumbs button {
   position: relative;
@@ -1495,6 +1507,40 @@ p {
   margin-top: 28px;
   display: grid;
   gap: 18px;
+}
+/* Ficha da goiabada: três linhas com fio, sem cartões */
+.gift__facts {
+  margin: clamp(36px, 4vw, 56px) 0 0;
+  border-bottom: 1px solid var(--line);
+}
+.gift__facts > div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.32fr) 1fr;
+  gap: 8px 24px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.gift__facts dt {
+  color: var(--text-3);
+  font-size: 14px;
+}
+.gift__facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+}
+@media (max-width: 640px) {
+  .gift__facts > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 }
 
 /* ============ 06 Economia ============ */

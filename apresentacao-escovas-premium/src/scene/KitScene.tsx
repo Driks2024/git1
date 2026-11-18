@@ -381,8 +381,8 @@ const LAYOUT: Record<'wide' | 'mid' | 'tall', Layout> = {
 const LABELS = {
   display: 'Expositor acrílico original',
   exposed: '4 escovas no blister',
-  kit: 'Kit com 12 escovas',
-  can: 'Goiabada cascão em lata',
+  kit: '12 escovas fora do expositor',
+  can: 'Goiabada de Ponte Nova (MG)',
 };
 
 function Label({ position, text, on }: { position: V3; text: string; on: boolean }) {

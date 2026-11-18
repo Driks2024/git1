@@ -38,30 +38,31 @@ function KitAssembly() {
           poster={IMG.kitEscuro}
           posterAlt="Expositor de acrílico com quatro escovas coloridas"
           camera={{ position: [0.2, 3.0, 14.2], fov: 30 }}
-          label="Kit em 3D: expositor acrílico original com 4 escovas no blister, kit com 12 escovas e goiabada cascão em lata"
+          label="Kit em 3D: expositor acrílico original com 4 escovas no blister, 12 escovas fora do expositor e goiabada cascão de Ponte Nova (MG) em lata"
         >
           <KitScene progress={progress} />
         </SceneHost>
         <aside className="scrub__panel" aria-live="polite">
-          <p className="t-label">Composição do kit</p>
+          <p className="t-label">Presente para o dentista</p>
           <h3 className="scrub__title">{KIT_TITLES[stage]}</h3>
           <ul className="kit-facts">
             <li>
               <strong>1</strong> expositor de acrílico para o balcão
             </li>
             <li>
-              <strong>4</strong> escovas expostas, no blister
+              <strong>4</strong> escovas no expositor, cada uma no blister
             </li>
             <li>
-              <strong>12</strong> escovas bonificadas, em kit
+              <strong>12</strong> escovas fora do expositor
             </li>
             <li>
-              <strong>1</strong> brinde: goiabada cascão em lata, de Minas Gerais
+              <strong>1</strong> goiabada cascão em lata, de Ponte Nova (MG)
             </li>
           </ul>
           <p className="kit-price">
             <span className="kit-price__value">R$ 258,00</span>
-            <span className="kit-price__label">por kit, com frete incluído conforme a proposta</span>
+            <span className="kit-price__label">por kit completo, com frete incluído conforme a proposta</span>
+            <span className="kit-price__label">Todos os kits entregues em 5 meses</span>
           </p>
           <div className="stage-btns" role="group" aria-label="Visualização do kit">
             <button type="button" aria-pressed={open} onClick={() => goTo(0.6)}>
@@ -83,6 +84,18 @@ const VIEWS = [
     label: 'Frente',
     src: IMG.kitBlister,
     alt: 'Expositor de acrílico visto de frente, com quatro escovas (branca, azul, roxa e verde), cada uma no próprio blister ULTRASOFT, presas em dois trilhos, e as marcas Odontoprev e Dental Partner na faixa inferior',
+  },
+  {
+    id: 'esq',
+    label: '3/4 esq.',
+    src: IMG.kitBlisterEsq,
+    alt: 'Expositor com as quatro escovas no blister visto em ângulo pela esquerda: painel inclinado, presilhas nos dois trilhos e a base em L com as marcas',
+  },
+  {
+    id: 'dir',
+    label: '3/4 dir.',
+    src: IMG.kitBlisterDir,
+    alt: 'Expositor com as quatro escovas no blister visto em ângulo pela direita, mostrando a espessura do acrílico e a base apoiada no balcão',
   },
   {
     id: 'perfil',
@@ -144,9 +157,9 @@ function KitComposition() {
       <div className="wrap sec-head">
         <div className="sec-head__label">
           <p className="t-label">O que chega ao consultório</p>
-          <Scramble as="p" className="t-tag" text="16 ESCOVAS · 1 EXPOSITOR · 1 BRINDE" />
+          <Scramble as="p" className="t-tag" text="1 EXPOSITOR · 16 ESCOVAS · 1 GOIABADA" />
         </div>
-        <Reveal as="h3" className="t-h2" text="Um kit pensado para o balcão, com as duas marcas à vista" />
+        <Reveal as="h3" className="t-h2" text="Um presente para o dentista, com as duas marcas no balcão" />
       </div>
       <div className="wrap composition__grid">
         <Rise className="composition__media">
@@ -175,27 +188,43 @@ function KitComposition() {
               },
               {
                 id: 'expostas',
-                title: 'Escovas expostas',
+                title: 'Escovas no expositor',
                 meta: <span className="pill">4 escovas</span>,
                 body: <p>Cada uma no próprio blister, presa ao painel, à vista do paciente durante a espera e o atendimento.</p>,
               },
               {
-                id: 'bonificadas',
-                title: 'Kit de escovas bonificadas',
+                id: 'fora',
+                title: 'Escovas fora do expositor',
                 meta: <span className="pill">12 escovas</span>,
-                body: <p>Um kit com 12 escovas acompanha o expositor, para reposição. Embalagem do kit a definir.</p>,
+                body: <p>Doze escovas vão no mesmo presente, fora do expositor. Embalagem a definir.</p>,
               },
               {
-                id: 'brinde',
-                title: 'Brinde: goiabada cascão em lata',
-                meta: <span className="pill">Brinde</span>,
-                body: <p>Uma lata de goiabada cascão de Minas Gerais acompanha cada kit. Quantidade por kit e fornecedor a confirmar.</p>,
+                id: 'goiabada',
+                title: 'Goiabada cascão de Ponte Nova',
+                meta: <span className="pill">1 lata</span>,
+                body: (
+                  <p>
+                    Uma lata de goiabada cascão de Ponte Nova, em Minas Gerais, vai em cada kit. Peso e fornecedor a
+                    confirmar.
+                  </p>
+                ),
               },
               {
                 id: 'valor',
                 title: 'Valor por kit',
                 meta: <span className="pill pill--strong">R$ 258,00</span>,
-                body: <p>Valor unitário do kit com frete incluído, conforme a proposta.</p>,
+                body: (
+                  <p>
+                    Inclui o expositor, as 4 escovas no blister, as 12 escovas fora do expositor e a goiabada, com frete
+                    incluído conforme a proposta. Para o dentista, o kit é um presente.
+                  </p>
+                ),
+              },
+              {
+                id: 'entrega',
+                title: 'Entrega',
+                meta: <span className="pill">5 meses</span>,
+                body: <p>Todos os kits entregues em 5 meses: 5.000 por mês, 25.000 no total.</p>,
               },
             ]}
           />
@@ -225,7 +254,7 @@ function GiftStory() {
       <div className="gift__shade" aria-hidden="true" />
       <div className="wrap gift__inner">
         <div className="gift__giant-wrap">
-          <FitText text="DE MINAS GERAIS" className="gift__giant" ariaHidden max={210} />
+          <FitText text="PONTE NOVA · MG" className="gift__giant" ariaHidden max={210} />
         </div>
         <Rise className="gift__photo">
           <img
@@ -239,34 +268,51 @@ function GiftStory() {
             as="p"
             className="gift__lead"
             variant="blur"
-            text="Todo kit chega com uma lata de goiabada cascão de Minas Gerais. Um gesto simples, de quem sabe receber."
+            text="Todo kit é um presente para o dentista, e chega com uma lata de goiabada cascão de Ponte Nova, em Minas Gerais."
           />
           <div className="t-body gift__text">
             <p>
-              Em Minas, receber alguém quase sempre passa pela cozinha. A goiabada cascão, apurada no tacho e
-              guardada na lata, é dessas receitas de família que atravessam gerações, e é ela que acompanha o
-              expositor até o balcão de cada consultório.
+              Em Minas, receber alguém quase sempre passa pela cozinha. Em Ponte Nova, a goiabada cascão é apurada no
+              tacho e guardada na lata, receita de família que atravessa gerações. É ela que acompanha o expositor até
+              o balcão de cada consultório.
             </p>
             <p>
-              O brinde não muda o produto nem as condições comerciais. A intenção é outra: que a chegada do kit tenha
-              cara de presente, não de caixa de amostras.
+              O kit inteiro é presente: o expositor com 4 escovas, mais 12 escovas fora dele e a lata de goiabada. A
+              goiabada é o jeito mineiro de agradecer pela parceria.
             </p>
           </div>
+          <dl className="gift__facts">
+            <div>
+              <dt>Origem</dt>
+              <dd>Ponte Nova, Minas Gerais</dd>
+            </div>
+            <div>
+              <dt>Doce</dt>
+              <dd>Goiabada cascão, em lata</dd>
+            </div>
+            <div>
+              <dt>Reconhecimento</dt>
+              <dd>
+                Patrimônio histórico e imaterial
+                <span className="status status--pendente-validacao">A validar</span>
+              </dd>
+            </div>
+          </dl>
         </div>
         <Rise>
           <figure className="feature-card feature-card--wide feature-card--duo">
             <div className="duo">
               <ParallaxImage
-                src={IMG.kitEscuro}
-                alt="Expositor de acrílico com quatro escovas coloridas e as marcas Odontoprev e Dental Partner, sobre pedra escura"
+                src={IMG.kitBlisterEsq}
+                alt="Expositor de acrílico com as quatro escovas no blister e as marcas Odontoprev e Dental Partner, sobre fundo escuro"
               />
               <ParallaxImage
                 src={IMG.brinde}
-                alt="Lata de goiabada cascão de Minas Gerais ao lado de meia goiaba, sobre fundo escuro"
+                alt="Lata de goiabada cascão de Ponte Nova (MG) ao lado de meia goiaba, sobre fundo escuro"
               />
             </div>
             <figcaption className="feature-card__cap">
-              <span className="feature-card__title">O kit e o brinde, lado a lado</span>
+              <span className="feature-card__title">O presente completo: expositor e goiabada</span>
               <span className="feature-card__tag">Representação conceitual</span>
             </figcaption>
           </figure>

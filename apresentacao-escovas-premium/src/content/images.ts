@@ -5,6 +5,8 @@ import produtoMacro from '../assets/img/produto-macro-cerdas.webp';
 import kitEscuro from '../assets/img/kit-expositor-escuro.webp';
 import kitFrente from '../assets/img/kit-expositor-frente.webp';
 import kitBlister from '../assets/img/kit-expositor-blister.webp';
+import kitBlisterEsq from '../assets/img/kit-expositor-blister-34-esq.webp';
+import kitBlisterDir from '../assets/img/kit-expositor-blister-34-dir.webp';
 import kitPerfil from '../assets/img/kit-expositor-perfil.webp';
 import kitVerso from '../assets/img/kit-expositor-verso.webp';
 import kitVerso34 from '../assets/img/kit-expositor-verso-34.webp';
@@ -25,6 +27,8 @@ export const IMG = {
   kitEscuro,
   kitFrente,
   kitBlister,
+  kitBlisterEsq,
+  kitBlisterDir,
   kitPerfil,
   kitVerso,
   kitVerso34,

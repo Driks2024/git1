@@ -15,7 +15,11 @@ Todos os números vivem em `src/content/claims.ts`, com status `fornecido`, `cal
 | Infográfico | "Investimento global para 25.000 expositores instalados" | "Valor total projetado" de 25.000 kits | Distribuição não é instalação; quem financia não está definido |
 | Infográfico | Ilustração com 5 escovas | 4 escovas expostas | Texto do infográfico e briefing dizem 4 |
 | Infográfico | "Doce de golaba" | "Goiabada cascão em lata, de Minas Gerais" | Erro de digitação; o cliente depois informou que o brinde real é goiabada em lata |
-| Correção do cliente | 12 escovas bonificadas soltas | "Kit com 12 escovas" além das 4 do expositor | O expositor vai com 4 escovas mais um kit de 12 |
+| Correção do cliente | 12 escovas bonificadas soltas | "12 escovas fora do expositor", além das 4 no expositor | O cliente informou: display com 4 escovas e mais 12 fora do display |
+| Informação do cliente | Kit como item comercial | "Presente para o dentista": expositor, 4 + 12 escovas e goiabada; R$ 258,00 por kit completo; todos os kits entregues em 5 meses | Mensagem do cliente; quem financia segue pendente |
+| Informação do cliente | "Goiabada cascão em lata, de Minas Gerais" | "Goiabada cascão de Ponte Nova (MG)" no texto da página | O cliente pediu destacar a origem |
+| Pedido do cliente | "A importação vai ser 35% mais barato que Curaprox" | Cartão "Custo de importação: 35% abaixo" com selo "A validar" e nota de base a confirmar | O briefing havia retirado "35% Menor Custo de Importação" por falta de respaldo; o cliente reafirmou o dado. Fica visível, marcado como pendente, até haver a base da conta |
+| Pedido do cliente | "Patrimônio histórico e imaterial" | Linha "Reconhecimento" na ficha da goiabada, com selo "A validar" | O briefing havia vetado a alegação sem fonte; a busca pública não encontrou o ato de registro de Ponte Nova (há registros em Barão de Cocais e em Ouro Preto). Confirmar o ato antes de divulgar |
 | Correção do cliente | Expositor genérico de acrílico | Expositor original das fotos (L inclinado, trilhos, escovas no blister) | O expositor precisa ser o original |
 | Pedido do usuário | Mostrar que é "tão bom quanto" o concorrente | "Escova premium de 5.460 cerdas por menos da metade do preço de referência" + nota de que a comparação é de preço | O briefing veta afirmar equivalência técnica sem ficha técnica; pode ser ajustado quando houver especificação |
 
@@ -24,7 +28,8 @@ Todos os números vivem em `src/content/claims.ts`, com status `fornecido`, `cal
 - Os três públicos da rede (9 mi, 25 mil, 50 mil) aparecem separados, com nota de que não se somam.
 - 25.000 dentistas não são tratados como 25.000 consultórios cadastrados.
 - A recepção não recebe função de venda, meta, comissão ou obrigação.
-- O brinde é apresentado como "goiabada cascão em lata, de Minas Gerais", sem a alegação de "patrimônio cultural imaterial" e sem afirmação de eficácia comercial. Marca e cidade (Zélia, Ponte Nova – MG) aparecem só no texto alternativo da foto e na nota das premissas, como estão no rótulo; quantidade por kit, peso e fornecedor a confirmar.
+- A goiabada é apresentada como "goiabada cascão em lata, de Ponte Nova (MG)", uma lata por kit, sem afirmação de eficácia comercial. "Patrimônio histórico e imaterial" aparece só na ficha da goiabada, com selo "A validar". Peso e fornecedor a confirmar.
+- O kit inteiro é tratado como presente para o dentista; o texto não diz quem paga os kits.
 - "Tecnologia alemã" vem acompanhada da nota de que não significa fabricação na Alemanha.
 - A comparação com R$ 44,00 é identificada como referência atribuída à Curaprox no briefing, sem pesquisa de preço atual.
 - Comissão: R$ 1,246 exato, exibido como "aprox. R$ 1,25"; regra de pagamento e divisão a confirmar.
@@ -32,11 +37,11 @@ Todos os números vivem em `src/content/claims.ts`, com status `fornecido`, `cal
 
 ## Pendências (capítulo 09)
 
-Especificações da escova; aprovação das marcas; desenho e capacidade do expositor; financiamento e aquisição do kit; adesão, logística, instalação e reposição; regra da comissão e itens bonificados; bases e premissas de alcance.
+Especificações da escova; aplicação das marcas; desenho e capacidade do expositor; financiamento do kit; adesão, logística, instalação e reposição; regra da comissão e tratamento do presente; comparação de importação (35%); goiabada: registro de patrimônio e fornecimento; bases e premissas de alcance (9 itens).
 
 ## Divergências registradas
 
 - Aplicação das marcas: o briefing fala em "faces distintas"; as fotos do expositor original mostram as duas marcas na faixa frontal. A cena 3D segue as fotos (Odontoprev à esquerda, Dental Partner à direita).
 - Embalagem das escovas: as fotos do expositor original mostram blister com bandeira da Alemanha e a palavra "Germany". A apresentação não reproduz esses elementos, porque o briefing diz que "tecnologia alemã" não equivale a fabricação na Alemanha. Confirmar a arte final da embalagem. A foto de frente com blister (visualizador de ângulos) mostra a embalagem como ela é, com a bandeira; o texto da página não afirma fabricação na Alemanha.
-- Foto de frente com blister: o texto pequeno dos cartões tem letras deformadas pela edição da imagem ("Pro…ech Orales", "Gentle and h… care", "S460" no lugar de "5460"). No tamanho da página quase não se lê; vale corrigir na arte antes de uso ampliado.
+- Fotos com blister (frente e 3/4): o texto pequeno dos cartões tem letras deformadas pela edição da imagem ("Pro…ech Orales", "Gentle and h… care", "Gammy"/"Gemany", "S460" e "5400" no lugar de "5460"). No tamanho da página quase não se lê; vale corrigir na arte antes de uso ampliado.
 - Fonte: o briefing pede SF Pro com OTFs anexados, mas os arquivos não foram recebidos. A pilha usa a SF Pro do sistema nos aparelhos Apple e Zalando Sans (OFL) nos demais.

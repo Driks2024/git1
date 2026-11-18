@@ -10,7 +10,7 @@ Ambiente: contêiner Linux, Node 22.23.4, npm 10.9.9, Chromium headless do Playw
 | `npm run lint` | sem erros nem avisos |
 | `npm run test` | 18/18 testes passaram (3 arquivos) |
 | `npm run build` | ok |
-| `npm run build:single` | ok, `dist-single/index.html` com 3,35 MB |
+| `npm run build:single` | ok, `dist-single/index.html` com 3,78 MB |
 | `npm run test:e2e` (com `npm run preview`) | 17/17 verificações passaram |
 
 ### Testes de domínio (Vitest)
@@ -19,13 +19,13 @@ Ambiente: contêiner Linux, Node 22.23.4, npm 10.9.9, Chromium headless do Playw
 
 ### Teste de fumaça no navegador
 
-10 capítulos com âncora; nenhuma ocorrência de "100% de margem"; 122,5% e 55,1% visíveis; logos das duas marcas presentes; → leva ao capítulo 02, End ao 10 e Home volta; índice abre e fecha com Esc; premissas listam 23 itens com status; simulação a R$ 17,80 recalcula a diferença bruta; sem rolagem horizontal em 1440×900, 1024×768 e 390×844; sem erros de console; com movimento reduzido os títulos ficam visíveis e não há trilhos fixados; no modo leve as cenas 3D viram pôsteres.
+10 capítulos com âncora; nenhuma ocorrência de "100% de margem"; 122,5% e 55,1% visíveis; logos das duas marcas presentes; → leva ao capítulo 02, End ao 10 e Home volta; índice abre e fecha com Esc; premissas listam 26 itens com status; simulação a R$ 17,80 recalcula a diferença bruta; sem rolagem horizontal em 1440×900, 1024×768 e 390×844; sem erros de console; com movimento reduzido os títulos ficam visíveis e não há trilhos fixados; no modo leve as cenas 3D viram pôsteres.
 
 ## Inspeção visual
 
 Capturas em 1440×900 e 390×844 de todos os capítulos, incluindo os estados da escova 3D (visão geral, capa, macro das 5.460 cerdas) e do kit (montado e explodido com etiquetas).
 
-Segunda rodada (expositor original, kit de 12 e goiabada em lata): kit 3D conferido montando, montado e aberto em 1440×900, 1280×800, 1024×768, 768×1024 e 390×844, e montado com movimento reduzido; composição, brinde, díptico, ativação e encerramento conferidos em 1440×900, 768×1024 e 390×844. Visualizador de ângulos do expositor (frente, perfil, verso e verso 3/4) testado com clique em 1440×900 e toque em 390×844: troca a foto, atualiza `aria-pressed` e o texto alternativo, sem erros nem rolagem horizontal. Quarta rodada: a foto de frente com blister virou a vista "Frente" do visualizador, conferida em 1440×900 e 390×844; o furo de gancheira do cartão no 3D passou a abrir pela direita (visto de frente), conferido no conjunto montado em 1440×900. Testes 18/18, verificações automáticas 17/17, arquivo único com 3,35 MB.
+Segunda rodada (expositor original, kit de 12 e goiabada em lata): kit 3D conferido montando, montado e aberto em 1440×900, 1280×800, 1024×768, 768×1024 e 390×844, e montado com movimento reduzido; composição, brinde, díptico, ativação e encerramento conferidos em 1440×900, 768×1024 e 390×844. Visualizador de ângulos do expositor (frente, perfil, verso e verso 3/4) testado com clique em 1440×900 e toque em 390×844: troca a foto, atualiza `aria-pressed` e o texto alternativo, sem erros nem rolagem horizontal. Quarta rodada: a foto de frente com blister virou a vista "Frente" do visualizador, conferida em 1440×900 e 390×844; o furo de gancheira do cartão no 3D passou a abrir pela direita (visto de frente), conferido no conjunto montado em 1440×900. Quinta rodada: visualizador com seis vistas (frente, 3/4 esq., 3/4 dir., perfil, verso, verso 3/4), miniaturas em 6 colunas no desktop e 3 no celular; textos do presente, entrega, Ponte Nova, importação e condições conferidos em 1440×900, 768×1024 e 390×844, incluindo o painel do kit 3D montado; sem erros nem rolagem horizontal.
 
 Problemas encontrados e corrigidos durante a inspeção:
 

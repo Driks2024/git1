@@ -14,7 +14,7 @@ const FIGURES = [
   { k: 'Por kit', v: `${brushesPerKit()} escovas` },
   { k: 'Valor do kit', v: formatBRL(KIT_PRICE_CENTS) },
   { k: 'Distribuição', v: `${formatInt(totalKits())} kits` },
-  { k: 'Prazo projetado', v: '5 meses' },
+  { k: 'Entrega', v: '5 meses' },
 ];
 
 export function Closing({ onEconomics, onRollout, onPremises }: Props) {
@@ -49,7 +49,7 @@ export function Closing({ onEconomics, onRollout, onPremises }: Props) {
                 as="p"
                 className="closing__lead"
                 variant="words"
-                text="Um kit expositor com 16 escovas premium e uma goiabada cascão de Minas, com distribuição projetada de 25.000 kits em cinco meses."
+                text="Um presente para o dentista: expositor com 4 escovas premium, mais 12 escovas e uma goiabada cascão de Ponte Nova, com 25.000 kits entregues em cinco meses."
               />
               <p className="closing__text">
                 Escopo: produto Ultra Gentle, expositor de balcão com as marcas Odontoprev e Dental Partner, modelo

@@ -21,18 +21,28 @@ const ITEMS = [
   },
   {
     id: 'financiamento',
-    title: 'Financiamento e aquisição do kit',
-    body: 'Quem financia os R$ 6,45 milhões projetados, a forma de pagamento e a aquisição do kit pelos consultórios.',
+    title: 'Financiamento do kit',
+    body: 'Quem financia os R$ 6,45 milhões projetados e a forma de pagamento dos kits entregues como presente aos dentistas.',
   },
   {
     id: 'logistica',
     title: 'Adesão, logística, instalação e reposição',
-    body: 'Adesão dos consultórios, expedição, recebimento, instalação no balcão e reposição das escovas bonificadas.',
+    body: 'Adesão dos consultórios, expedição, recebimento, instalação no balcão e reposição das escovas.',
   },
   {
     id: 'comissao',
-    title: 'Regra da comissão e itens bonificados',
-    body: 'Base, incidência e forma de pagamento dos 14%, e o tratamento comercial das 12 escovas bonificadas.',
+    title: 'Regra da comissão e tratamento do presente',
+    body: 'Base, incidência e forma de pagamento dos 14%, e o tratamento comercial do kit entregue como presente.',
+  },
+  {
+    id: 'importacao',
+    title: 'Comparação de importação',
+    body: 'O que entra na conta dos 35% de custo de importação abaixo da Curaprox, e a data da comparação.',
+  },
+  {
+    id: 'goiabada',
+    title: 'Goiabada: registro e fornecimento',
+    body: 'Ato que reconhece a goiabada cascão de Ponte Nova como patrimônio histórico e imaterial, peso da lata e fornecedor.',
   },
   {
     id: 'premissas',
@@ -48,7 +58,7 @@ export function Conditions({ onOpenPremises }: { onOpenPremises: () => void }) {
         <div className="conditions__left">
           <div className="conditions__sticky">
             <p className="t-label">Condições para execução</p>
-            <Scramble as="p" className="t-tag" text="7 VALIDAÇÕES PENDENTES" />
+            <Scramble as="p" className="t-tag" text={`${ITEMS.length} VALIDAÇÕES PENDENTES`} />
             <Reveal as="h2" className="t-h2" text="O que precisa de confirmação antes de executar" />
             <span id="t-condicoes" hidden>
               Condições para execução
